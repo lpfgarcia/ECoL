@@ -31,13 +31,18 @@ ovo <- function(data) {
 interpolation <- function(data) {
 
 	aux = sample(levels(data$class), 1)
-	aux = filter(data, class == aux) %>% sample_n(., 2) 
+	aux = filter(data, class == aux) %>% sample_n(., 2)
+	tmp = aux[1,]
 
-	rnd = runif(ncol(data)-1)
-	rnd = rbind(rnd, 1-rnd)
+	for(i in 1:(ncol(data)-1)) {
+		if(is.factor(data[,i])) {
+			tmp[1,i] = sample(aux[,i], 1)
+		} else {
+			rnd = runif(1)
+			tmp[1,i] = aux[1,i]*rnd + aux[2,i]*(1-rnd)
+		}
+	}
 
-	tmp = colSums(rnd*aux[,1:(ncol(data)-1)])
-	tmp = c(tmp, class=aux$class[1])
 	return(tmp)
 }
 
