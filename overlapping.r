@@ -64,16 +64,18 @@ f2 <- function(data) {
 
 	data = ovo(data);
 
-	aux = lapply(data, function(tmp) {
+	aux = unlist(
+		lapply(data, function(tmp) {
 
-		vet = unlist(
-			lapply(1:(ncol(tmp)-1), function(i) {
-				overlap(tmp, i)/range(tmp, i)
-			})
-		)
+			vet = unlist(
+				lapply(1:(ncol(tmp)-1), function(i) {
+					overlap(tmp, i)/range(tmp, i)
+				})
+			)
 
-		prod(vet)
-	})
+			prod(vet, na.rm=TRUE)
+		})
+	)
 
 	return(sum(aux))
 }
@@ -91,7 +93,5 @@ fisher <- function(data) {
 
 	aux = unlist(aux)
 	return(aux)
-}	
-
-
 }
+
