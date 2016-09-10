@@ -3,10 +3,23 @@
 # L. P. F. Garcia A. C. Lorena and M. de Souto 2016
 # The set of linear measures
 
-require(dplyr)
-require(e1071)
 
-acc <- function(pred, class) {
+
+l1 <- function(data, model) {
+
+	aux = mapply(function(m, d){
+		prd = predict(m, d, decision.values=TRUE)
+		err = rownames(d[prd != d$class,])
+		dst = attr(prd,"decision.values")[err,]
+		sum(abs(dst))
+	}, m=model, d=data)
+
+	aux = max(aux)
+	return(aux)
+}
+
+
+error <- function(pred, class) {
 
 	tb = 1 - sum(diag(table(class, pred)))/
 		sum(table(class, pred))
@@ -15,18 +28,14 @@ acc <- function(pred, class) {
 }
 
 
-ovo <- function(data) {
+l2 <- function(data, model) {
 
-	aux = combn(levels(data$class), 2)
+	aux = mapply(function(m, d) {
+		pred = predict(m, d)
+		error(pred, d$class)
+	}, m=model, d=data)
 
-	tmp = lapply(1:ncol(aux), function(i) {
-			vet = subset(data, data$class %in% aux[,i])
-			vet$class = factor(vet$class, labels=1:2)
-			return(vet)
-		}
-	)
-
-	return(tmp)
+	return(mean(aux))
 }
 
 
@@ -47,31 +56,6 @@ interpolation <- function(data) {
 }
 
 
-l1 <- function(data, model) {
-
-	aux = mapply(function(m, d){
-		prd = predict(m, d, decision.values=TRUE)
-		err = rownames(d[prd != d$class,])
-		dst = attr(prd,"decision.values")[err,]
-		sum(abs(dst))
-	}, m=model, d=data)
-
-	aux = max(aux)
-	return(aux)
-}
-
-
-l2 <- function(data, model) {
-
-	aux = mapply(function(m, d) {
-		pred = predict(m, d)
-		acc(pred, d$class)
-	}, m=model, d=data)
-
-	return(mean(aux))
-}
-
-
 l3 <- function(data, model) {
 
 	aux = mapply(function(m, d) {
@@ -85,7 +69,7 @@ l3 <- function(data, model) {
 		tmp = data.frame(tmp)
 		tmp$class = factor(tmp$class)
 		pred = predict(m, tmp)
-		acc(pred, tmp$class)
+		error(pred, tmp$class)
 	}, m=model, d=data)
 
 	return(mean(aux))
