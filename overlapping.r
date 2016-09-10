@@ -4,58 +4,58 @@
 # The set of Overlapping Measures
 
 
-numf1 <- function(data, i, j) {
+numf1 <- function(data, j) {
 
 	aux = nrow(data[data$class == j,]) * 
-	((mean(data[data$class == j,i]) - mean(data[,i]))^2)
+		((colMeans(data[data$class == j, -ncol(data)]) - 
+			colMeans(data[,-ncol(data)]))^2)
 	return(aux)
 }
 
 
-denf1 <- function(data, i, j) {
+denf1 <- function(data, j) {
 
-	aux = sum((data[data$class == j,i] - mean(data[data$class == j,i]))^2)
+	aux = rowSums((t(data[data$class == j,-ncol(data)]) - 
+		colMeans(data[data$class == j,-ncol(data)]))^2)
 	return(aux)
 }
 
 
 f1 <- function(data) {
 
-	aux = unlist(
-		lapply(1:(ncol(data)-1), function(i) {
+	tmp = lapply(levels(data$class), function(j){
+		numf1(data, j)/denf1(data, j)
+	})
 
-			tmp = unlist(
-				lapply(levels(data$class), function(j){
-					numf1(data, i, j)/
-					denf1(data, i, j)
-				})
-			)
-
-			sum(tmp)
-		})
-	)
-
+	aux = do.call("rbind", tmp)
+	aux = colSums(aux)
 	return(max(aux))
 }
 
 
-overlap <- function(data, i) {
+overlap <- function(data) {
 
-	a = data[data$class == levels(data$class)[1],i]
-	b = data[data$class == levels(data$class)[2],i]
+	l = levels(data$class)
+	a = data[data$class == l[1], -ncol(data)]
+	b = data[data$class == l[2], -ncol(data)]
 
-	aux = min(c(max(a), max(b))) - max(c(min(a), min(b)))
-	aux = max(c(0, aux))
+	aux = colMin(rbind(colMax(a), colMax(b))) - 
+		colMax(rbind(colMin(a), colMin(b)))
+
+	aux = colMax(rbind(aux, 0))
 	return(aux)
 }
 
 
-range <- function(data, i) {
+range <- function(data) {
 
-	a = data[data$class == levels(data$class)[1],i]
-	b = data[data$class == levels(data$class)[2],i]
+	l = levels(data$class)
+	a = data[data$class == l[1], -ncol(data)]
+	b = data[data$class == l[2], -ncol(data)]
 
-	aux = max(c(max(a), max(b))) - min(c(min(a), min(b)))
+	aux = colMax(rbind(colMax(a), colMax(b))) - 
+		colMin(rbind(colMin(a), colMin(b)))
+
 	return(aux)
 }
 
@@ -66,18 +66,41 @@ f2 <- function(data) {
 
 	aux = unlist(
 		lapply(data, function(tmp) {
-
-			vet = unlist(
-				lapply(1:(ncol(tmp)-1), function(i) {
-					overlap(tmp, i)/range(tmp, i)
-				})
-			)
-
-			prod(vet, na.rm=TRUE)
+			tmp = overlap(tmp)/range(tmp)
+			prod(tmp, na.rm=TRUE)
 		})
 	)
 
 	return(sum(aux))
+}
+
+
+noverlap <- function(data) {
+
+	l = levels(data$class)
+	a = data[data$class == l[1], -ncol(data)]
+	b = data[data$class == l[2], -ncol(data)]
+
+	aux = rowSums( t(data[,-ncol(data)]) < 
+		colMax(rbind(colMin(a), colMin(b))) | 
+		t(data[,-ncol(data)]) > 
+		colMin(rbind(colMax(a), colMax(b))))
+	return(aux)
+}
+
+
+f3 <- function(data) {
+
+	data = ovo(data);
+
+	aux = do.call("rbind",
+		lapply(data, function(tmp) {
+			noverlap(tmp)/nrow(tmp)
+		})
+	)
+
+	aux = mean(rowMax(aux))
+	return(aux)
 }
 
 

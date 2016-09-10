@@ -8,6 +8,21 @@ require(dplyr)
 require(e1071)
 
 
+colMin <- function(data) {
+	apply(data, 2, min)
+}
+
+
+colMax <- function(data) {
+	apply(data, 2, max)
+}
+
+
+rowMax <- function(data) {
+	apply(data, 1, max)
+}
+
+
 form <- function(data) {
 
 	att = paste(colnames(data)[1:(ncol(data)-1)], collapse="+")
