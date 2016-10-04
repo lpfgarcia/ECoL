@@ -4,7 +4,6 @@
 # The set of linear measures
 
 
-
 l1 <- function(data, model) {
 
 	aux = mapply(function(m, d){
@@ -85,8 +84,8 @@ linearity <- function(data) {
 		}
 	)
 
-	aux = lapply(c("l1", "l2", "l3"), 
-		function(i) {
+	aux = lapply(
+		c("l1", "l2", "l3"), function(i) {
 			do.call(i, list(data, model))
 		}
 	)
