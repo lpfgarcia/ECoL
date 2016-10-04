@@ -134,7 +134,7 @@ f4 <- function(data) {
 	aux = do.call("rbind",
 		lapply(data, function(tmp) {
 			new = removing(tmp)
-			nrow(tmp) - nrow(new)
+			(nrow(tmp) - nrow(new))/nrow(tmp)
 		})
 	)
 
@@ -150,8 +150,7 @@ fisher <- function(data) {
 	aux = lapply(
 		c("f1", "f2", "f3", "f4"), function(i) {
 			do.call(i, list(data))
-		}
-	)
+	})
 
 	aux = unlist(aux)
 	return(aux)

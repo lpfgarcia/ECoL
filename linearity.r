@@ -78,17 +78,15 @@ l3 <- function(data, model) {
 linearity <- function(data) {
 
 	data = ovo(data)
-	model = lapply(data, 
-		function(tmp) {
+	model = lapply(
+		data, function(tmp) {
 			svm(class ~ ., tmp, kernel="linear")
-		}
-	)
+	})
 
 	aux = lapply(
 		c("l1", "l2", "l3"), function(i) {
 			do.call(i, list(data, model))
-		}
-	)
+	})
 
 	aux = unlist(aux)
 	return(aux)
