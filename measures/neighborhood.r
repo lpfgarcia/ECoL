@@ -13,12 +13,34 @@ n1 <- function(dst, data) {
 }
 
 
+intra <- function(dst, data, i) {
+
+	tmp = rownames(data[data$class == data[i,]$class,])
+	aux = min(dst[i, setdiff(tmp, i)])
+	return(aux)
+}
+
+
+inter <- function(dst, data, i) {
+
+	tmp = rownames(data[data$class != data[i,]$class,])
+	aux = min(dst[i, setdiff(tmp, i)])
+	return(aux)
+}
+
+
 n2 <- function(dst, data) {
 
+	aux = unlist(
+		lapply(rownames(data), 
+			function(i) {
+				intra(dst, data, i)/inter(dst, data, i)
+		})
+	)
 
-
-
+	return(sum(aux))
 }
+
 
 neighborhood <- function(data) {
 

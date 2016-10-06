@@ -15,7 +15,7 @@ require(foreign)
 DIR = getwd()
 
 # datasets
-files = list.files(paste(DIR, "/database", sep=""), full.names=TRUE);
+files = list.files(paste(DIR, "/database", sep=""), full.names = TRUE);
 
 # linear measures
 LINEARITY = c("l1", "l2", "l3")
