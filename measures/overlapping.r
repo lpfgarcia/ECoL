@@ -23,40 +23,30 @@ den <- function(data, j) {
 
 f1 <- function(data) {
 
-	tmp = lapply(
-		levels(data$class), function(j){
+	aux = lapply(levels(data$class), 
+		function(j){
 			num(data, j)/den(data, j)
 	})
 
-	aux = do.call("rbind", tmp)
+	aux = do.call("rbind", aux)
 	aux = colSums(aux)
 	return(max(aux))
 }
 
 
-overlap <- function(data) {
+regionOver <- function(data) {
 
 	l = levels(data$class)
 	a = data[data$class == l[1], -ncol(data), drop = FALSE]
 	b = data[data$class == l[2], -ncol(data), drop = FALSE]
 
-	aux = colMin(rbind(colMax(a), colMax(b))) - 
+	overlap = colMin(rbind(colMax(a), colMax(b))) - 
 		colMax(rbind(colMin(a), colMin(b)))
 
-	aux = colMax(rbind(aux, 0))
-	return(aux)
-}
-
-
-range <- function(data) {
-
-	l = levels(data$class)
-	a = data[data$class == l[1], -ncol(data), drop = FALSE]
-	b = data[data$class == l[2], -ncol(data), drop = FALSE]
-
-	aux = colMax(rbind(colMax(a), colMax(b))) - 
+	range = colMax(rbind(colMax(a), colMax(b))) - 
 		colMin(rbind(colMin(a), colMin(b)))
 
+	aux = colMax(rbind(overlap, 0))/range
 	return(aux)
 }
 
@@ -67,8 +57,7 @@ f2 <- function(data) {
 
 	aux = unlist(
 		lapply(data, function(tmp) {
-			tmp = overlap(tmp)/range(tmp)
-			prod(tmp, na.rm=TRUE)
+			prod(regionOver(tmp), na.rm=TRUE)
 		})
 	)
 
@@ -145,10 +134,10 @@ f4 <- function(data) {
 
 fisher <- function(data) {
 
-	data = preprocessing(data)
+	data = binarize(data)
 
-	aux = lapply(
-		c("f1", "f2", "f3", "f4"), function(i) {
+	aux = lapply(OVERLAPPING, 
+		function(i) {
 			do.call(i, list(data))
 	})
 

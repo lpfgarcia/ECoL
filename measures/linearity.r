@@ -1,7 +1,7 @@
 # R Code
-# Linear Measures
+# Measures of Linearity
 # L. P. F. Garcia A. C. Lorena and M. de Souto 2016
-# The set of linear measures
+# The set of Linearity and Non Linearity Measures
 
 
 l1 <- function(data, model) {
@@ -78,13 +78,13 @@ l3 <- function(data, model) {
 linearity <- function(data) {
 
 	data = ovo(data)
-	model = lapply(
-		data, function(tmp) {
+	model = lapply(data, 
+		function(tmp) {
 			svm(class ~ ., tmp, kernel="linear")
 	})
 
-	aux = lapply(
-		c("l1", "l2", "l3"), function(i) {
+	aux = lapply(LINEARITY, 
+		function(i) {
 			do.call(i, list(data, model))
 	})
 

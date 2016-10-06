@@ -4,10 +4,6 @@
 # The set of Complexity Measures
 
 
-require(dplyr)
-require(e1071)
-
-
 colMin <- function(data) {
 	apply(data, 2, min)
 }
@@ -25,13 +21,19 @@ rowMax <- function(data) {
 
 form <- function(data) {
 
-	att = paste(colnames(data)[1:(ncol(data)-1)], collapse="+")
+	att = paste(colnames(data)[-ncol(data)], collapse="+")
 	aux = formula(paste("~ 0 +", att, sep=" "))
 	return(aux)
 }
 
 
-preprocessing <- function(data) {
+dist <- function(data) {
+	aux = as.matrix(daisy(data, metric = "gower", stand=TRUE))
+	return(aux)
+}
+
+
+binarize <- function(data) {
 
 	aux = model.matrix(form(data), data)
 	aux = data.frame(aux, class=data$class)
@@ -54,9 +56,10 @@ ovo <- function(data) {
 }
 
 
-complexity <- function(data) {
+complexity <- function(file) {
 
-	aux = c(fisher(data), linearity(data))
+	data = read.arff(file)
+	aux = c(fisher(data), linearity(data), neighborhood(data))
 	return(aux)
 }
 
