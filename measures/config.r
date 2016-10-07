@@ -9,19 +9,20 @@ require(cluster)
 require(dplyr)
 require(e1071)
 require(foreign)
+require(kknn)
 
 
 # directory
 DIR = getwd()
 
 # datasets
-files = list.files(paste(DIR, "/database", sep=""), full.names = TRUE);
+files = list.files(paste(DIR, "/database", sep=""), full.names = TRUE)
 
 # linear measures
 LINEARITY = c("l1", "l2", "l3")
 
 # neighbor  measures
-NEIGHBORHOOD = c("n1","n2")
+NEIGHBORHOOD = c("n1","n2", "n3")
 
 # overlapping measures
 OVERLAPPING = c("f1", "f2", "f3", "f4")

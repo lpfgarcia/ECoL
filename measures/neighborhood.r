@@ -42,6 +42,14 @@ n2 <- function(dst, data) {
 }
 
 
+n3 <- function(dst, data) {
+
+
+	
+}
+
+
+
 neighborhood <- function(data) {
 
 	dst = dist(data[,-ncol(data)])
