@@ -42,12 +42,42 @@ n2 <- function(dst, data) {
 }
 
 
-n3 <- function(dst, data) {
-
-
-	
+knn <- function(dst, data, i) {
+	tmp = setdiff(rownames(dst), i)
+	aux = data[names(which.min(dst[i, tmp])),]$class
+	return(aux)
 }
 
+
+n3 <- function(dst, data) {
+
+	aux = unlist(
+		lapply(rownames(data), 
+			function(i) {
+				knn(dst, data, i) != data[i,]$class
+		})
+	)
+
+	return(sum(aux))
+}
+
+
+hyperspher <- function(dst, data) {
+
+	aux = lapply(rownames(data), 
+			function(i) {
+				dst[i,] < 0.55 *inter(dst, data, i)
+		})
+	)
+
+}
+
+
+t1 <- function(dst, data) {
+
+	aux = hyperspher(dst, data)/nrow(data)
+	return(aux)
+}
 
 
 neighborhood <- function(data) {

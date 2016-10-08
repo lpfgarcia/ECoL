@@ -18,11 +18,14 @@ DIR = getwd()
 # datasets
 files = list.files(paste(DIR, "/database", sep=""), full.names = TRUE)
 
+# measures based on dimensionality
+DIMENSIONALITY = c("t2")
+
 # linear measures
 LINEARITY = c("l1", "l2", "l3")
 
 # neighbor  measures
-NEIGHBORHOOD = c("n1","n2", "n3")
+NEIGHBORHOOD = c("n1","n2", "n3", "t1")
 
 # overlapping measures
 OVERLAPPING = c("f1", "f2", "f3", "f4")
