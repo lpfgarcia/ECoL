@@ -28,8 +28,7 @@ form <- function(data) {
 
 
 dist <- function(data) {
-	aux = as.matrix(daisy(data, metric = "gower", stand=TRUE))
-	return(aux)
+	as.matrix(daisy(data, metric = "gower", stand=TRUE))
 }
 
 
@@ -45,12 +44,9 @@ ovo <- function(data) {
 
 	aux = combn(levels(data$class), 2)
 
-	tmp = lapply(1:ncol(aux), function(i) {
-			vet = subset(data, data$class %in% aux[,i])
-			vet$class = factor(vet$class, labels=1:2)
-			return(vet)
-		}
-	)
+	tmp = apply(aux, 2, function(i) {
+		subset(data, data$class %in% i)
+	})
 
 	return(tmp)
 }
