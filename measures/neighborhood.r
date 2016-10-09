@@ -68,7 +68,6 @@ hyperspher <- function(dst, data) {
 			function(i) {
 				dst[i,] < 0.55 *inter(dst, data, i)
 		})
-	)
 
 }
 

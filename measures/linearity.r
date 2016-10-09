@@ -4,9 +4,14 @@
 # The set of Linearity and Non Linearity Measures
 
 
-l1 <- function(data, model) {
+smo <- function(data) {
+	svm(class ~ ., data, kernel="linear")
+}
 
-	aux = mapply(function(m, d){
+
+l1 <- function(model, data) {
+
+	aux = mapply(function(m, d) {
 		prd = predict(m, d, decision.values=TRUE)
 		err = rownames(d[prd != d$class,])
 		dst = attr(prd,"decision.values")[err,]
@@ -19,15 +24,11 @@ l1 <- function(data, model) {
 
 
 error <- function(pred, class) {
-
-	tb = 1 - sum(diag(table(class, pred)))/
-		sum(table(class, pred))
-
-	return(tb)
+	1 - sum(diag(table(class, pred)))/sum(table(class, pred))
 }
 
 
-l2 <- function(data, model) {
+l2 <- function(model, data) {
 
 	aux = mapply(function(m, d) {
 		pred = predict(m, d)
@@ -55,7 +56,7 @@ interpolation <- function(data) {
 }
 
 
-l3 <- function(data, model) {
+l3 <- function(model, data) {
 
 	aux = mapply(function(m, d) {
 
@@ -65,8 +66,6 @@ l3 <- function(data, model) {
 			})
 		)
 
-		tmp = data.frame(tmp)
-		tmp$class = factor(tmp$class)
 		pred = predict(m, tmp)
 		error(pred, tmp$class)
 	}, m=model, d=data)
@@ -80,12 +79,12 @@ linearity <- function(data) {
 	data = ovo(data)
 	model = lapply(data, 
 		function(tmp) {
-			svm(class ~ ., tmp, kernel="linear")
+			smo(tmp)
 	})
 
 	aux = lapply(LINEARITY, 
 		function(i) {
-			do.call(i, list(data, model))
+			do.call(i, list(model, data))
 	})
 
 	aux = unlist(aux)
