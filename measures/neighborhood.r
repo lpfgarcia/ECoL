@@ -7,8 +7,8 @@
 n1 <- function(dst, data) {
 
 	tree = mst(dst)
-	i = which(tree != 0, arr.ind = TRUE)
-	aux = sum(data$class[i[,1]] != data$class[i[,2]])/2
+	tmp = which(tree != 0, arr.ind = TRUE)
+	aux = sum(data[tmp[,1],]$class != data[tmp[,2],]$class)/2
 	return(aux/nrow(data))
 }
 
@@ -24,7 +24,7 @@ intra <- function(dst, data, i) {
 inter <- function(dst, data, i) {
 
 	tmp = rownames(data[data$class != data[i,]$class,])
-	aux = min(dst[i, setdiff(tmp, i)])
+	aux = min(dst[i, tmp])
 	return(aux)
 }
 
@@ -43,7 +43,7 @@ n2 <- function(dst, data) {
 
 
 knn <- function(dst, data, i) {
-	tmp = setdiff(rownames(dst), i)
+	tmp = setdiff(rownames(data), i)
 	aux = data[names(which.min(dst[i, tmp])),]$class
 	return(aux)
 }
@@ -64,17 +64,41 @@ n3 <- function(dst, data) {
 
 hyperspher <- function(dst, data) {
 
-	aux = lapply(rownames(data), 
+	aux = do.call("rbind",
+		lapply(rownames(data), 
 			function(i) {
-				dst[i,] < 0.55 *inter(dst, data, i)
+				dst[i,] < 0.55 * inter(dst, data, i)
 		})
+	)
 
+	rownames(aux) = rownames(data)
+	return(aux)
+}
+
+
+minHyper <- function(data) {
+
+	h = 0
+
+	repeat{
+		aux = sort(rowSums(data), decreasing=TRUE)
+		tmp = names(which(data[names(aux[1]),] == TRUE))
+		if(length(tmp) == 1)
+			break
+		dif = setdiff(rownames(data), tmp)
+		data = data[dif, dif]
+		h = h + 1
+	}
+
+	h = h + nrow(data)
+	return(h)
 }
 
 
 t1 <- function(dst, data) {
 
-	aux = hyperspher(dst, data)/nrow(data)
+	aux = hyperspher(dst, data)
+	aux = minHyper(aux)/nrow(data)
 	return(aux)
 }
 
