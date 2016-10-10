@@ -67,7 +67,8 @@ hyperspher <- function(dst, data) {
 	aux = do.call("rbind",
 		lapply(rownames(data), 
 			function(i) {
-				dst[i,] < 0.55 * inter(dst, data, i)
+				dst[i,] < 0.55 * inter(dst, data, i) &
+					data[i,]$class == data$class
 		})
 	)
 
@@ -76,21 +77,22 @@ hyperspher <- function(dst, data) {
 }
 
 
-minHyper <- function(data) {
+adherence <- function(adh, data) {
 
 	h = 0
 
 	repeat{
-		aux = sort(rowSums(data), decreasing=TRUE)
-		tmp = names(which(data[names(aux[1]),] == TRUE))
+
+		aux = sort(rowSums(adh), decreasing=TRUE)
+		tmp = names(which(adh[names(aux[1]),] == TRUE))
 		if(length(tmp) == 1)
 			break
-		dif = setdiff(rownames(data), tmp)
-		data = data[dif, dif]
+		dif = setdiff(rownames(adh), tmp)
+		adh = adh[dif, dif]
 		h = h + 1
 	}
 
-	h = h + nrow(data)
+	h = h + nrow(adh)
 	return(h)
 }
 
@@ -98,7 +100,7 @@ minHyper <- function(data) {
 t1 <- function(dst, data) {
 
 	aux = hyperspher(dst, data)
-	aux = minHyper(aux)/nrow(data)
+	aux = adherence(aux, data)/nrow(data)
 	return(aux)
 }
 
