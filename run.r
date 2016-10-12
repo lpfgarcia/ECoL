@@ -1,7 +1,7 @@
 # R Code
 # Run the experiment
-# L. P. F. Garcia, A. C. P. L. F. de Carvalho, A. C. Lorena 2016
-# Start the experiment for a specific or all datasets
+# L. P. F. Garcia A. C. Lorena and M. de Souto 2016
+# Start the experiment for all datasets
 
 
 setup <- function() {
