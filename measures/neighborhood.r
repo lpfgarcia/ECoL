@@ -62,6 +62,27 @@ n3 <- function(dst, data) {
 }
 
 
+n4 <- function(dst, data) {
+
+	tmp = do.call("rbind",
+			lapply(1:nrow(data), function(i) {
+				interpolation(data)
+		})
+	)
+
+	dst = dist(tmp[,-ncol(tmp)])
+
+	aux = unlist(
+		lapply(rownames(tmp), 
+			function(i) {
+				knn(dst, tmp, i) != tmp[i,]$class
+		})
+	)
+
+	return(sum(aux))
+}
+
+
 eps <- function(dst, data) {
 
 	delta = unlist(

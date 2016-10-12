@@ -25,7 +25,7 @@ DIMENSIONALITY = c("t2")
 LINEARITY = c("l1", "l2", "l3")
 
 # neighbor  measures
-NEIGHBORHOOD = c("n1","n2", "n3", "t1")
+NEIGHBORHOOD = c("n1","n2", "n3", "n4", "t1")
 
 # overlapping measures
 OVERLAPPING = c("f1", "f2", "f3", "f4")
