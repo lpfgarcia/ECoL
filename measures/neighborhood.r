@@ -82,7 +82,7 @@ n4 <- function(dst, data) {
 		})
 	)
 
-	return(sum(aux))
+	return(mean(aux))
 }
 
 
