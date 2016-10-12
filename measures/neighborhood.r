@@ -62,17 +62,58 @@ n3 <- function(dst, data) {
 }
 
 
+eps <- function(dst, data) {
+
+	delta = unlist(
+		lapply(rownames(dst), function(i) 
+			inter(dst, data, i)
+		)
+	)
+
+	aux = 0.55 * min(delta)
+	return(aux)
+}
+
+
+radios <- function(dst, data, r, i) {
+	tmp = data[i,]$class != data$class
+	aux = all(dst[i, tmp] > r[i] + r[tmp])
+	return(aux)
+}
+
+
 hyperspher <- function(dst, data) {
 
+	e = eps(dst, data)
+	r = rep(e, nrow(data))
+	names(r) = rownames(data) 
+
+	repeat {
+		h = 0
+		for(i in 1:nrow(dst)) {
+			if(radios(dst, data, r, i))
+				r[i] = r[i] + e
+			else
+				h = h + 1
+		}
+		if(h == nrow(data))
+			break
+	}
+
+	return(r)
+}
+
+
+translate <- function(dst, r) {
+
 	aux = do.call("rbind",
-		lapply(rownames(data), 
+		lapply(rownames(dst), 
 			function(i) {
-				dst[i,] < 0.55 * inter(dst, data, i) &
-					data[i,]$class == data$class
+				dst[i,] < r[i]
 		})
 	)
 
-	rownames(aux) = rownames(data)
+	rownames(aux) = rownames(dst)
 	return(aux)
 }
 
@@ -85,22 +126,22 @@ adherence <- function(adh, data) {
 
 		aux = sort(rowSums(adh), decreasing=TRUE)
 		tmp = names(which(adh[names(aux[1]),] == TRUE))
-		if(length(tmp) == 1)
-			break
 		dif = setdiff(rownames(adh), tmp)
 		adh = adh[dif, dif]
 		h = h + 1
+		if(is.null(dim(adh)) | 
+			all(dim(adh) == 0))
+			break
 	}
 
-	h = h + nrow(adh)
 	return(h)
 }
 
 
 t1 <- function(dst, data) {
 
-	aux = hyperspher(dst, data)
-	aux = adherence(aux, data)/nrow(data)
+	r = hyperspher(dst, data)
+	aux = adherence(translate(dst, r), data)/nrow(data)
 	return(aux)
 }
 
