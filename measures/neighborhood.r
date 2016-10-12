@@ -171,7 +171,7 @@ neighborhood <- function(data) {
 
 	dst = dist(data[,-ncol(data)])
 
-		aux = lapply(NEIGHBORHOOD, 
+	aux = lapply(NEIGHBORHOOD, 
 		function(i) {
 			do.call(i, list(dst, data))
 	})
