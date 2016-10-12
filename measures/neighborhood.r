@@ -65,17 +65,20 @@ n3 <- function(dst, data) {
 n4 <- function(dst, data) {
 
 	tmp = do.call("rbind",
-			lapply(1:nrow(data), function(i) {
-				interpolation(data)
+		lapply(1:nrow(data), function(i) {
+			interpolation(data)
 		})
 	)
 
-	dst = dist(tmp[,-ncol(tmp)])
+	aux = rbind(data, tmp)
+	dst = dist(aux[,-ncol(aux)])
+	vet = setdiff(rownames(aux), rownames(data))
 
 	aux = unlist(
-		lapply(rownames(tmp), 
+		lapply(vet, 
 			function(i) {
-				knn(dst, tmp, i) != tmp[i,]$class
+				idx = which.min(dst[i, rownames(data)])
+				data[names(idx),]$class != aux[i,]$class
 		})
 	)
 
