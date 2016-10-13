@@ -86,42 +86,31 @@ n4 <- function(dst, data) {
 }
 
 
-eps <- function(dst, data) {
-
-	delta = unlist(
-		lapply(rownames(dst), function(i) 
-			inter(dst, data, i)
-		)
-	)
-
-	aux = 0.55 * min(delta)
-	return(aux)
-}
-
-
 radios <- function(dst, data, r, i) {
-	tmp = data[i,]$class != data$class
-	aux = all(dst[i, tmp] > r[i] + r[tmp])
-	return(aux)
+
+	di = inter(dst, data, i)
+	j = names(which(dst[i,] == di)[1])
+	dj = inter(dst, data, j)
+
+	if(di == dj) { 
+		r[i] = di/2
+		return(r[i])
+	} else {
+		tmp = radios(dst, data, r, j)
+		r[i] = di - tmp
+	}
+
+	return(r[i])
 }
 
 
 hyperspher <- function(dst, data) {
 
-	e = eps(dst, data)
-	r = rep(e, nrow(data))
+	r = rep(0, nrow(data))
 	names(r) = rownames(data) 
 
-	repeat {
-		h = 0
-		for(i in 1:nrow(dst)) {
-			if(radios(dst, data, r, i))
-				r[i] = r[i] + e
-			else
-				h = h + 1
-		}
-		if(h == nrow(data))
-			break
+	for(i in names(r)){
+		r[i] = radios(dst, data, r, i)
 	}
 
 	return(r)
