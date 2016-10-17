@@ -43,14 +43,26 @@ interpolation <- function(data) {
 
 	aux = sample(levels(data$class), 1)
 	aux = filter(data, class == aux) %>% sample_n(., 2)
-	tmp = aux[1,]
 
 	for(i in 1:(ncol(data)-1)) {
-		if(!is.factor(data[,i])) {
+		if(is.numeric(data[,i])) {
 			rnd = runif(1)
-			tmp[1,i] = aux[1,i]*rnd + aux[2,i]*(1-rnd)
+			aux[1,i] = aux[1,i]*rnd + aux[2,i]*(1-rnd)
 		}
 	}
+
+	return(aux[1,])
+}
+
+
+generate <- function(data) {
+
+	tmp = do.call("rbind",
+		lapply(1:nrow(data),
+			function(i) {
+				interpolation(data)
+		})
+	)
 
 	return(tmp)
 }
@@ -59,14 +71,7 @@ interpolation <- function(data) {
 l3 <- function(model, data) {
 
 	aux = mapply(function(m, d) {
-
-		tmp = do.call("rbind",
-			lapply(1:nrow(d), function(i) {
-				interpolation(d)
-			})
-		)
-
-		pred = predict(m, tmp)
+		pred = predict(m, generate(d))
 		error(pred, tmp$class)
 	}, m=model, d=data)
 
@@ -77,10 +82,7 @@ l3 <- function(model, data) {
 linearity <- function(data) {
 
 	data = ovo(data)
-	model = lapply(data, 
-		function(tmp) {
-			smo(tmp)
-	})
+	model = lapply(data, smo)
 
 	aux = lapply(LINEARITY, 
 		function(i) {

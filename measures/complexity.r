@@ -19,14 +19,6 @@ rowMax <- function(data) {
 }
 
 
-form <- function(data) {
-
-	att = paste(colnames(data)[-ncol(data)], collapse="+")
-	aux = formula(paste("~ 0 +", att, sep=" "))
-	return(aux)
-}
-
-
 dist <- function(data) {
 	as.matrix(daisy(data, metric = "gower", stand=TRUE))
 }
