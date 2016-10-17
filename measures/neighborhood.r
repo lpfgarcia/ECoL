@@ -66,21 +66,14 @@ n3 <- function(dst, data) {
 
 n4 <- function(dst, data) {
 
-	tmp = do.call("rbind",
-		lapply(1:nrow(data), function(i) {
-			interpolation(data)
-		})
-	)
-
-	aux = rbind(data, tmp)
-	dst = dist(aux[,-ncol(aux)])
+	aux = rbind(data, generate(data))
 	vet = setdiff(rownames(aux), rownames(data))
+	dst = dist(aux[,-ncol(aux)])
 
 	aux = unlist(
-		lapply(vet, 
-			function(i) {
-				idx = which.min(dst[i, rownames(data)])
-				data[names(idx),]$class != aux[i,]$class
+		lapply(vet, function(i) {
+			idx = which.min(dst[i, rownames(data)])
+			data[names(idx),]$class != aux[i,]$class
 		})
 	)
 
