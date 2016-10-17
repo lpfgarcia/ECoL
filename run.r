@@ -6,7 +6,7 @@
 
 setup <- function() {
 
-	aux = list.files("measures/", recursive=TRUE, full.name=TRUE);
+	aux = list.files("measures/", recursive = TRUE, full.name = TRUE);
 	for(i in aux)
 		source(i);
 }
@@ -15,8 +15,9 @@ setup <- function() {
 run <- function(...) {
 
 	lapply(files, function(file) {
-		cat(basename(file), "\n"); 
-			complexity(file); 
+		cat(basename(file), "\n")
+			data = read.arff(file)
+			print(complexity(data))
 		cat("\n");
 	});
 }
