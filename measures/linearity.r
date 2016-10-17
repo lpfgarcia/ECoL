@@ -71,7 +71,8 @@ generate <- function(data) {
 l3 <- function(model, data) {
 
 	aux = mapply(function(m, d) {
-		pred = predict(m, generate(d))
+		tmp = generate(d)
+		pred = predict(m, tmp)
 		error(pred, tmp$class)
 	}, m=model, d=data)
 
