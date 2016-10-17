@@ -9,7 +9,6 @@ require(dplyr)
 require(e1071)
 require(foreign)
 require(igraph)
-require(kknn)
 
 
 # directory
