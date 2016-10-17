@@ -6,7 +6,9 @@
 
 n1 <- function(dst, data) {
 
-	tree = mst(dst)
+	g = graph.adjacency(dst, weighted = TRUE)
+	tree = as.matrix(as_adj(mst(as.undirected(g))))
+
 	tmp = which(tree != 0, arr.ind = TRUE)
 	aux = sum(data[tmp[,1],]$class != data[tmp[,2],]$class)/2
 	return(aux/nrow(data))
