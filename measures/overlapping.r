@@ -4,32 +4,35 @@
 # The set of Overlapping Measures
 
 
+branch <- function(data, j) {
+	data[data$class == j, -ncol(data), drop = FALSE]
+}
+
+
 num <- function(data, j) {
 
-	aux = nrow(data[data$class == j,]) * 
-		((colMeans(data[data$class == j, -ncol(data)]) - 
-			colMeans(data[,-ncol(data)]))^2)
+	tmp = branch(data, j)
+	aux = nrow(tmp) * (colMeans(tmp) - 
+		colMeans(data[,-ncol(data)]))^2
 	return(aux)
 }
 
 
 den <- function(data, j) {
 
-	aux = rowSums((t(data[data$class == j,-ncol(data)]) - 
-		colMeans(data[data$class == j,-ncol(data)]))^2)
+	tmp = branch(data, j)
+	aux = rowSums((t(tmp) - colMeans(tmp))^2)
 	return(aux)
 }
 
 
 f1 <- function(data) {
 
-	aux = lapply(levels(data$class), 
-		function(j){
-			num(data, j)/den(data, j)
-	})
+	aux = mapply(function(j) {
+		num(data, j)/den(data, j)
+	}, j=levels(data$class))
 
-	aux = do.call("rbind", aux)
-	aux = colSums(aux)
+	aux = rowSums(aux)
 	return(max(aux))
 }
 
@@ -37,16 +40,16 @@ f1 <- function(data) {
 regionOver <- function(data) {
 
 	l = levels(data$class)
-	a = data[data$class == l[1], -ncol(data), drop = FALSE]
-	b = data[data$class == l[2], -ncol(data), drop = FALSE]
+	a = branch(data, l[1])
+	b = branch(data, l[2])
 
-	overlap = colMin(rbind(colMax(a), colMax(b))) - 
-		colMax(rbind(colMin(a), colMin(b)))
+	maxmax = rbind(colMax(a), colMax(b))
+	minmin = rbind(colMin(a), colMin(b))
 
-	range = colMax(rbind(colMax(a), colMax(b))) - 
-		colMin(rbind(colMin(a), colMin(b)))
+	over = colMax(rbind(colMin(maxmax) - colMax(minmin), 0))
+	rang = colMax(maxmax) - colMin(minmin)
 
-	aux = colMax(rbind(overlap, 0))/range
+	aux = prod(over/rang, na.rm = TRUE)
 	return(aux)
 }
 
@@ -54,13 +57,7 @@ regionOver <- function(data) {
 f2 <- function(data) {
 
 	data = ovo(data);
-
-	aux = unlist(
-		lapply(data, function(tmp) {
-			prod(regionOver(tmp), na.rm=TRUE)
-		})
-	)
-
+	aux = unlist(lapply(data, regionOver))
 	return(sum(aux))
 }
 
@@ -68,15 +65,16 @@ f2 <- function(data) {
 nonOverlap <- function(data) {
 
 	l = levels(data$class)
-	a = data[data$class == l[1], -ncol(data), drop = FALSE]
-	b = data[data$class == l[2], -ncol(data), drop = FALSE]
+	a = branch(data, l[1])
+	b = branch(data, l[2])
 
-	maxmin = colMax(rbind(colMin(a), colMin(b)))
 	minmax = colMin(rbind(colMax(a), colMax(b)))
+	maxmin = colMax(rbind(colMin(a), colMin(b)))
 
 	aux = do.call("cbind",
-		lapply(1:(ncol(data)-1), function(i) {
-			data[,i] < maxmin[i] | data[,i] > minmax[i]
+		lapply(1:(ncol(data)-1), 
+			function(i) {
+				data[,i] < maxmin[i] | data[,i] > minmax[i]
 		})
 	)
 
@@ -89,14 +87,11 @@ nonOverlap <- function(data) {
 f3 <- function(data) {
 
 	data = ovo(data);
+	aux = mapply(function(d) {
+		colSums(nonOverlap(d))/nrow(d)
+	}, d=data)
 
-	aux = do.call("rbind",
-		lapply(data, function(tmp) {
-			colSums(nonOverlap(tmp))/nrow(tmp)
-		})
-	)
-
-	aux = mean(rowMax(aux))
+	aux = mean(colMax(aux))
 	return(aux)
 }
 
@@ -119,13 +114,10 @@ removing <- function(data) {
 f4 <- function(data) {
 
 	data = ovo(data);
-
-	aux = do.call("rbind",
-		lapply(data, function(tmp) {
-			new = removing(tmp)
-			(nrow(tmp) - nrow(new))/nrow(tmp)
-		})
-	)
+	aux = mapply(function(d) {
+		n = removing(d)
+		(nrow(d) - nrow(n))/nrow(d)
+	}, d=data)
 
 	aux = mean(aux)
 	return(aux)

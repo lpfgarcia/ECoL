@@ -24,6 +24,14 @@ dist <- function(data) {
 }
 
 
+form <- function(data) {
+
+	att = paste(colnames(data)[-ncol(data)], collapse="+")
+	aux = formula(paste("~ 0 +", att, sep=" "))
+	return(aux)
+}
+
+
 binarize <- function(data) {
 
 	aux = model.matrix(form(data), data)
@@ -37,7 +45,9 @@ ovo <- function(data) {
 	aux = combn(levels(data$class), 2)
 
 	tmp = apply(aux, 2, function(i) {
-		subset(data, data$class %in% i)
+		vet = subset(data, data$class %in% i)
+		vet$class = factor(vet$class)
+		return(vet)
 	})
 
 	return(tmp)
