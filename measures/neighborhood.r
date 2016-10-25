@@ -167,11 +167,17 @@ t3 <- function(dst, data) {
 }
 
 
+nball <- function(r, n) {
+	(1/sqrt(n*pi))*((2*pi*exp(1)/n)^(n/2))*r^n
+}
+
+
 t4 <- function(dst, data) {
 
 	r = hyperspher(dst, data)
 	aux = adherence(translate(dst, r), data)
-	return(mean(aux))
+	tmp = aux/nball(r[names(aux)], ncol(data)-1)
+	return(mean(tmp))
 }
 
 
