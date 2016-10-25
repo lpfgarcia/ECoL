@@ -44,9 +44,9 @@ n2 <- function(dst, data) {
 }
 
 
-knn <- function(dst, data, i) {
+knn <- function(dst, data, k, i) {
 	tmp = setdiff(rownames(data), i)
-	aux = data[names(which.min(dst[i, tmp])),]$class
+	aux = data[names(sort(dst[i, tmp])[1:k]),]$class
 	return(aux)
 }
 
@@ -56,7 +56,7 @@ n3 <- function(dst, data) {
 	aux = unlist(
 		lapply(rownames(data), 
 			function(i) {
-				knn(dst, data, i) != data[i,]$class
+				knn(dst, data, 1, i) != data[i,]$class
 		})
 	)
 

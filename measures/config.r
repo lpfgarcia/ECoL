@@ -20,6 +20,9 @@ files = list.files(paste(DIR, "/database", sep=""), full.names = TRUE)
 # measures based on dimensionality
 DIMENSIONALITY = c("t2")
 
+# density measures
+DENSITY = c("d1", "d2", "d3")
+
 # linear measures
 LINEARITY = c("l1", "l2", "l3")
 
