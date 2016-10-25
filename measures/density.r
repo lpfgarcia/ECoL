@@ -1,14 +1,7 @@
 # R Code
-# Measures based on density
+# Measures based on Density
 # L. P. F. Garcia A. C. Lorena and M. de Souto 2016
 # The set of Measues based on density
-
-
-d1 <- function(data) {
-
-
-
-}
 
 
 volume <- function(data) {

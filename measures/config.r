@@ -26,8 +26,8 @@ DENSITY = c("d1", "d2", "d3")
 # linear measures
 LINEARITY = c("l1", "l2", "l3")
 
-# neighbor  measures
-NEIGHBORHOOD = c("n1","n2", "n3", "n4", "t1")
+# neighborhood measures
+NEIGHBORHOOD = c("n1","n2", "n3", "n4", "t1", "t3", "t4")
 
 # overlapping measures
 OVERLAPPING = c("f1", "f2", "f3", "f4")

@@ -1,7 +1,7 @@
 # R Code
-# Measures based on Neighborhood
+# Measures based on Non Linearity
 # L. P. F. Garcia A. C. Lorena and M. de Souto 2016
-# The set of Measues based on Neighborhood
+# The set of Measues based on Non Linearity
 
 
 n1 <- function(dst, data) {
@@ -128,20 +128,24 @@ translate <- function(dst, r) {
 
 adherence <- function(adh, data) {
 
-	h = 0
+	h = n = c()
 
 	repeat{
 
-		aux = sort(rowSums(adh), decreasing=TRUE)
-		tmp = names(which(adh[names(aux[1]),] == TRUE))
+		aux = which.max(rowSums(adh))
+		tmp = names(which(adh[aux,]))
 		dif = setdiff(rownames(adh), tmp)
 		adh = adh[dif, dif]
-		h = h + 1
+
+		h = c(h, length(tmp))
+		n = c(n, names(aux))
+
 		if(is.null(dim(adh)) | 
 			all(dim(adh) == 0))
-			break
+				break
 	}
 
+	names(h) = n
 	return(h)
 }
 
@@ -149,8 +153,25 @@ adherence <- function(adh, data) {
 t1 <- function(dst, data) {
 
 	r = hyperspher(dst, data)
-	aux = adherence(translate(dst, r), data)/nrow(data)
+	aux = adherence(translate(dst, r), data)
+	aux = length(aux)/nrow(data)
 	return(aux)
+}
+
+
+t3 <- function(dst, data) {
+
+	r = hyperspher(dst, data)
+	aux = adherence(translate(dst, r), data)
+	return(mean(aux))
+}
+
+
+t4 <- function(dst, data) {
+
+	r = hyperspher(dst, data)
+	aux = adherence(translate(dst, r), data)
+	return(mean(aux))
 }
 
 
