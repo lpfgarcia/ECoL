@@ -41,15 +41,15 @@ lying <- function(pred, data) {
 
 d3 <- function(dst, data, k=3) {
 
-	pred = unlist(
+	aux = unlist(
 		lapply(rownames(data), 
 			function(i) {
-				pred = knn(dst, data, k, i)
-				voting(pred, data)
+				tmp = knn(dst, data, k, i)
+				voting(tmp, data)
 		})
 	)
 
-	aux = lying(names(pred), data)
+	aux = lying(names(aux), data)
 	return(aux)
 }
 
