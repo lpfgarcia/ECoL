@@ -9,6 +9,7 @@ require(dplyr)
 require(e1071)
 require(foreign)
 require(igraph)
+require(infotheo)
 
 
 # directory
@@ -28,6 +29,9 @@ LINEARITY = c("l1", "l2", "l3")
 
 # neighborhood measures
 NEIGHBORHOOD = c("n1","n2", "n3", "n4", "t1", "t3", "t4")
+
+# noise measures
+NOISE = c("id1", "id2")
 
 # overlapping measures
 OVERLAPPING = c("f1", "f2", "f3", "f4")

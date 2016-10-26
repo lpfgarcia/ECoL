@@ -124,6 +124,15 @@ f4 <- function(data) {
 }
 
 
+f5 <- function(data) {
+
+	aux = data.frame(prcomp(data[,-ncol(data)])$x)
+	aux$class = data$class
+	aux = f2(aux)
+	return(aux)
+}
+
+
 fisher <- function(data) {
 
 	data = binarize(data)
