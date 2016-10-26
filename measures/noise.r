@@ -50,3 +50,4 @@ noise <- function(data) {
 	aux = unlist(aux)
 	return(aux)
 }
+
