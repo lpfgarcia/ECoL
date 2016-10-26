@@ -45,11 +45,11 @@ n2 <- function(dst, data) {
 
 
 knn <- function(dst, data, k, i) {
-	tmp = setdiff(rownames(data), i)
-	aux = data[names(sort(dst[i, tmp])[1:k]),]$class
+	tmp = names(sort(dst[i,])[1:k+1])
+	aux = data[tmp,]$class
+	names(aux) = tmp
 	return(aux)
 }
-
 
 n3 <- function(dst, data) {
 

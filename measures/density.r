@@ -12,14 +12,15 @@ volume <- function(data) {
 
 d2 <- function(dst, data, k=3) {
 
-	aux = lapply(rownames(data), 
-		function(i) {
-			nk = names(sort(dst[i,])[2:(k+1)])
-			volume(data[nk,])
-	})
+	aux = unlist(
+		lapply(rownames(data), 
+			function(i) {
+				tmp = knn(dst, data, k, i)
+				volume(data[names(tmp),])
+		})
+	)
 
-	aux = mean(unlist(aux))
-	return(aux)
+	return(mean(aux))
 }
 
 
