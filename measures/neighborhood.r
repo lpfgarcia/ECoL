@@ -159,7 +159,7 @@ t1 <- function(dst, data) {
 }
 
 
-t3 <- function(dst, data) {
+t2 <- function(dst, data) {
 
 	r = hyperspher(dst, data)
 	aux = adherence(translate(dst, r), data)

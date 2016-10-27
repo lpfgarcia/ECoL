@@ -28,7 +28,7 @@ DENSITY = c("d1", "d2", "d3")
 LINEARITY = c("l1", "l2", "l3")
 
 # neighborhood measures
-NEIGHBORHOOD = c("n1","n2", "n3", "n4", "t1", "t3", "t4")
+NEIGHBORHOOD = c("n1","n2", "n3", "n4", "t1", "t2", "t4")
 
 # noise measures
 NOISE = c("id1", "id2")
