@@ -5,28 +5,27 @@
 
 
 m1 <- function(data) {
-	(ncol(data)-1)/nrow(data)
-}
-
-
-m2 <- function(data) {
 	log((ncol(data)-1)/nrow(data))
 }
 
 
 pca <- function(data) {
 
+	data = binarize(data)
 	aux = prcomp(data[,-ncol(data)])$sdev
-	aux = which(cumsum(aux)/sum(aux) > 0.95)
+	aux = which(cumsum(aux)/sum(aux) >= 0.95)
+	return(aux[1])
+}
+
+
+m2 <- function(data) {
+	log(pca(data)/nrow(data))
 }
 
 
 m3 <- function(data) {
-	data = binarize(data)
-	aux = m1(aux)
-	return(aux)
+	pca(data)/(ncol(data)-1)
 }
-
 
 
 dimensionality <- function(data) {
