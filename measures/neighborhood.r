@@ -140,7 +140,7 @@ adherence <- function(adh, data) {
 		h = c(h, length(tmp))
 		n = c(n, names(aux))
 
-		if(is.null(dim(adh)) | 
+		if(is.null(dim(adh)) | sum(adh) == 0 |
 			all(dim(adh) == 0))
 				break
 	}

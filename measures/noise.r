@@ -29,7 +29,7 @@ dimensionality <- function(data) {
 	aux = mutual(data)
 	aux = sort(aux, decreasing = TRUE)[-1]
 	aux = which(cumsum(aux)/sum(aux) > 0.9)
-	return(aux)
+	return(aux[1])
 }
 
 

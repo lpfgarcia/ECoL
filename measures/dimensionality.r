@@ -14,10 +14,15 @@ m2 <- function(data) {
 }
 
 
+pca <- function(data) {
+
+	aux = prcomp(data[,-ncol(data)])$sdev
+	aux = which(cumsum(aux)/sum(aux) > 0.95)
+}
+
+
 m3 <- function(data) {
 	data = binarize(data)
-	aux = data.frame(prcomp(data[,-ncol(data)])$x)
-	aux$class = data$class
 	aux = m1(aux)
 	return(aux)
 }
