@@ -5,7 +5,7 @@
 
 
 smo <- function(data) {
-	svm(class ~ ., data, kernel="linear")
+	svm(class ~ ., data, scale=FALSE, kernel="linear")
 }
 
 
@@ -14,7 +14,7 @@ l1 <- function(model, data) {
 	aux = mapply(function(m, d) {
 		prd = predict(m, d, decision.values=TRUE)
 		err = rownames(d[prd != d$class,])
-		dst = attr(prd,"decision.values")[err,]
+		dst = attr(prd, "decision.values")[err,]
 		sum(abs(dst))
 	}, m=model, d=data)
 
