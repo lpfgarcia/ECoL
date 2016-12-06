@@ -33,14 +33,16 @@ inter <- function(dst, data, i) {
 
 n2 <- function(dst, data) {
 
-	aux = unlist(
-		lapply(rownames(data), 
-			function(i) {
-				intra(dst, data, i)/inter(dst, data, i)
-		})
-	)
+	aux = sapply(rownames(data), 
+		function(i) {
+			a = intra(dst, data, i)
+			r = inter(dst, data, i)
+			return(a/r)
+	})
 
-	return(sum(aux))
+	aux[aux == Inf] = NA
+	aux = sum(aux, na.rm=TRUE)
+	return(aux)
 }
 
 
@@ -60,7 +62,7 @@ n3 <- function(dst, data) {
 		})
 	)
 
-	return(sum(aux))
+	return(mean(aux))
 }
 
 
@@ -81,21 +83,18 @@ n4 <- function(dst, data) {
 }
 
 
-radios <- function(dst, data, r, i) {
+radios <- function(dst, data, i) {
 
 	di = inter(dst, data, i)
-	j = names(which(dst[i,] == di)[1])
+	j = setdiff(names(which(dst[i,] == di)), i)[1] 
 	dj = inter(dst, data, j)
 
 	if(di == dj) { 
-		r[i] = di/2
-		return(r[i])
+		return(di/2)
 	} else {
-		tmp = radios(dst, data, r, j)
-		r[i] = di - tmp
+		tmp = radios(dst, data, j)
+		return(di - tmp)
 	}
-
-	return(r[i])
 }
 
 
@@ -105,7 +104,7 @@ hyperspher <- function(dst, data) {
 	names(r) = rownames(data) 
 
 	for(i in names(r)){
-		r[i] = radios(dst, data, r, i)
+		r[i] = radios(dst, data, i)
 	}
 
 	return(r)

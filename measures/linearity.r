@@ -15,7 +15,7 @@ l1 <- function(model, data) {
 		prd = predict(m, d, decision.values=TRUE)
 		err = rownames(d[prd != d$class,])
 		dst = attr(prd, "decision.values")[err,]
-		sum(abs(dst))
+		sum(abs(dst))/nrow(d)
 	}, m=model, d=data)
 
 	aux = max(aux)

@@ -32,7 +32,8 @@ f1 <- function(data) {
 		num(data, j)/den(data, j)
 	}, j=levels(data$class))
 
-	aux = rowSums(aux)
+	aux[aux == Inf] = NA
+	aux = rowSums(aux, na.rm=TRUE)
 	return(max(aux))
 }
 
@@ -103,7 +104,8 @@ removing <- function(data) {
 		col = which.max(colSums(tmp))
 		aux = rownames(tmp[tmp[,col] != TRUE, , drop = FALSE])
 		data = data[aux,- col, drop = FALSE]
-		if(nrow(data) == 0 | ncol(data) == 1)
+		if(nrow(data) == 0 | ncol(data) == 1 |
+			length(unique(data$class)) == 1)
 			break
 	}
 
