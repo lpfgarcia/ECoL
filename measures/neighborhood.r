@@ -18,7 +18,7 @@ n1 <- function(dst, data) {
 intra <- function(dst, data, i) {
 
 	tmp = rownames(data[data$class == data[i,]$class,])
-	aux = min(dst[i, setdiff(tmp, i)])
+	aux = sort(dst[i, setdiff(tmp, i)])[1]
 	return(aux)
 }
 
@@ -26,7 +26,7 @@ intra <- function(dst, data, i) {
 inter <- function(dst, data, i) {
 
 	tmp = rownames(data[data$class != data[i,]$class,])
-	aux = min(dst[i, tmp])
+	aux = sort(dst[i, tmp])[1]
 	return(aux)
 }
 
@@ -86,14 +86,14 @@ n4 <- function(dst, data) {
 radios <- function(dst, data, i) {
 
 	di = inter(dst, data, i)
-	j = setdiff(names(which(dst[i,] == di)), i)[1] 
+	j = names(di)
 	dj = inter(dst, data, j)
 
 	if(di == dj) { 
 		return(di/2)
 	} else {
 		tmp = radios(dst, data, j)
-		return(di - tmp)
+		return(dj - tmp)
 	}
 }
 
