@@ -37,11 +37,10 @@ n2 <- function(dst, data) {
 		function(i) {
 			a = intra(dst, data, i)
 			r = inter(dst, data, i)
-			return(a/r)
+			return(c(a,r))
 	})
 
-	aux[aux == Inf] = NA
-	aux = sum(aux, na.rm=TRUE)
+	aux = sum(aux[1,])/sum(aux[2,])
 	return(aux)
 }
 
