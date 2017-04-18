@@ -50,7 +50,7 @@ interpolation <- function(data) {
 			aux[1,i] = aux[1,i]*rnd + aux[2,i]*(1-rnd)
 		}
 	}
-
+# ACL - retornando o exemplo 1 simplesmente, aí provavelmente o classificador vai acertá-lo, pois estará medindo o erro de treinamento. Se, por outro lado, escolher partes de cada exemplo (como um crossover uniforme), então gerará algo realmente novo
 	return(aux[1,])
 }
 
