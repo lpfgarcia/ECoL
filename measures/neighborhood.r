@@ -87,11 +87,14 @@ radios <- function(dst, data, i) {
 	di = inter(dst, data, i)
 	j = names(di)
 	dj = inter(dst, data, j)
+	k = names(dj)
+	# ACL - modificação
 
-	if(di == dj) { 
+	if(j == k) { # ACL - modificação
 		return(di/2)
 	} else {
 		tmp = radios(dst, data, j)
+		# raio de i é a distância entre ele e j menos o raio de j, que é dado por tmp 
 		return(dj - tmp)
 	}
 }
