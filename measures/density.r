@@ -65,6 +65,7 @@ density <- function(data) {
 	})
 
 	aux = unlist(aux)
+	names(aux) = DENSITY
 	return(aux)
 }
 

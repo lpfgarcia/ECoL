@@ -25,7 +25,7 @@ mutual <- function(data) {
 }
 
 
-dimensionality <- function(data) {
+dimen <- function(data) {
 	aux = mutual(data)
 	aux = sort(aux, decreasing = TRUE)[-1]
 	aux = which(cumsum(aux)/sum(aux) >= 0.9)
@@ -34,7 +34,7 @@ dimensionality <- function(data) {
 
 
 id2 <- function(data) {
-	aux = (ncol(data) - 1 - dimensionality(data))/
+	aux = (ncol(data) - 1 - dimen(data))/
 	(ncol(data) - 1)
 	return(aux) 
 }
@@ -48,6 +48,7 @@ noise <- function(data) {
 	})
 
 	aux = unlist(aux)
+	names(aux) = NOISE
 	return(aux)
 }
 

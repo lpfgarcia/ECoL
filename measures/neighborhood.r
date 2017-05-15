@@ -90,7 +90,7 @@ radios <- function(dst, data, i) {
 	k = names(dj)
 	# ACL - modificação
 
-	if(j == k) { # ACL - modificação
+	if(i == k) { # ACL - modificação
 		return(di/2)
 	} else {
 		tmp = radios(dst, data, j)
@@ -192,6 +192,7 @@ neighborhood <- function(data) {
 	})
 
 	aux = unlist(aux)
+	names(aux) = NEIGHBORHOOD
 	return(aux)
 }
 

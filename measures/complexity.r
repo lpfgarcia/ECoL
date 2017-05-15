@@ -55,7 +55,8 @@ ovo <- function(data) {
 
 
 complexity <- function(data) {
-	c(fisher(data), linearity(data), 
+	aux = c(fisher(data), linearity(data), 
 		neighborhood(data), dimensionality(data))
+	return(aux)
 }
 

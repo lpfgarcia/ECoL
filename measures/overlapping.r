@@ -136,6 +136,7 @@ fisher <- function(data) {
 	})
 
 	aux = unlist(aux)
+	names(aux) = OVERLAPPING
 	return(aux)
 }
 

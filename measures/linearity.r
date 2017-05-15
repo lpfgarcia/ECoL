@@ -91,6 +91,7 @@ linearity <- function(data) {
 	})
 
 	aux = unlist(aux)
+	names(aux) = LINEARITY
 	return(aux)
 }
 

@@ -30,12 +30,13 @@ m3 <- function(data) {
 
 dimensionality <- function(data) {
 
-		aux = lapply(DIMENSIONALITY, 
+	aux = lapply(DIMENSIONALITY, 
 		function(i) {
 			do.call(i, list(data))
 	})
 
 	aux = unlist(aux)
+	names(aux) = DIMENSIONALITY
 	return(aux)
 }
 
