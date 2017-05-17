@@ -9,15 +9,10 @@ n1 <- function(dst, data) {
 	g = graph.adjacency(dst, weighted = TRUE)
 	tree = as.matrix(as_adj(mst(as.undirected(g))))
 
-	tmp = which(tree != 0, arr.ind = TRUE)
-	#aux = sum(data[tmp[,1],]$class != data[tmp[,2],]$class)/2
-	
-	# Corrections ACL - now I am counting the number of vertices
-        esc <- rep(FALSE,nrow(data))
-        i <- which(data[tmp[,1],]$class != data[tmp[,2],]$class)
-        esc[tmp[i,1]]<-TRUE
-        aux = sum(esc)
-  	return(aux/nrow(data))
+	tmp = which(tree != 0, arr.ind = TRUE)	
+	aux = which(data[tmp[,1],]$class != data[tmp[,2],]$class)
+	aux = length(unique(tmp[aux,1]))
+	return(aux/nrow(data))
 }
 
 
@@ -94,13 +89,11 @@ radios <- function(dst, data, i) {
 	j = names(di)
 	dj = inter(dst, data, j)
 	k = names(dj)
-	# ACL - modificação
 
-	if(i == k) { # ACL - modificação
+	if(i == k) {
 		return(di/2)
 	} else {
 		tmp = radios(dst, data, j)
-		# raio de i é a distância entre ele e j menos o raio de j, que é dado por tmp 
 		return(dj - tmp)
 	}
 }
