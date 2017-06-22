@@ -3,7 +3,7 @@
 # L. P. F. Garcia A. C. Lorena and M. de Souto 2016
 # Packages and Global Variables
 
-
+# Required packages
 require(cluster)
 require(dplyr)
 require(e1071)
