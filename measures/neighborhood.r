@@ -195,7 +195,9 @@ t2 <- function(dst, data) {
 	return(mean(aux))
 }
 
-# ???
+# Auxiliary function for computing T4
+# The radius of a sphere is the Euclidean distance from the sphere centre to the furthest sample in the sphere.
+# ??? I do not know if it is according to the previous definition
 ball <- function(r, n) {
 	(1/sqrt(n*pi))*((2*pi*exp(1)/n)^(n/2))*r^n
 }
