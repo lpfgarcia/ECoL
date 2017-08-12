@@ -130,7 +130,7 @@ removing <- function(data) {
     repeat {
         tmp = nonOverlap(data)
         col = which.max(colSums(tmp))
-        aux = rownames(tmp[tmp[,col] != TRUE, drop=FALSE])
+        aux = rownames(tmp[tmp[,col] != TRUE, , drop=FALSE])
         data = data[aux,- col, drop=FALSE]
         if(nrow(data) == 0 | ncol(data) == 1 |
             length(unique(data$class)) == 1)
