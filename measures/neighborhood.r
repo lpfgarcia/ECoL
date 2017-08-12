@@ -6,10 +6,10 @@
 
 n1 <- function(dst, data) {
 
-    g = graph.adjacency(dst, weighted = TRUE)
+    g = graph.adjacency(dst, weighted=TRUE)
     tree = as.matrix(as_adj(mst(as.undirected(g))))
 
-    tmp = which(tree != 0, arr.ind = TRUE)  
+    tmp = which(tree != 0, arr.ind=TRUE)  
     aux = which(data[tmp[,1],]$class != data[tmp[,2],]$class)
     aux = length(unique(tmp[aux,1]))
     return(aux/nrow(data))
@@ -187,7 +187,6 @@ t4 <- function(dst, data) {
 
 neighborhood <- function(data) {
 
-    data = normalize(data)
     dst = dist(data[,-ncol(data)])
 
     aux = lapply(NEIGHBORHOOD, 

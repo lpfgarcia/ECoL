@@ -19,7 +19,7 @@ DIR = getwd()
 files = list.files(paste(DIR, "/database", sep=""), full.names = TRUE)
 
 # measures based on dimensionality
-DIMENSIONALITY = c("m1", "m2", "m3")
+DIMENSIONALITY = c("m3")
 
 # density measures
 DENSITY = c("d2", "d3")

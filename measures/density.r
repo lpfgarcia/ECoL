@@ -73,7 +73,7 @@ d3 <- function(dst, data, k=3) {
 
 density <- function(data) {
 
-    data = normalize(data)
+    data = binarize(data)
     dst = dist(data[,-ncol(data)])
 
     aux = lapply(DENSITY, 

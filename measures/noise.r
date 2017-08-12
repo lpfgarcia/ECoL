@@ -55,7 +55,6 @@ id2 <- function(data) {
 
 noise <- function(data) {
 
-    data = normalize(data)
     aux = lapply(NOISE, 
         function(i) {
             do.call(i, list(data))

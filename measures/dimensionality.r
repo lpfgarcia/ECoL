@@ -18,7 +18,7 @@
 
 pca <- function(data) {
 
-    aux = prcomp(data[,-ncol(data)])$sdev
+    aux = prcomp(data[,-ncol(data)], scale=TRUE)$sdev
     aux = which(cumsum(aux)/sum(aux) >= 0.95)
     return(aux[1])
 }
@@ -31,7 +31,7 @@ m3 <- function(data) {
 
 dimensionality <- function(data) {
 
-    data = binarize(normalize(data))
+    data = binarize(data)
     aux = lapply(DIMENSIONALITY, 
         function(i) {
             do.call(i, list(data))

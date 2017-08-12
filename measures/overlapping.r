@@ -156,7 +156,7 @@ f4 <- function(data) {
 
 fisher <- function(data) {
 
-    data = binarize(normalize(data))
+    data = binarize(data)
     aux = lapply(OVERLAPPING, 
         function(i) {
             do.call(i, list(data))

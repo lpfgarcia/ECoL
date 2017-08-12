@@ -20,7 +20,7 @@ rowMax <- function(data) {
 
 
 dist <- function(data) {
-    as.matrix(daisy(as.matrix(data), metric="gower", stand=TRUE))
+    as.matrix(daisy(data, metric="gower", stand=TRUE))
 }
 
 
@@ -37,18 +37,6 @@ binarize <- function(data) {
     aux = model.matrix(form(data), data)
     aux = data.frame(aux, class=data$class)
     return(aux)
-}
-
-
-normalize <- function(data) {
-
-    for(i in 1:ncol(data)) {
-        if(is.numeric(data[,i])) {
-            data[,i] = scale(data[,i])
-        }
-    }
-
-    return(data)
 }
 
 
