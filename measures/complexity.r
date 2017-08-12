@@ -23,7 +23,7 @@ dist <- function(data) {
     as.matrix(daisy(data, metric="gower", stand=TRUE))
 }
 
-# ???
+
 form <- function(data) {
 
     att = paste(colnames(data)[-ncol(data)], collapse="+")
@@ -31,7 +31,7 @@ form <- function(data) {
     return(aux)
 }
 
-# ???
+
 binarize <- function(data) {
 
     aux = model.matrix(form(data), data)
@@ -55,6 +55,7 @@ ovo <- function(data) {
 
 
 complexity <- function(data) {
+
     aux = c(fisher(data), linearity(data), 
         neighborhood(data), dimensionality(data))
     return(aux)
