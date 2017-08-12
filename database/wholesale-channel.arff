@@ -6,7 +6,7 @@
 @attribute V5 numeric
 @attribute V6 numeric
 @attribute V7 numeric
-@attribute Class {'1','2'}
+@attribute class {'1','2'}
 @data
 3,12669,9656,7561,214,2674,1338,'2'
 3,7057,9810,9568,1762,3293,1776,'2'

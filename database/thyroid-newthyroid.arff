@@ -4,7 +4,7 @@
 @attribute V3 numeric
 @attribute V4 numeric
 @attribute V5 numeric
-@attribute Class {'1','2','3'}
+@attribute class {'1','2','3'}
 @data
 107,10.1,2.2,0.9,2.7,'1'
 113,9.9,3.1,2,5.9,'1'

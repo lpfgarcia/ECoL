@@ -12,7 +12,7 @@
 @attribute V11 numeric
 @attribute V12 numeric
 @attribute V13 numeric
-@attribute Class {'1','2'}
+@attribute class {'1','2'}
 @data
 28,1,2,31,3,2,4,54,2,0,1,1,1,'1'
 29,1,2,23,28,2,2,36,2,0,1,1,1,'1'

@@ -3,7 +3,7 @@
 @attribute V2 numeric
 @attribute V3 numeric
 @attribute V4 numeric
-@attribute Class {'1','2'}
+@attribute class {'1','2'}
 @data
 3.6216,8.6661,-2.8073,-0.44699,'1'
 4.5459,8.1674,-2.4586,-1.4621,'1'

@@ -8,7 +8,7 @@
 @attribute V7 numeric
 @attribute V8 numeric
 @attribute V9 numeric
-@attribute Class {'1','2'}
+@attribute class {'1','2'}
 @data
 -0.33,0.69,0,1,1,0,0.8,0,0.88,'1'
 -0.33,0.94,1,0,1,0,0.8,1,0.31,'2'
