@@ -21,7 +21,7 @@ smo <- function(data) {
 
 
 hyperretangle <- function(data) {
-    data <- data[-data$class]
+    data = data[,-ncol(data)]
     aux = sqrt(sum((colMax(data)-colMin(data))^2))
     return(aux)
 }
