@@ -187,6 +187,7 @@ t4 <- function(dst, data) {
 
 neighborhood <- function(data) {
 
+    data = normalize(data)
     dst = dist(data[,-ncol(data)])
 
     aux = lapply(NEIGHBORHOOD, 

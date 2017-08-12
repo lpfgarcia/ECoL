@@ -2,7 +2,7 @@
 # Measures based on Density
 # L. P. F. Garcia A. C. Lorena and M. de Souto 2016
 # The set of Measues based on density
-
+#
 # These measures are based on the paper: 
 #@article{sotoca2006meta,
 #  title={A meta-learning framework for pattern classication by means of data complexity measures},
@@ -16,39 +16,39 @@
 
 # Auxiliary function for computing D2
 volume <- function(data) {
-	data = data[,-ncol(data)] # removing the label column
-	prod(colMax(data) - colMin(data)) # taking the volume
+    data = data[,-ncol(data)] # removing the label column
+    prod(colMax(data) - colMin(data)) # taking the volume
 }
 
 # Volume of local neighborhood (D2)
 # This measure represents the average volume occupied by the k nearest neighbors of each training instance
 d2 <- function(dst, data, k=3) {
 
-	aux = unlist(
-		lapply(rownames(data), 
-			function(i) {
-				tmp = knn(dst, data, k, i) # taking the 3 nearest neighbors of each example 
-				volume(data[names(tmp),]) # computing the volume they occupy
-		})
-	)
+    aux = unlist(
+        lapply(rownames(data), 
+            function(i) {
+                tmp = knn(dst, data, k, i) # taking the 3 nearest neighbors of each example 
+                volume(data[names(tmp),]) # computing the volume they occupy
+        })
+    )
          
-	return(mean(aux)) # takes the average of the volumes
+    return(mean(aux)) # takes the average of the volumes
 }
 
 
 voting <- function(pred, data) {
 
-	if(max(table(pred)) >= 2) {
-		return(which.max(table(pred)))
-	} else {
-		return(data[i,]$class)
-	}
+    if(max(table(pred)) >= 2) {
+        return(which.max(table(pred)))
+    } else {
+        return(data[i,]$class)
+    }
 }
 
 # Auxiliary function for computing D3
 lying <- function(pred, data) {
-	aux = table(pred, data$class) # comparing the majority voting predictions to the actual class of each instance
-	sum(aux) - sum(diag(aux)) # taking the number of erroneous predictions
+    aux = table(pred, data$class) # comparing the majority voting predictions to the actual class of each instance
+    sum(aux) - sum(diag(aux)) # taking the number of erroneous predictions
 }
 
 # Class density in overlap region (D3)
@@ -57,30 +57,30 @@ lying <- function(pred, data) {
 # D3 can be measured by counting, for each class, the number of points lying in the region of some different class.
 d3 <- function(dst, data, k=3) {
 
-	aux = unlist(
-		lapply(rownames(data), 
-			function(i) {
-				tmp = knn(dst, data, k, i) # taking the k nearest neighbors of each example
-				voting(tmp, data) # taking the majority of the neighbors labels
-		})
-	)
+    aux = unlist(
+        lapply(rownames(data), 
+            function(i) {
+                tmp = knn(dst, data, k, i) # taking the k nearest neighbors of each example
+                voting(tmp, data) # taking the majority of the neighbors labels
+        })
+    )
 
-	aux = lying(names(aux), data)
-	return(aux)
+    aux = lying(names(aux), data)
+    return(aux)
 }
 
 # Auxiliary function for applying all density measures
 density <- function(data) {
 
-	dst = dist(data[,-ncol(data)]) # computing the distance matrix (disregarding the labels)
+    dst = dist(data[,-ncol(data)]) # computing the distance matrix (disregarding the labels)
 
-	aux = lapply(DENSITY, 
-		function(i) {
-			do.call(i, list(dst, data))
-	})
+    aux = lapply(DENSITY, 
+        function(i) {
+            do.call(i, list(dst, data))
+    })
 
-	aux = unlist(aux)
-	names(aux) = DENSITY
-	return(aux)
+    aux = unlist(aux)
+    names(aux) = DENSITY
+    return(aux)
 }
 

@@ -1,6 +1,6 @@
 # R Code
 # Measures of Linearity
-# L. P. F. Garcia A. C. Lorena and M. de Souto 2016
+# L. P. F. Garcia A. C. Lorena and M. de Souto 2017
 # The set of Linearity and Non Linearity Measures
 #
 #@article{ho2002complexity,
