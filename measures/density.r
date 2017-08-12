@@ -14,6 +14,7 @@
 #  publisher={Asociaci{\'o}n Espa{\~n}ola para la Inteligencia Artificial}
 #}
 
+
 # Auxiliary function for computing D2
 volume <- function(data) {
     data = data[,-ncol(data)] # removing the label column
@@ -69,10 +70,11 @@ d3 <- function(dst, data, k=3) {
     return(aux)
 }
 
-# Auxiliary function for applying all density measures
+
 density <- function(data) {
 
-    dst = dist(data[,-ncol(data)]) # computing the distance matrix (disregarding the labels)
+    data = normalize(data)
+    dst = dist(data[,-ncol(data)])
 
     aux = lapply(DENSITY, 
         function(i) {
