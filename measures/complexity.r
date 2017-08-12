@@ -20,7 +20,7 @@ rowMax <- function(data) {
 
 
 dist <- function(data) {
-    as.matrix(daisy(data, metric="gower", stand=TRUE))
+    as.matrix(daisy(as.matrix(data), metric="gower", stand=TRUE))
 }
 
 

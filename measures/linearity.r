@@ -60,7 +60,7 @@ l2 <- function(model, data) {
 interpolation <- function(data) {
 
     aux = sample(levels(data$class), 1)
-    aux = filter(data, class == aux) %>% sample_n(., 2)
+    aux = data[data$class == aux,] %>% sample_n(., 2)
 
     for(i in 1:(ncol(data)-1)) {
         if(is.numeric(data[,i])) {
