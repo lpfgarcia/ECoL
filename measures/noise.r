@@ -25,6 +25,7 @@ id1 <- function(data) {
     return(aux)
 }
 
+
 mutual <- function(data) {
 
     aux = sapply(data, function(i) {
@@ -35,12 +36,14 @@ mutual <- function(data) {
     return(aux)
 }
 
+
 dimen <- function(data) {
     aux = mutual(data)
-    aux = sort(aux, decreasing = TRUE)[-1]
+    aux = sort(aux, decreasing=TRUE)[-1]
     aux = which(cumsum(aux)/sum(aux) >= 0.9)
     return(aux[1])
 }
+
 
 # Feature noise (ID2)
 id2 <- function(data) {
@@ -52,6 +55,7 @@ id2 <- function(data) {
 
 noise <- function(data) {
 
+    data = normalize(data)
     aux = lapply(NOISE, 
         function(i) {
             do.call(i, list(data))

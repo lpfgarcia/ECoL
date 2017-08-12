@@ -40,6 +40,18 @@ binarize <- function(data) {
 }
 
 
+normalize <- function(data) {
+
+    for(i in 1:ncol(data)) {
+        if(is.numeric(data[,i])) {
+            data[,i] = scale(data[,i])
+        }
+    }
+
+    return(data)
+}
+
+
 ovo <- function(data) {
 
     aux = combn(levels(data$class), 2)
