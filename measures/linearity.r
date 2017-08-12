@@ -23,13 +23,13 @@ smo <- function(data) {
 
 # Auxiliary function for computing the diagonal of hyperretangle containing all data
 # ??? Please see if it is correct (takes two vectors: with maximumns and minimuns per column. Then computes their euclidean distance.
-hyperretangle(data){
+hyperretangle <- function(data) {
        data <- data[-data$class] # removing the labels
        # taking the maximums per column
        max <- colMax(data)
        # taking the minimums per column
        min <- colMin(data)
-       return(sqrt(sum((max-min)^2)))) # size of the diagonal
+       return(sqrt(sum((max-min)^2))) # size of the diagonal
 }
 
 # Minimized sum of error distance by linear programming (L1)

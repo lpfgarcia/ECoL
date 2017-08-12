@@ -210,7 +210,7 @@ t4 <- function(dst, data) {
 	r = hyperspher(dst, data)
 	aux = adherence(translate(dst, r), data)
 	tmp = aux/ball(r[names(aux)], ncol(data)-1)
-	return(std(tmp)) # you took the mean, but according to the description, you should take the standard deviation
+	return(sd(tmp))
 }
 
 # Applying all neighborhood functions

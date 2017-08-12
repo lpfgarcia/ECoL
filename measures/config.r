@@ -1,6 +1,6 @@
 # R Code
 # Config File 
-# L. P. F. Garcia A. C. Lorena and M. de Souto 2016
+# L. P. F. Garcia A. C. Lorena and M. de Souto 2017
 # Packages and Global Variables
 
 # Required packages
@@ -35,4 +35,9 @@ NOISE = c("id1", "id2")
 
 # overlapping measures
 OVERLAPPING = c("f1", "f2", "f3", "f4")
+
+# graph measures
+NETWORK = c("edges", "avg_degree", "density", "max_componet", 
+    "avg_closeness", "avg_betweenness", "avg_hub", 
+    "cluster_coefficient", "avg_path_length")
 
