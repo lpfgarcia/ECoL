@@ -65,6 +65,13 @@ f1 <- function(data) {
 }
 
 
+f1v <- function(data) {
+    aux = predict(lda(class ~., data), data)
+    data = data.frame(aux$x, class=data$class)
+    f1(data)
+}
+
+
 regionOver <- function(data) {
 
     l = levels(data$class)
