@@ -6,29 +6,29 @@
 
 setup <- function() {
 
-	aux = list.files("measures/", recursive=TRUE, full.name=TRUE)
-	for(i in aux)
-		source(i)
+    aux = list.files("measures/", recursive=TRUE, full.name=TRUE)
+    for(i in aux)
+        source(i)
 }
 
 
 run <- function(...) {
 
-	lapply(files, function(file) {
-		cat(basename(file), "\n")
-			data = read.arff(file)
-			print(complexity(data))
-		cat("\n")
-	})
+    lapply(files, function(file) {
+        cat(basename(file), "\n")
+            data = read.arff(file)
+            print(complexity(data))
+        cat("\n")
+    })
 }
 
 
 setup()
 aux = commandArgs(TRUE)
 if(length(aux) == 0) {
-	run()
+    run()
 } else {
-	files = paste(DIR, "/database/", aux[1], sep="")
-	run(files)
+    files = paste(DIR, "/database/", aux[1], sep="")
+    run(files)
 }
 
