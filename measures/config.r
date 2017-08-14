@@ -10,6 +10,7 @@ require(e1071)
 require(foreign)
 require(igraph)
 require(infotheo)
+require(MASS)
 
 
 # directory
