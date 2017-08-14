@@ -29,6 +29,21 @@ m3 <- function(data) {
 }
 
 
+c1 <- function(data) {
+
+    lapply(summary(data$class), )
+
+    aux = unlist(
+        lapply(table(data$class), function(i) {
+            (i/nrow(data))*log(i/nrow(data))
+        })
+    )
+
+    aux = (-1/log(nlevels(data$class)))*sum(aux)
+    return(aux)
+}
+
+
 dimensionality <- function(data) {
 
     data = binarize(data)
