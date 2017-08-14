@@ -31,8 +31,6 @@ m3 <- function(data) {
 
 c1 <- function(data) {
 
-    lapply(summary(data$class), )
-
     aux = unlist(
         lapply(table(data$class), function(i) {
             (i/nrow(data))*log(i/nrow(data))
