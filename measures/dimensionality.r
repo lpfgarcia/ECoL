@@ -24,6 +24,16 @@ pca <- function(data) {
 }
 
 
+m1 <- function(data) {
+    (ncol(data)-1)/nrow(data)
+}
+
+
+m2 <- function(data) {
+    pca(data)/nrow(data)
+}
+
+
 m3 <- function(data) {
     pca(data)/(ncol(data)-1)
 }
@@ -31,13 +41,9 @@ m3 <- function(data) {
 
 c1 <- function(data) {
 
-    aux = unlist(
-        lapply(table(data$class), function(i) {
-            (i/nrow(data))*log(i/nrow(data))
-        })
-    )
-
-    aux = (-1/log(nlevels(data$class)))*sum(aux)
+    c = (-1/log(nlevels(data$class)))
+    i = table(data$class)/nrow(data)
+    aux = c*sum(i*log(i))
     return(aux)
 }
 

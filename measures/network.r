@@ -54,27 +54,27 @@ avg_path_length <- function(graph) {
 }
 
 
-eNN <- function(data, epson=0.15) {
+eNN <- function(data, e=0.15) {
 
     dst = dist(data[,-ncol(data)])
-    aux = matrix(0, nrow(data), nrow(data), dimnames=list(rownames(data), rownames(data)))
+    e = e*nrow(data)
 
-    for(i in 1:nrow(aux)) {
-        
-        x = names(sort(dst[i,])[1:(epson*nrow(data))+1])
+    for(i in 1:nrow(dst)) {
+
+        x = names(sort(dst[i,])[1:e+1])
         y = rownames(data[data$class == data[i,]$class,])
-        z = intersect(x, y)
-        aux[i, z] = 1
+        dst[i,] = 0
+        dst[i, intersect(x, y)] = 1
     }
 
     return(aux)
 }
 
 
-network <- function(data, epson) {
+network <- function(data, e) {
 
-    mat = eNN(data, epson)
-    graph = graph.adjacency(mat, mode="undirected")
+    graph = eNN(data, e)
+    graph = graph.adjacency(graph, mode="undirected")
 
     aux = lapply(NETWORK, 
         function(i) {
