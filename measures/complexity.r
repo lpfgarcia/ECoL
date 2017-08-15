@@ -20,7 +20,7 @@ rowMax <- function(data) {
 
 
 dist <- function(data) {
-    as.matrix(daisy(data, metric="gower", stand=TRUE))
+    as.matrix(daisy(data, metric="gower"))
 }
 
 
@@ -40,6 +40,16 @@ binarize <- function(data) {
 }
 
 
+normalize <- function(data) {
+
+    for(i in 1:(ncol(data)-1))
+        if(is.numeric(data[,i]))
+            data[,i] = as.vector(scale(data[,i]))
+
+    return(data)
+}
+
+
 ovo <- function(data) {
 
     aux = combn(levels(data$class), 2)
@@ -56,6 +66,7 @@ ovo <- function(data) {
 
 complexity <- function(data) {
 
+    data = normalize(data)
     aux = c(fisher(data), linearity(data), 
         neighborhood(data), dimensionality(data))
     return(aux)
