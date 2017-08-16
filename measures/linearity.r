@@ -100,7 +100,7 @@ l3 <- function(model, data) {
 
 linearity <- function(data) {
 
-	data = binarize(data)
+    data = binarize(data)
 
     data = ovo(data)
     model = lapply(data, smo)
