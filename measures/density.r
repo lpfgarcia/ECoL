@@ -15,25 +15,24 @@
 #}
 
 
-# Auxiliary function for computing D2
 volume <- function(data) {
-    data = data[,-ncol(data)] # removing the label column
-    prod(colMax(data) - colMin(data)) # taking the volume
+    data = data[,-ncol(data)]
+    prod(colMax(data) - colMin(data))
 }
 
+
 # Volume of local neighborhood (D2)
-# This measure represents the average volume occupied by the k nearest neighbors of each training instance
 d2 <- function(dst, data, k=3) {
 
     aux = unlist(
-        lapply(rownames(data), 
+        lapply(rownames(data),
             function(i) {
-                tmp = knn(dst, data, k, i) # taking the 3 nearest neighbors of each example 
-                volume(data[names(tmp),]) # computing the volume they occupy
+                tmp = knn(dst, data, k, i)
+                volume(data[names(tmp),])
         })
     )
-         
-    return(mean(aux)) # takes the average of the volumes
+
+    return(mean(aux))
 }
 
 
@@ -46,23 +45,22 @@ voting <- function(pred, data) {
     }
 }
 
+
 # Auxiliary function for computing D3
 lying <- function(pred, data) {
-    aux = table(pred, data$class) # comparing the majority voting predictions to the actual class of each instance
-    sum(aux) - sum(diag(aux)) # taking the number of erroneous predictions
+    aux = table(pred, data$class)
+    sum(aux) - sum(diag(aux))
 }
 
+
 # Class density in overlap region (D3)
-# The aim of this measure is to determine the den- sity of each class in the overlap regions. Based on Wilson’s editing.
-# Finds the k nearest neighbors of each example (xi,ωi). If a majority of these k neighbors belong to a class different from ωi, we can consider that (xi,ωi) lies in an overlap region. 
-# D3 can be measured by counting, for each class, the number of points lying in the region of some different class.
 d3 <- function(dst, data, k=3) {
 
     aux = unlist(
-        lapply(rownames(data), 
+        lapply(rownames(data),
             function(i) {
-                tmp = knn(dst, data, k, i) # taking the k nearest neighbors of each example
-                voting(tmp, data) # taking the majority of the neighbors labels
+                tmp = knn(dst, data, k, i)
+                voting(tmp, data)
         })
     )
 
