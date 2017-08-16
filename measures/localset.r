@@ -28,3 +28,4 @@ localset <- function(data) {
     names(aux) = LOCALSET
     return(aux)
 }
+

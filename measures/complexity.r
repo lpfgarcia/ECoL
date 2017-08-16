@@ -44,7 +44,7 @@ normalize <- function(data) {
 
     for(i in 1:(ncol(data)-1))
         if(is.numeric(data[,i]))
-            data[,i] = as.vector(scale(data[,i]))
+            data[,i] = as.numeric(scale(data[,i]))
 
     return(data)
 }
