@@ -38,18 +38,9 @@ d2 <- function(dst, data, k=3) {
 
 voting <- function(pred, data, i) {
 
-    if(max(table(pred)) >= 2) {
+    if(max(table(pred)) >= 2)
         return(which.max(table(pred)))
-    } else {
-        return(data[i,]$class)
-    }
-}
-
-
-# Auxiliary function for computing D3
-lying <- function(pred, data) {
-    aux = table(pred, data$class)
-    sum(aux) - sum(diag(aux))
+    return(data[i,]$class)
 }
 
 
@@ -64,7 +55,7 @@ d3 <- function(dst, data, k=3) {
         })
     )
 
-    aux = lying(names(aux), data)/nrow(data)
+    aux = mean(aux != data$class)
     return(aux)
 }
 
