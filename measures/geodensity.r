@@ -1,6 +1,6 @@
 # R Code
 # Measures based on Density
-# L. P. F. Garcia A. C. Lorena and M. de Souto 2016
+# L. P. F. Garcia A. C. Lorena and M. de Souto 2017
 # The set of Measues based on density
 #
 # These measures are based on the paper: 
@@ -16,8 +16,11 @@
 
 
 volume <- function(data) {
-    data = data[,-ncol(data)]
-    prod(colMax(data) - colMin(data))
+    apply(data, 2, function(i) {
+        if(is.numeric(i))
+            max(i) - min(i)
+        length(unique(i))
+    })
 }
 
 
@@ -28,7 +31,7 @@ d2 <- function(dst, data, k=3) {
         lapply(rownames(data),
             function(i) {
                 tmp = knn(dst, data, k, i)
-                volume(data[names(tmp),])
+                volume(data[names(tmp), -ncol(data)])
         })
     )
 
@@ -62,9 +65,7 @@ d3 <- function(dst, data, k=3) {
 
 geodensity <- function(data) {
 
-    data = binarize(data)
     dst = dist(data[,-ncol(data)])
-
     aux = lapply(GEODENSITY, 
         function(i) {
             do.call(i, list(dst, data))
