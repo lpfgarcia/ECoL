@@ -2,13 +2,13 @@
 
 Data Complexity Library in R
 
-## Technical Requirements
+### Technical Requirements
 
 R version 3.4.1 (2017-06-30) -- "Single Candle"
 
 Packages: cluster, dplyr, e1071, foreign, igraph, infotheo and MASS
 
-## Set the experiments
+### Set the experiments
 
 Install the packages:
 
@@ -17,14 +17,14 @@ install.packages(c("cluster", "dplyr", "e1071", "foreign", "igraph", "infotheo",
 
 ```
 
-## Run the complexity measures for the datasets
+### Run the complexity measures for the datasets
 
 ```
 source("~/DCoL/run.r")
 run()
 
 ```
-## Run the experiments for a given dataset
+### Run the experiments for a given dataset
 
 ```
 source("~/DCoL/run.r")
@@ -38,9 +38,9 @@ complexity(data)
 
 ### Contact
 
-Luis Paulo Faina Garcia - lpfgarcia [at] gmail.com
+Luis Paulo Faina Garcia - garcia [at] informatik [dot] uni-leipzig [dot] de
 
-University of São Paulo - Campus São Carlos
+University of Leipzig
 
 
 ### References
@@ -49,5 +49,5 @@ University of São Paulo - Campus São Carlos
 
 [2] Vanschoren, J., Rijn, J., Bischl, B., and Torgo, Luis. (2013) OpenML: networked science in machine learning. SIGKDD Explorations, 15(2):49-60.
 
-[4]   R Core Team (2017). R: A language and environment for statistical computing. R Foundation for Statistical Computing, Vienna, Austria.  URL https://www.R-project.org/.
+[3]   R Core Team (2017). R: A language and environment for statistical computing. R Foundation for Statistical Computing, Vienna, Austria.  URL https://www.R-project.org/.
 
