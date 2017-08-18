@@ -24,7 +24,7 @@ source("~/DCoL/run.r")
 run()
 
 ```
-### Run the experiments for a given dataset
+### Run the complexity measures for a given dataset
 
 ```
 source("~/DCoL/run.r")
