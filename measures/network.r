@@ -67,7 +67,7 @@ eNN <- function(data, e=0.15) {
         dst[i, intersect(x, y)] = 1
     }
 
-    return(aux)
+    return(dst)
 }
 
 
