@@ -47,7 +47,7 @@ University of Leipzig
 
 [1] Ho, T. and Basu, M. (2002). Complexity measures of supervised classification problems. IEEE Trans. on Pattern Analysis and Machine Intelligence, 24(3):289-300.
 
-[2] Vanschoren, J., Rijn, J., Bischl, B., and Torgo, Luis. (2013) OpenML: networked science in machine learning. SIGKDD Explorations, 15(2):49-60.
+[2] Vanschoren, J., Rijn, J., Bischl, B. and Torgo, Luis. (2013). OpenML: networked science in machine learning. SIGKDD Explorations, 15(2):49-60.
 
 [3]   R Core Team (2017). R: A language and environment for statistical computing. R Foundation for Statistical Computing, Vienna, Austria.  URL https://www.R-project.org/.
 
