@@ -36,7 +36,7 @@ d2 <- function(dst, data, k=3) {
 }
 
 
-voting <- function(pred, data) {
+voting <- function(pred, data, i) {
 
     if(max(table(pred)) >= 2) {
         return(which.max(table(pred)))
@@ -60,11 +60,11 @@ d3 <- function(dst, data, k=3) {
         lapply(rownames(data),
             function(i) {
                 tmp = knn(dst, data, k, i)
-                voting(tmp, data)
+                voting(tmp, data, i)
         })
     )
 
-    aux = lying(names(aux), data)
+    aux = lying(names(aux), data)/nrow(data)
     return(aux)
 }
 
