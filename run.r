@@ -24,11 +24,4 @@ run <- function(...) {
 
 
 setup()
-aux = commandArgs(TRUE)
-if(length(aux) == 0) {
-    run()
-} else {
-    files = paste(DIR, "/database/", aux[1], sep="")
-    run(files)
-}
 
