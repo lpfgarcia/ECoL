@@ -2,17 +2,6 @@
 # Measures of Linearity
 # L. P. F. Garcia A. C. Lorena and M. de Souto 2017
 # The set of Linearity and Non Linearity Measures
-#
-#@article{ho2002complexity,
-#  title={Complexity measures of supervised classification problems},
-#  author={Ho, Tin Kam and Basu, Mitra},
-#  journal={IEEE transactions on pattern analysis and machine intelligence},
-#  volume={24},
-#  number={3},
-#  pages={289--300},
-#  year={2002},
-#  publisher={IEEE}
-#}
 
 
 smo <- function(data) {
