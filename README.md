@@ -15,6 +15,11 @@ Install the packages:
 ```
 install.packages(c("cluster", "dplyr", "e1071", "foreign", "igraph", "infotheo", "MASS"))
 ```
+### Load the complexity measures
+
+```
+source("~/DCoL/run.r")
+```
 
 ### Run the complexity measures for the datasets
 
