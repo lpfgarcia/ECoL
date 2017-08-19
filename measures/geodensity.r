@@ -5,11 +5,13 @@
 
 
 volume <- function(data) {
-    apply(data, 2, function(i) {
-        if(is.numeric(i))
-            max(i) - min(i)
-        length(unique(i))
-    })
+    prod(
+        apply(data, 2, function(i) {
+            if(is.numeric(i))
+                max(i) - min(i)
+            length(unique(i))
+        })
+    )
 }
 
 
