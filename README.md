@@ -41,7 +41,9 @@ complexity(data)
 
 ### Contact
 
-Luis Paulo Faina Garcia - garcia [at] informatik [dot] uni-leipzig [dot] de
+Luis P. F. Garcia: garcia [at] informatik [dot] uni-leipzig [dot] de
+Ana C. Lorena: aclorena [at] unifesp [dot] br
+Marcilio de Souto: marcilio [dot] desouto [at] univ-orleans [dot] fr 
 
 University of Leipzig
 
