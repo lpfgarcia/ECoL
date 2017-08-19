@@ -17,7 +17,7 @@ require(MASS)
 DIR = getwd()
 
 # datasets
-files = list.files(paste(DIR, "/database", sep=""), full.names = TRUE)
+files = list.files(paste(DIR, "/database", sep=""), full.names=TRUE)
 
 # dimensionality measures 
 DIMENSIONALITY = c("m1", "m2", "m3", "c1")
