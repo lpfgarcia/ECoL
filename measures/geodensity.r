@@ -2,17 +2,6 @@
 # Measures based on Density
 # L. P. F. Garcia A. C. Lorena and M. de Souto 2017
 # The set of Measues based on density
-#
-# These measures are based on the paper: 
-#@article{sotoca2006meta,
-#  title={A meta-learning framework for pattern classication by means of data complexity measures},
-#  author={Sotoca, Jos{\'e} Mart{\'\i}nez and Mollineda, Ram{\'o}n Alberto and S{\'a}nchez, Jos{\'e} Salvador},
-#  journal={Inteligencia Artificial. Revista Iberoamericana de Inteligencia Artificial},
-#  volume={10},
-#  number={29},
-#  year={2006},
-#  publisher={Asociaci{\'o}n Espa{\~n}ola para la Inteligencia Artificial}
-#}
 
 
 volume <- function(data) {
@@ -24,7 +13,6 @@ volume <- function(data) {
 }
 
 
-# Volume of local neighborhood (D2)
 d2 <- function(dst, data, k=3) {
 
     aux = unlist(
@@ -47,7 +35,6 @@ voting <- function(pred, data, i) {
 }
 
 
-# Class density in overlap region (D3)
 d3 <- function(dst, data, k=3) {
 
     aux = unlist(
