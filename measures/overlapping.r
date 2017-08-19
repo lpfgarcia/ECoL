@@ -2,33 +2,6 @@
 # Overlapping Measures
 # L. P. F. Garcia A. C. Lorena and M. de Souto 2017
 # The set of Overlapping Measures
-#
-#@article{ho2002complexity,
-#  title={Complexity measures of supervised classification problems},
-#  author={Ho, Tin Kam and Basu, Mitra},
-#  journal={IEEE transactions on pattern analysis and machine intelligence},
-#  volume={24},
-#  number={3},
-#  pages={289--300},
-#  year={2002},
-#  publisher={IEEE}
-#}
-#
-#@article{sotoca2005review,
-#  title={A review of data complexity measures and their applicability to pattern classification problems},
-#  author={Sotoca, JM and Sanchez, JS and Mollineda, RA},
-#  journal={Actas del III Taller Nacional de Mineria de Datos y Aprendizaje. TAMIDA},
-#  pages={77--83},
-#  year={2005}
-#}
-#
-#@article{orriols2010documentation,
-#  title={Documentation for the data complexity library in C++},
-#  author={Orriols-Puig, Albert and Macia, Nuria and Ho, Tin Kam},
-#  journal={Universitat Ramon Llull, La Salle},
-#  volume={196},
-#  year={2010}
-#}
 
 
 branch <- function(data, j) {
@@ -93,8 +66,7 @@ f2 <- function(data) {
 
     data = ovo(data)
     aux = unlist(lapply(data, regionOver))
-    return(mean(aux)) # sum is not comparable 
-    # ??? take the maximum???
+    return(mean(aux))
 }
 
 
@@ -127,7 +99,7 @@ f3 <- function(data) {
         colSums(nonOverlap(d))/nrow(d)
     }, d=data)
 
-    aux = mean(colMax(aux)) # ??? take the average or maximum?
+    aux = mean(colMax(aux))
     return(aux)
 }
 
