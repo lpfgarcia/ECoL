@@ -13,7 +13,7 @@ Packages: cluster, dplyr, e1071, foreign, igraph, infotheo and MASS
 Install the packages:
 
 ```
-install.packages(c("cluster", "dplyr", "e1071", "foreign", "igraph", "infotheo", "MASS"))
+install.packages(c("dplyr", "e1071", "igraph", "infotheo"))
 ```
 ### Load the complexity measures
 
