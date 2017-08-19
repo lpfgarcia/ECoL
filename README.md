@@ -6,7 +6,7 @@ Data Complexity Library in R
 
 R version 3.4.1 (2017-06-30) -- "Single Candle"
 
-Packages: cluster, dplyr, e1071, foreign, igraph, infotheo and MASS
+Packages: dplyr, e1071, igraph and infotheo
 
 ### Set the experiments
 
