@@ -42,10 +42,10 @@ complexity(data)
 ### Contact
 
 Luis P. F. Garcia: garcia [at] informatik [dot] uni-leipzig [dot] de
-Ana C. Lorena: aclorena [at] unifesp [dot] br
-Marcilio de Souto: marcilio [dot] desouto [at] univ-orleans [dot] fr 
 
-University of Leipzig
+Ana C. Lorena: aclorena [at] unifesp [dot] br
+
+Marcilio de Souto: marcilio [dot] desouto [at] univ-orleans [dot] fr
 
 
 ### References
