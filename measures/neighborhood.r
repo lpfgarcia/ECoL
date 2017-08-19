@@ -126,6 +126,7 @@ translate <- function(dst, r) {
     return(aux)
 }
 
+
 adherence <- function(adh, data) {
 
     h = n = c()
@@ -159,8 +160,6 @@ t1 <- function(dst, data) {
 }
 
 
-# T2 from Van der Walts
-# Average number of samples per group (adherence subset)
 t2 <- function(dst, data) {
 
     r = hyperspher(dst, data)
@@ -174,8 +173,6 @@ ball <- function(r, n) {
 }
 
 
-# T4 from Van der Walts -Inter-class scale variation 
-# Density of the hyper-spheres retained
 t4 <- function(dst, data) {
 
     r = hyperspher(dst, data)
