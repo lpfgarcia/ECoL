@@ -5,13 +5,7 @@
 
 
 volume <- function(data) {
-    prod(
-        apply(data, 2, function(i) {
-            if(is.numeric(i))
-                max(i) - min(i)
-            length(unique(i))
-        })
-    )
+    prod(colMax(data) - colMin(data))
 }
 
 
@@ -54,6 +48,7 @@ d3 <- function(dst, data, k=3) {
 
 geodensity <- function(data) {
 
+    data = binarize(data)
     dst = dist(data[,-ncol(data)])
     aux = lapply(GEODENSITY, 
         function(i) {
