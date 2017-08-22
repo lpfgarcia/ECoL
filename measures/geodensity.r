@@ -5,6 +5,7 @@
 
 
 volume <- function(data) {
+    data = data[,-ncol(data)]
     prod(colMax(data) - colMin(data))
 }
 
@@ -15,7 +16,7 @@ d2 <- function(dst, data, k=3) {
         lapply(rownames(data),
             function(i) {
                 tmp = knn(dst, data, k, i)
-                volume(data[names(tmp), -ncol(data)])
+                volume(data[names(tmp),])
         })
     )
 
