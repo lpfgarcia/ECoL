@@ -39,9 +39,6 @@ NETWORK = c("edges", "avg_degree", "density", "max_componet",
     "avg_closeness", "avg_betweenness", "avg_hub", 
     "cluster_coefficient", "avg_path_length")
 
-# noise measures
-NOISE = c("id1", "id2")
-
 # overlapping measures
 OVERLAPPING = c("f1", "f2", "f3", "f4")
 
