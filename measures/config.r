@@ -42,6 +42,3 @@ NETWORK = c("edges", "avg_degree", "density", "max_componet",
 # overlapping measures
 OVERLAPPING = c("f1", "f2", "f3", "f4")
 
-# space partitioning measures
-SPACE = c("ce")
-
