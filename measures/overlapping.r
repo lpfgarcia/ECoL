@@ -13,7 +13,7 @@ num <- function(data, j) {
 
     tmp = branch(data, j)
     aux = nrow(tmp) * (colMeans(tmp) - 
-        colMeans(data[,-ncol(data)]))^2
+        colMeans(data[,-ncol(data), drop=FALSE]))^2
     return(aux)
 }
 
@@ -28,9 +28,11 @@ den <- function(data, j) {
 
 f1 <- function(data) {
 
-    aux = mapply(function(j) {
-        num(data, j)/den(data, j)
-    }, j=levels(data$class))
+    aux = matrix(0, nrow=ncol(data)-1, 
+        ncol=nlevels(data$class))
+
+    for(i in 1:nlevels(data$class))
+        aux[,i] = num(data, i)/den(data, i)
 
     aux[aux == Inf] = NA
     aux = rowSums(aux, na.rm=TRUE)
@@ -82,7 +84,8 @@ nonOverlap <- function(data) {
     aux = do.call("cbind",
         lapply(1:(ncol(data)-1), 
             function(i) {
-                data[,i] < maxmin[i] | data[,i] > minmax[i]
+                data[, i, drop=FALSE] < maxmin[i] | 
+                    data[, i, drop=FALSE] > minmax[i]
         })
     )
 
@@ -99,6 +102,7 @@ f3 <- function(data) {
         colSums(nonOverlap(d))/nrow(d)
     }, d=data)
 
+    aux = data.frame(aux)
     aux = mean(colMax(aux))
     return(aux)
 }

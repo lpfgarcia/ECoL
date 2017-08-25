@@ -56,7 +56,7 @@ avg_path_length <- function(graph) {
 
 eNN <- function(data, e=0.15) {
 
-    dst = dist(data[,-ncol(data)])
+    dst = dist(data[,-ncol(data), drop=FALSE])
     e = e*nrow(data)
 
     for(i in 1:nrow(dst)) {

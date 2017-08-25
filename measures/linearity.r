@@ -10,7 +10,7 @@ smo <- function(data) {
 
 
 hyperretangle <- function(data) {
-    data = data[,-ncol(data)]
+    data = data[, -ncol(data), drop=FALSE]
     aux = sqrt(sum((colMax(data)-colMin(data))^2))
     return(aux)
 }

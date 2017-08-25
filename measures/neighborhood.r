@@ -71,7 +71,7 @@ n4 <- function(dst, data) {
 
     aux = rbind(data, generate(data))
     vet = setdiff(rownames(aux), rownames(data))
-    dst = dist(aux[,-ncol(aux)])
+    dst = dist(aux[,-ncol(aux), drop=FALSE])
 
     aux = unlist(
         lapply(vet, function(i) {
@@ -184,7 +184,7 @@ t4 <- function(dst, data) {
 
 neighborhood <- function(data) {
 
-    dst = dist(data[,-ncol(data)])
+    dst = dist(data[,-ncol(data), drop=FALSE])
 
     aux = lapply(NEIGHBORHOOD, 
         function(i) {

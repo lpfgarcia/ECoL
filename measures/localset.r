@@ -18,7 +18,7 @@ LSCAvg <- function(dst, data) {
 
 localset <- function(data) {
 
-    dst = dist(data[,-ncol(data)])
+    dst = dist(data[,-ncol(data), drop=FALSE])
     aux = lapply(LOCALSET, 
         function(i) {
             do.call(i, list(dst, data))
