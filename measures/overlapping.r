@@ -28,11 +28,11 @@ den <- function(data, j) {
 
 f1 <- function(data) {
 
-    aux = matrix(0, nrow=ncol(data)-1, 
-        ncol=nlevels(data$class))
-
-    for(i in 1:nlevels(data$class))
-        aux[,i] = num(data, i)/den(data, i)
+    aux = do.call("cbind", 
+        lapply(levels(data$class), function(i) {
+            num(data, i)/den(data, i)
+        })
+    )
 
     aux[aux == Inf] = NA
     aux = rowSums(aux, na.rm=TRUE)
