@@ -84,8 +84,8 @@ nonOverlap <- function(data) {
     aux = do.call("cbind",
         lapply(1:(ncol(data)-1), 
             function(i) {
-                data[, i, drop=FALSE] < maxmin[i] | 
-                    data[, i, drop=FALSE] > minmax[i]
+                data[,i, drop=FALSE] < maxmin[i] | 
+                    data[,i, drop=FALSE] > minmax[i]
         })
     )
 
