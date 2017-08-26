@@ -4,11 +4,7 @@ The Extended data Complexity Library (ECoL) is the implementation in R of a set 
 
 ### Technical Requirements
 
-The requirements to run the ECoL are:
-  1. R version >= 3.4.1
-  2. Packages: `dplyr`, `e1071` and `igraph`. 
-
-The [R Project](https://www.r-project.org/) provide a full installation guide for Linux, Windows and Mac operating systems. To install the dependence packages run the code:
+The requirements to run the ECoL are R version >= 3.4.1 and the packages `dplyr`, `e1071` and `igraph`. The [R Project](https://www.r-project.org/) provide a full installation guide for Linux, Windows and Mac operating systems. To install the dependence packages run the code:
 
 ```
 install.packages(c("dplyr", "e1071", "igraph"))
