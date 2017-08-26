@@ -6,13 +6,15 @@ The Extended data Complexity Library (ECoL) is the implementation in R of a set 
 
 The requirements to run the ECoL are:
   1. R version >= 3.4.1
-  2. Packages: `dplyr`, `e1071`, `igraph` and `infotheo`. 
+  2. Packages: `dplyr`, `e1071` and `igraph`. 
 
-Install the packages:
+The [R Project](https://www.r-project.org/) provide a full installation guide for Linux, Windows and Mac operating systems. To install the dependence packages run the code:
 
 ```
-install.packages(c("dplyr", "e1071", "igraph", "infotheo"))
+install.packages(c("dplyr", "e1071", "igraph"))
 ```
+
+### Load the complexity measures:
 
 After download the code of ECoL, we need to load the complexity measures:
 
@@ -23,8 +25,6 @@ source("~/DCoL/run.r")
 ### Run the complexity measures for a given dataset
 
 ```
-source("~/DCoL/run.r")
-
 data = iris
 data$class = data$Species
 data$Species = NULL
