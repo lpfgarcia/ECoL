@@ -1,41 +1,30 @@
-# DCoL
+# ECoL
 
-Data Complexity Library in R
+The Extended data Complexity Library (ECoL) is the implementation in R of a set of measures to characterize the complexity of classification problems based on ambiguity and separation between the classes and the data sparsity and dimensionality of the datasets. The measures were originally proposed by Ho and Basu (2002) and extend by many other works including the [DCoL](https://github.com/nmacia/dcol). The main difference between the libraries is that ECoL provides bug fixes, generalizations and implementations of many other state-of-the-art measures.
 
 ### Technical Requirements
 
-R version 3.4.1 (2017-06-30) -- "Single Candle"
-
-Packages: dplyr, e1071, igraph and infotheo
-
-### Set the experiments
-
-Install the packages:
+The requirements to run the ECoL are R version >= 3.4.1 and the packages `dplyr`, `e1071` and `igraph`. The [R Project](https://www.r-project.org/) provide a full installation guide for Linux, Windows and Mac operating systems. To install the dependence packages run the code:
 
 ```
-install.packages(c("dplyr", "e1071", "igraph", "infotheo"))
+install.packages(c("dplyr", "e1071", "igraph"),
+                  repos="https://cloud.r-project.org/")
 ```
-### Load the complexity measures
+
+### Load the complexity measures:
+
+After download the code of ECoL, we need to load the complexity measures:
 
 ```
 source("~/DCoL/run.r")
 ```
 
-### Run the complexity measures for the datasets
-
-```
-source("~/DCoL/run.r")
-run()
-```
 ### Run the complexity measures for a given dataset
 
 ```
-source("~/DCoL/run.r")
-
 data = iris
 data$class = data$Species
 data$Species = NULL
-
 complexity(data)
 ```
 
