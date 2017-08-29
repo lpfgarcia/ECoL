@@ -27,11 +27,8 @@ GEODENSITY = c("d2", "d3")
 # linear measures
 LINEARITY = c("l1", "l2", "l3")
 
-# local set measures
-LOCALSET = c("LSCAvg")
-
 # neighborhood measures
-NEIGHBORHOOD = c("n1","n2", "n3", "n4", "t1", "t2", "t4")
+NEIGHBORHOOD = c("n1","n2", "n3", "n4", "t1", "t2", "t4", "LSCAvg")
 
 # graph measures
 NETWORK = c("edges", "avg_degree", "density", "max_componet", 

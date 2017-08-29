@@ -182,6 +182,18 @@ t4 <- function(dst, data) {
 }
 
 
+LSCAvg <- function(dst, data) {
+
+    r = sapply(rownames(data), function(i) {
+        as.numeric(inter(dst, data, i))
+    })
+
+    aux = adherence(translate(dst, r), data)
+    aux = sum(aux)/(length(aux)^2)
+    return(aux)
+}
+
+
 neighborhood <- function(data) {
 
     dst = dist(data[,-ncol(data), drop=FALSE])
