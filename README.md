@@ -16,7 +16,7 @@ The Extended data Complexity Library (ECoL) is the implementation in R of a set 
 
 **Measures of neighborhood information** 
 
-* LSCAvg:
+* LSCAvg: Local-Set cardinality average
 * N1: Fraction of points lying on the class boundary
 * N2: Average intra/inter class nearest neighbor distances
 * N3: Leave-one-out error rate of the 1-nearest neighbor algorithm
