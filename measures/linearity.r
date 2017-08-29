@@ -87,6 +87,11 @@ l3 <- function(model, data) {
 }
 
 
+ls.linearity <- function() {
+    c("l1", "l2", "l3")
+}
+
+
 linearity <- function(data) {
 
     data = binarize(data)
@@ -94,13 +99,13 @@ linearity <- function(data) {
     data = ovo(data)
     model = lapply(data, smo)
 
-    aux = lapply(LINEARITY, 
+    aux = lapply(ls.linearity(), 
         function(i) {
             do.call(i, list(model, data))
     })
 
     aux = unlist(aux)
-    names(aux) = LINEARITY
+    names(aux) = ls.linearity()
     return(aux)
 }
 

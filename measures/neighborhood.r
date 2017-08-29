@@ -194,17 +194,22 @@ LSCAvg <- function(dst, data) {
 }
 
 
+ls.neighborhood <- function() {
+    c("n1","n2", "n3", "n4", "t1", "t2", "t4", "LSCAvg")
+}
+
+
 neighborhood <- function(data) {
 
     dst = dist(data[,-ncol(data), drop=FALSE])
 
-    aux = lapply(NEIGHBORHOOD, 
+    aux = lapply(ls.neighborhood(), 
         function(i) {
             do.call(i, list(dst, data))
     })
 
     aux = unlist(aux)
-    names(aux) = NEIGHBORHOOD
+    names(aux) = ls.neighborhood()
     return(aux)
 }
 

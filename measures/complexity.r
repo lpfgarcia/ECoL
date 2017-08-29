@@ -67,9 +67,9 @@ ovo <- function(data) {
 complexity <- function(data) {
 
     data = normalize(data)
-    aux = c(overlapping(data), linearity(data), neighborhood(data), 
-        dimensionality(data), geodensity(data), localset(data), 
-        network(data, 0.15))
+    aux = c(overlapping(data), linearity(data), 
+        neighborhood(data), dimensionality(data), 
+        geodensity(data), network(data, 0.15))
     return(aux)
 }
 

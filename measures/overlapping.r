@@ -137,16 +137,21 @@ f4 <- function(data) {
 }
 
 
+ls.overlapping <- function() {
+    c("f1", "f1v", "f2", "f3", "f4")
+}
+
+
 overlapping <- function(data) {
 
     data = binarize(data)
-    aux = lapply(OVERLAPPING, 
+    aux = lapply(ls.overlapping(), 
         function(i) {
             do.call(i, list(data))
     })
 
     aux = unlist(aux)
-    names(aux) = OVERLAPPING
+    names(aux) = ls.overlapping()
     return(aux)
 }
 

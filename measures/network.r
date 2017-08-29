@@ -71,18 +71,25 @@ eNN <- function(data, e=0.15) {
 }
 
 
+ls.network <- function() {
+    c("edges", "avg_degree", "density", "max_componet", 
+    "avg_closeness", "avg_betweenness", "avg_hub", 
+    "cluster_coefficient", "avg_path_length")
+}
+
+
 network <- function(data, e) {
 
     graph = eNN(data, e)
     graph = graph.adjacency(graph, mode="undirected")
 
-    aux = lapply(NETWORK, 
+    aux = lapply(ls.network(), 
         function(i) {
             do.call(i, list(graph))
     })
 
     aux = unlist(aux)
-    names(aux) = NETWORK
+    names(aux) = ls.network()
     return(aux)
 }
 

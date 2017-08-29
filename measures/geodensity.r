@@ -47,17 +47,22 @@ d3 <- function(dst, data, k=3) {
 }
 
 
+ls.geodensity <- function() {
+    c("d2", "d3")
+}
+
+
 geodensity <- function(data) {
 
     data = binarize(data)
     dst = dist(data[,-ncol(data), drop=FALSE])
-    aux = lapply(GEODENSITY, 
+    aux = lapply(ls.geodensity(), 
         function(i) {
             do.call(i, list(dst, data))
     })
 
     aux = unlist(aux)
-    names(aux) = GEODENSITY
+    names(aux) = ls.geodensity()
     return(aux)
 }
 

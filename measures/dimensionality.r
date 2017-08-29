@@ -36,16 +36,21 @@ c1 <- function(data) {
 }
 
 
+ls.dimensionality <- function() {
+    c("m1", "m2", "m3", "c1")
+}
+
+
 dimensionality <- function(data) {
 
     data = binarize(data)
-    aux = lapply(DIMENSIONALITY, 
+    aux = lapply(ls.dimensionality(), 
         function(i) {
             do.call(i, list(data))
     })
 
     aux = unlist(aux)
-    names(aux) = DIMENSIONALITY
+    names(aux) = ls.dimensionality()
     return(aux)
 }
 
