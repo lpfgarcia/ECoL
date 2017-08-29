@@ -4,6 +4,57 @@ The Extended data Complexity Library (ECoL) is the implementation in R of a set 
 
 ## Measures
 
+
+
+**Measures of overlapping** 
+
+* F1: Fisher's discriminant ratio
+* F1v: The directional-vector Fisher's discriminant ratio
+* F2: Overlapping of the per-class bounding boxes
+* F3: Maximum individual feature efficiency
+* F4: Cllective feature efficiency
+
+**Measures of neighborhood information** 
+
+* LSCAvg:
+* N1: Fraction of points lying on the class boundary
+* N2: Average intra/inter class nearest neighbor distances
+* N3: Leave-one-out error rate of the 1-nearest neighbor algorithm
+* N4: Nonlinearity of the one-nearest neighbor classifier
+* T1: Fraction of maximum covering spheres on data
+* T2: 
+* T4:
+
+**Measures of linearity** 
+
+* L1: Distance of erroneous instances to a linear classifier
+* L2: Training error of a linear classifier
+* L3: Nonlinearity of a linear classifier
+
+**Measures of dimensionality**
+
+* M1:
+* M2:
+* M3:
+* C1:
+
+**Measures of density**
+
+* D2:
+* D3:
+
+**Measures of structural representation**
+
+* Edges: Number of edges
+* Avg_degree: Average degree of the network
+* Density: Average density of network
+* Max_componet: Maximum number of components
+* Avg_closeness: Average closeness centrality
+* Avg_betweenness: Average betweenness centrality
+* Avg_hub: Average hub score
+* Cluster_coefficient: Clustering Coefficient
+* Avg_path_length: Average Path Length
+
 ## Technical Requirements
 
 The requirements to run the ECoL are R version >= 3.4.1 and the packages `dplyr`, `e1071` and `igraph`. The [R Project](https://www.r-project.org/) provide a full installation guide for Linux, Windows and Mac operating systems. To install the dependence packages run the code:
