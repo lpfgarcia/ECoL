@@ -14,7 +14,7 @@ avg_degree <- function(graph) {
 }
 
 
-density <- function(graph) {
+avg_density <- function(graph) {
     graph.density(graph)
 }
 
@@ -72,7 +72,7 @@ eNN <- function(data, e=0.15) {
 
 
 ls.network <- function() {
-    c("edges", "avg_degree", "density", "max_componet", 
+    c("edges", "avg_degree", "avg_density", "max_componet", 
     "avg_closeness", "avg_betweenness", "avg_hub", 
     "cluster_coefficient", "avg_path_length")
 }

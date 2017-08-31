@@ -10,6 +10,11 @@ volume <- function(data) {
 }
 
 
+d1 <- function(dst, data) {
+    volume(data)/nrow(data)
+}
+
+
 d2 <- function(dst, data, k=3) {
 
     aux = unlist(
@@ -48,11 +53,11 @@ d3 <- function(dst, data, k=3) {
 
 
 ls.geodensity <- function() {
-    c("d2", "d3")
+    c("d1", "d2", "d3")
 }
 
 
-geodensity <- function(data) {
+density <- function(data) {
 
     data = binarize(data)
     dst = dist(data[,-ncol(data), drop=FALSE])
