@@ -65,7 +65,7 @@ volume <- function(x) {
   prod(colMax(x) - colMin(x))
 }
 
-d1 <- function(x, d, ...) {
+d1 <- function(x, ...) {
   volume(x)/nrow(x)
 }
 
