@@ -69,10 +69,9 @@ enn <- function(x, y, epsilon=0.15) {
   e <- epsilon*nrow(x)
 
   for(i in 1:nrow(dst)) {
-    w <- rownames(x) %in%  names(sort(dst[i,])[1:e+1])
     z <- y == y[i]
-    dst[i,] <- 0
-    dst[i, w+z==2] <- 1
+    w <- rownames(x) %in%  names(sort(dst[i,])[1:e+1])
+    dst[i,] <- 0; dst[i, w + z == 2] <- 1
   }
 
   return(dst)
