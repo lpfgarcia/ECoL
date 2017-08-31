@@ -6,7 +6,7 @@ density <- function(...) {
 
 #' @rdname density
 #' @export
-density.default <- function(x, y, features="all", ...) {
+density.default <- function(x, y, measures="all", ...) {
   if(!is.data.frame(x)) {
     stop("data argument must be a data.frame")
   }
@@ -25,23 +25,24 @@ density.default <- function(x, y, features="all", ...) {
     stop("x and y must have same number of rows")
   }
 
-  if(features[1] == "all") {
-    features <- ls.density()
+  if(measures[1] == "all") {
+    measures <- ls.density()
   }
 
-  features <- match.arg(features, ls.density(), TRUE)
+  measures <- match.arg(measures, ls.density(), TRUE)
 
-  x <- binarize(x)
-  d <- dist(x)
+  data <- data.frame(x, class=y)
+  data <- binarize(data)
+  dst <- dist(data[,-ncol(data)])
 
-  sapply(features, function(f) {
-    eval(call(f, x=x, y=y, d=d))
+  sapply(measures, function(f) {
+    eval(call(f, dst=dst, data=data))
   })
 }
 
 #' @rdname density
 #' @export
-density.formula <- function(formula, data, features="all", ...) {
+density.formula <- function(formula, data, measures="all", ...) {
   if(!inherits(formula, "formula")) {
     stop("method is only for formula datas")
   }
@@ -53,7 +54,7 @@ density.formula <- function(formula, data, features="all", ...) {
   modFrame <- stats::model.frame(formula, data)
   attr(modFrame, "terms") <- NULL
 
-  density.default(modFrame[, -1], modFrame[, 1], features, ...)
+  density.default(modFrame[, -1], modFrame[, 1], measures, ...)
 }
 
 #' @export
@@ -61,42 +62,46 @@ ls.density <- function() {
   c("d1", "d2", "d3")
 }
 
-volume <- function(x) {
-  prod(colMax(x) - colMin(x))
+volume <- function(data) {
+  data <- data[,-ncol(data), drop=FALSE]
+  prod(colMax(data) - colMin(data))
 }
 
-d1 <- function(x, ...) {
-  volume(x)/nrow(x)
+d1 <- function(dst, data) {
+  volume(data)/nrow(data)
 }
 
-d2 <- function(x, y, d, ...) {
+d2 <- function(dst, data, k=3) {
 
   aux <- unlist(
-    lapply(1:nrow(x), function(i) {
-      p <- knn(d, x, y, i)
-      volume(x[names(p),])
-    })
+    lapply(rownames(data),
+      function(i) {
+        tmp <- knn(dst, data, k, i)
+        volume(data[names(tmp),])
+      })
   )
 
   return(mean(aux))
 }
 
-voting <- function(p, i) {
+voting <- function(pred, data, i) {
 
-  if(max(table(p)) >= 2)
-    return(which.max(table(p)))
-  return(i)
+  if(max(table(pred)) >= 2)
+    return(which.max(table(pred)))
+  return(data[i,]$class)
 }
 
-d3 <- function(x, y, d, ...) {
+d3 <- function(dst, data, k=3) {
 
   aux <- unlist(
-    lapply(1:nrow(x), function(i) {
-      p <- knn(d, x, y, i)
-      voting(p, y[i])
+    lapply(rownames(data),
+      function(i) {
+        tmp <- knn(dst, data, k, i)
+        voting(tmp, data, i)
     })
   )
 
-  return(mean(aux != y))
+  aux <- mean(aux != data$class)
+  return(aux)
 }
 

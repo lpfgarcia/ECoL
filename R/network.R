@@ -6,7 +6,7 @@ network <- function(...) {
 
 #' @rdname network
 #' @export
-network.default <- function(x, y, features="all", epsilon=0.15, ...) {
+network.default <- function(x, y, measures="all", epsilon=0.15, ...) {
   if(!is.data.frame(x)) {
     stop("data argument must be a data.frame")
   }
@@ -25,23 +25,23 @@ network.default <- function(x, y, features="all", epsilon=0.15, ...) {
     stop("x and y must have same number of rows")
   }
 
-  if(features[1] == "all") {
-    features <- ls.network()
+  if(measures[1] == "all") {
+    measures <- ls.network()
   }
 
-  features <- match.arg(features, ls.network(), TRUE)
+  measures <- match.arg(measures, ls.network(), TRUE)
 
-  graph <- enn(x, y, epsilon)
+  graph <- enn(data.frame(x, class=y), epsilon)
   graph <- igraph::graph.adjacency(graph, mode="undirected")
 
-  sapply(features, function(f) {
+  sapply(measures, function(f) {
     eval(call(f, graph))
   })
 }
 
 #' @rdname network
 #' @export
-network.formula <- function(formula, data, features="all", epsilon=0.15, ...) {
+network.formula <- function(formula, data, measures="all", epsilon=0.15, ...) {
   if(!inherits(formula, "formula")) {
     stop("method is only for formula datas")
   }
@@ -53,7 +53,7 @@ network.formula <- function(formula, data, features="all", epsilon=0.15, ...) {
   modFrame <- stats::model.frame(formula, data)
   attr(modFrame, "terms") <- NULL
 
-  network.default(modFrame[, -1], modFrame[, 1], features, ...)
+  network.default(modFrame[, -1], modFrame[, 1], measures, ...)
 }
 
 #' @export
@@ -63,15 +63,16 @@ ls.network <- function() {
     "cluster_coefficient", "avg_path_length")
 }
 
-enn <- function(x, y, epsilon=0.15) {
+enn <- function(data, epsilon=0.15) {
 
-  dst <- dist(x)
-  e <- epsilon*nrow(x)
+  dst <- dist(data[,-ncol(data), drop=FALSE])
+  e <- epsilon*nrow(data)
 
   for(i in 1:nrow(dst)) {
-    z <- y == y[i]
-    w <- rownames(x) %in%  names(sort(dst[i,])[1:e+1])
-    dst[i,] <- 0; dst[i, w + z == 2] <- 1
+
+    x <- names(sort(dst[i,])[1:e+1])
+    y <- rownames(data[data$class == data[i,]$class,])
+    dst[i,] <- 0; dst[i, intersect(x, y)] <- 1
   }
 
   return(dst)
@@ -112,8 +113,7 @@ cluster_coefficient <- function(graph) {
 avg_path_length <- function(graph) {
 
   cls <- igraph::clusters(graph)
-  g <- igraph::induced.subgraph(graph, 
-    which(cls$membership == which.max(cls$csize)))
+  g <- igraph::induced.subgraph(graph, which(cls$membership == which.max(cls$csize)))
   disthist <- igraph::path.length.hist(g, directed=FALSE)$res
   aux <- weighted.mean(1:length(disthist), disthist)  
   return(aux)
