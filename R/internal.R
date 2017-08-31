@@ -13,7 +13,7 @@ rowMax <- function(x) {
 }
 
 dist <- function(x) {
-  as.matrix(daisy(x, metric="gower"))
+  as.matrix(cluster::daisy(x, metric="gower"))
 }
 
 form <- function(x) {
@@ -23,7 +23,14 @@ form <- function(x) {
 }
 
 binarize <- function(x) {
-    data.frame(model.matrix(form(x), x))
+  data.frame(model.matrix(form(x), x))
+}
+
+knn <- function(d, x, y, i) {
+  tmp <- rownames(x) %in% names(sort(d[i,])[2:4])
+  aux <- y[tmp]
+  names(aux) <- rownames(x[tmp,])
+  return(aux) 
 }
 
 normalize <- function(x) {

@@ -52,6 +52,6 @@ complexity.formula <- function(formula, data, groups="all", ...) {
 
 #' @expor
 ls.complexity <- function() {
-  c("overlapping")
+  c("overlapping", "dimensionality", "density", "network")
 }
 
