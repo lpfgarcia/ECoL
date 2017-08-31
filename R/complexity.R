@@ -50,7 +50,7 @@ complexity.formula <- function(formula, data, groups="all", ...) {
   complexity.default(modFrame[, -1], modFrame[, 1], groups, ...)
 }
 
-#' @expor
+#' @export
 ls.complexity <- function() {
   c("overlapping", "dimensionality", "density", "network")
 }

@@ -56,7 +56,7 @@ network.formula <- function(formula, data, features="all", epsilon=0.15, ...) {
   network.default(modFrame[, -1], modFrame[, 1], features, ...)
 }
 
-#' @expor
+#' @export
 ls.network <- function() {
   c("edges", "avg_degree", "avg_density", "max_componet", 
     "avg_closeness", "avg_betweenness", "avg_hub", 

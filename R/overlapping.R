@@ -55,7 +55,7 @@ overlapping.formula <- function(formula, data, features="all", ...) {
   overlapping.default(modFrame[, -1], modFrame[, 1], features, ...)
 }
 
-#' @expor
+#' @export
 ls.overlapping <- function() {
   c("f1", "f1v", "f2", "f3", "f4")
 }
@@ -92,8 +92,8 @@ f1v <- function(x, y) {
 
 regionOver <- function(x, y) {
 
-  a <- x[y == levels(y)[1],]
-  b <- x[y == levels(y)[2],]
+  a <- x[y == levels(y)[1], , drop=FALSE]
+  b <- x[y == levels(y)[2], , drop=FALSE]
 
   maxmax <- rbind(colMax(a), colMax(b))
   minmin <- rbind(colMin(a), colMin(b))
@@ -117,16 +117,16 @@ f2 <- function(x, y) {
 
 nonOverlap <- function(x, y) {
 
-  a <- x[y == levels(y)[1],]
-  b <- x[y == levels(y)[2],]
+  a <- x[y == levels(y)[1], , drop=FALSE]
+  b <- x[y == levels(y)[2], , drop=FALSE]
 
   minmax <- colMin(rbind(colMax(a), colMax(b)))
   maxmin <- colMax(rbind(colMin(a), colMin(b)))
 
   aux <- do.call("cbind",
       lapply(1:ncol(x), function(i) {
-          x[,i] < maxmin[i] | 
-              x[,i] > minmax[i]
+          x[,i,drop=FALSE] < maxmin[i] | 
+              x[,i,drop=FALSE] > minmax[i]
       })
   )
 
@@ -154,12 +154,12 @@ removing <- function(x, y) {
     col <- which.max(colSums(tmp))
     x <- x[tmp[,col] != TRUE, -col, drop=FALSE]
     y <- y[tmp[,col] != TRUE]
-    if(nrow(x) == 0 | ncol(x) == 1 |
+    if(nrow(x) == 0 | ncol(x) == 0 |
       length(unique(y)) == 1)
         break
   }
 
-  return(x)
+  return(y)
 }
 
 f4 <- function(x, y) {
@@ -167,7 +167,7 @@ f4 <- function(x, y) {
   data <- one.vs.one(x, y)
   aux <- mapply(function(d) {
     n <- removing(d[[1]], d[[2]])
-    (nrow(d[[1]]) - nrow(n))/nrow(d[[1]])
+    (nrow(d[[1]]) - length(n))/nrow(d[[1]])
   }, d=data)
 
   aux <- mean(aux)

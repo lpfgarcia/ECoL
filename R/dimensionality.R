@@ -55,7 +55,7 @@ dimensionality.formula <- function(formula, data, features="all", ...) {
   dimensionality.default(modFrame[, -1], modFrame[, 1], features, ...)
 }
 
-#' @expor
+#' @export
 ls.dimensionality <- function() {
   c("m1", "m2", "m3", "c1")
 }

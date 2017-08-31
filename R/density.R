@@ -56,7 +56,7 @@ density.formula <- function(formula, data, features="all", ...) {
   density.default(modFrame[, -1], modFrame[, 1], features, ...)
 }
 
-#' @expor
+#' @export
 ls.density <- function() {
   c("d1", "d2", "d3")
 }

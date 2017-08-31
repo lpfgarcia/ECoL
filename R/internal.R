@@ -26,8 +26,8 @@ binarize <- function(x) {
   data.frame(model.matrix(form(x), x))
 }
 
-knn <- function(d, x, y, i) {
-  tmp <- rownames(x) %in% names(sort(d[i,])[2:4])
+knn <- function(d, x, y, i, k=3) {
+  tmp <- rownames(x) %in% names(sort(d[i,])[1:k+1])
   aux <- y[tmp]
   names(aux) <- rownames(x[tmp,])
   return(aux) 
@@ -51,5 +51,35 @@ one.vs.one <- function(x, y) {
   })
 
   return(data)
+}
+
+
+interpolation <- function(x, y) {
+
+  a <- sample(levels(y), 1)
+  b <- x[y == a,] %>% sample_n(., 2)
+
+  for(i in 1:ncol(x)) {
+    if(is.numeric(x[,i])) {
+      rnd <- runif(1)
+      b[1,i] <- b[1,i]*rnd + b[2,i]*(1-rnd)
+    }
+  }
+
+  b <- cbind(b[1,], a)
+  return(b)
+}
+
+generate <- function(x, y) {
+
+  aux <- do.call("rbind", 
+    lapply(1:nrow(x), function(i) {
+      interpolation(x, y)
+    })
+  )
+
+  aux <- list(aux[,1:(ncol(aux)-1)], 
+    aux[,ncol(aux)])
+  return(aux)
 }
 
