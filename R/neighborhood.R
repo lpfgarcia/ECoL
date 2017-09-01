@@ -209,7 +209,7 @@ t4 <- function(dst, data) {
   r <- hyperspher(dst, data)
   aux <- adherence(translate(dst, r), data)
   tmp <- aux/ball(r[names(aux)], ncol(data)-1)
-  return(sd(tmp))
+  return(stats::sd(tmp))
 }
 
 LSCAvg <- function(dst, data) {

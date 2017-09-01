@@ -17,12 +17,12 @@ dist <- function(data) {
 
 form <- function(data) {
   att <- paste(colnames(data)[-ncol(data)], collapse="+")
-  aux <- formula(paste("~ 0 +", att, sep=" "))
+  aux <- stats::formula(paste("~ 0 +", att, sep=" "))
   return(aux)
 }
 
 binarize <- function(data) {
-  aux <- model.matrix(form(data), data)
+  aux <- stats::model.matrix(form(data), data)
   aux <- data.frame(aux, class=data$class)
   return(aux)
 }
@@ -44,7 +44,7 @@ normalize <- function(data) {
 
 ovo <- function(data) {
 
-  aux <- combn(levels(data$class), 2)
+  aux <- utils::combn(levels(data$class), 2)
 
   tmp <- apply(aux, 2, function(i) {
     vet <- subset(data, data$class %in% i)
@@ -57,13 +57,13 @@ ovo <- function(data) {
 
 interpolation <- function(data) {
 
-  `%>%` <- magrittr::`%>%`
   aux <- sample(levels(data$class), 1)
-  aux <- data[data$class == aux,] %>% dplyr::sample_n(., 2)
+  aux <- data[data$class == aux,] 
+  aux <- data[sample(1:nrow(aux), 2, replace=FALSE),]
 
   for(i in 1:(ncol(data)-1)) {
     if(is.numeric(data[,i])) {
-      rnd <- runif(1)
+      rnd <- stats::runif(1)
       aux[1,i] <- aux[1,i]*rnd + aux[2,i]*(1-rnd)
     }
   }

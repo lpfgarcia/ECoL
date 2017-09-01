@@ -62,7 +62,7 @@ ls.dimensionality <- function() {
 }
 
 pca <- function(data) {
-  aux <- prcomp(data[,-ncol(data)], scale=TRUE)$sdev
+  aux <- stats::prcomp(data[,-ncol(data)], scale=TRUE)$sdev
   aux <- which(cumsum(aux)/sum(aux) >= 0.95)
   return(aux[1])
 }

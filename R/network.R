@@ -115,7 +115,7 @@ avg_path_length <- function(graph) {
   cls <- igraph::clusters(graph)
   g <- igraph::induced.subgraph(graph, which(cls$membership == which.max(cls$csize)))
   disthist <- igraph::path.length.hist(g, directed=FALSE)$res
-  aux <- weighted.mean(1:length(disthist), disthist)  
+  aux <- stats::weighted.mean(1:length(disthist), disthist)  
   return(aux)
 }
 

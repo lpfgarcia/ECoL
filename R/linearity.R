@@ -77,7 +77,7 @@ hyperretangle <- function(data) {
 l1 <- function(model, data) {
 
   aux <- mapply(function(m, d) {
-    prd <- predict(m, d, decision.values=TRUE)
+    prd <- stats::predict(m, d, decision.values=TRUE)
     err <- rownames(d[prd != d$class,])
     dst <- attr(prd, "decision.values")[err,]
     sum(abs(dst))/(nrow(d)*hyperretangle(d))
@@ -94,7 +94,7 @@ error <- function(pred, class) {
 l2 <- function(model, data) {
 
   aux <- mapply(function(m, d) {
-    pred <- predict(m, d)
+    pred <- stats::predict(m, d)
     error(pred, d$class)
   }, m=model, d=data)
 
@@ -105,7 +105,7 @@ l3 <- function(model, data) {
 
   aux <- mapply(function(m, d) {
     tmp <- generate(d)
-    pred <- predict(m, tmp)
+    pred <- stats::predict(m, tmp)
     error(pred, tmp$class)
   }, m=model, d=data)
 

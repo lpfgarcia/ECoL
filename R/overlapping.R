@@ -94,7 +94,7 @@ f1 <- function(data) {
 }
 
 f1v <- function(data) {
-  aux <- predict(MASS::lda(class ~., data), data)
+  aux <- stats::predict(MASS::lda(class ~., data), data)
   data <- data.frame(aux$x, class=data$class)
   f1(data)
 }
