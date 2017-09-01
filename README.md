@@ -95,7 +95,5 @@ To submit bugs and feature requests, report at [project issues](https://github.c
 
 [2] Orriols-Puig, A., Maciá, N., Ho, T. (2010). Documentation for the data complexity library in C++. Technical report, La Salle - Universitat Ramon Llull.
 
-Vanschoren, J., Rijn, J., Bischl, B. and Torgo, Luis. (2013). OpenML: networked science in machine learning. SIGKDD Explorations, 15(2):49-60.
-
 [3]   R Core Team (2017). R: A language and environment for statistical computing. R Foundation for Statistical Computing, Vienna, Austria.  URL https://www.R-project.org/.
 
