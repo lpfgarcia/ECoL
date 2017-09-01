@@ -81,10 +81,10 @@ library(ECoL)
 data("iris")
 
 ## Extract all complexity measures using formula
-iris.info <- metafeatures(Species ~ ., iris, groups="all")
+iris.info <- complexity(Species ~ ., iris, groups="all")
 
 ## Extract all measures using data frame
-iris.info <- metafeatures(iris[,1:4], iris[,5], groups="all")
+iris.info <- complexity(iris[,1:4], iris[,5], groups="all")
 
 ## Extract overlapping measures
 iris.info <- complexity(Species ~ ., iris, groups="overlapping")
