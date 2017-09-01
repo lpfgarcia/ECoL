@@ -74,7 +74,7 @@ library("ECoL")
 
 ## Example of use
 
-After download the code of ECoL, we need to load the complexity measures:
+The simplest way to compute the complexity measures are using the `complexity` method. The method can be called by a symbolic description of the model or by a data frame. The parameters are the dataset and the group of measures to be extracted. To extract all the measures, the parameter `group` needs to be set to `all`. A simple example is given next:
 
 ```r
 library(ECoL)
@@ -82,6 +82,15 @@ data("iris")
 
 ## Extract all complexity measures using formula
 iris.info <- metafeatures(Species ~ ., iris, groups="all")
+
+## Extract all measures using data frame
+iris.info <- metafeatures(iris[,1:4], iris[,5], groups="all")
+
+## Extract overlapping measures
+iris.info <- complexity(Species ~ ., iris, groups="overlapping")
+
+## Show the the available groups
+ls.complexity()
 
 ```
 
