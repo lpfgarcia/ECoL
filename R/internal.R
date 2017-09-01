@@ -57,6 +57,7 @@ ovo <- function(data) {
 
 interpolation <- function(data) {
 
+  `%>%` <- magrittr::`%>%`
   aux <- sample(levels(data$class), 1)
   aux <- data[data$class == aux,] %>% dplyr::sample_n(., 2)
 
