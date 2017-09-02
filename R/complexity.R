@@ -47,7 +47,8 @@ complexity.formula <- function(formula, data, groups="all", ...) {
   modFrame <- stats::model.frame(formula, data)
   attr(modFrame, "terms") <- NULL
 
-  complexity.default(modFrame[, -1], modFrame[, 1], groups, ...)
+  complexity.default(modFrame[, -1, drop=FALSE], modFrame[, 1, drop=FALSE], 
+    groups, ...)
 }
 
 #' @export
