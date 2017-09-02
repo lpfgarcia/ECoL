@@ -53,7 +53,8 @@ network.formula <- function(formula, data, measures="all", epsilon=0.15, ...) {
   modFrame <- stats::model.frame(formula, data)
   attr(modFrame, "terms") <- NULL
 
-  network.default(modFrame[, -1], modFrame[, 1], measures, ...)
+  network.default(modFrame[, -1, drop=FALSE], modFrame[, 1, drop=FALSE], 
+    measures, ...)
 }
 
 #' @export

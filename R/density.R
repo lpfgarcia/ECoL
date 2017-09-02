@@ -54,7 +54,8 @@ density.formula <- function(formula, data, measures="all", ...) {
   modFrame <- stats::model.frame(formula, data)
   attr(modFrame, "terms") <- NULL
 
-  density.default(modFrame[, -1], modFrame[, 1], measures, ...)
+  density.default(modFrame[, -1, drop=FALSE], modFrame[, 1, drop=FALSE], 
+    measures, ...)
 }
 
 #' @export

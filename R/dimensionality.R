@@ -53,7 +53,8 @@ dimensionality.formula <- function(formula, data, measures="all", ...) {
   modFrame <- stats::model.frame(formula, data)
   attr(modFrame, "terms") <- NULL
 
-  dimensionality.default(modFrame[, -1], modFrame[, 1], measures, ...)
+  dimensionality.default(modFrame[, -1, drop=FALSE], modFrame[, 1, drop=FALSE], 
+    measures, ...)
 }
 
 #' @export

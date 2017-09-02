@@ -56,7 +56,8 @@ linearity.formula <- function(formula, data, measures="all", ...) {
   modFrame <- stats::model.frame(formula, data)
   attr(modFrame, "terms") <- NULL
 
-  linearity.default(modFrame[, -1], modFrame[, 1], measures, ...)
+  linearity.default(modFrame[, -1, drop=FALSE], modFrame[, 1, drop=FALSE], 
+    measures, ...)
 }
 
 #' @export
