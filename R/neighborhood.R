@@ -32,7 +32,7 @@ neighborhood.default <- function(x, y, measures="all", ...) {
   measures <- match.arg(measures, ls.neighborhood(), TRUE)
 
   data <- data.frame(x, class=y)
-  dst <- dist(data[,-ncol(data)])
+  dst <- dist(data[,-ncol(data), drop=FALSE])
 
   sapply(measures, function(f) {
     eval(call(f, dst=dst, data=data))
@@ -53,7 +53,8 @@ neighborhood.formula <- function(formula, data, measures="all", ...) {
   modFrame <- stats::model.frame(formula, data)
   attr(modFrame, "terms") <- NULL
 
-  neighborhood.default(modFrame[, -1], modFrame[, 1], measures, ...)
+  neighborhood.default(modFrame[, -1, drop=FALSE], modFrame[, 1, drop=FALSE], 
+    measures, ...)
 }
 
 #' @export
