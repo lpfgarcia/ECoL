@@ -53,7 +53,8 @@ overlapping.formula <- function(formula, data, measures="all", ...) {
   modFrame <- stats::model.frame(formula, data)
   attr(modFrame, "terms") <- NULL
 
-  overlapping.default(modFrame[, -1], modFrame[, 1], measures, ...)
+  overlapping.default(modFrame[, -1, drop=FALSE], modFrame[, 1, drop=FALSE], 
+    measures, ...)
 }
 
 #' @export
@@ -88,15 +89,19 @@ f1 <- function(data) {
     })
   )
 
-  aux[aux == Inf] <- NA
-  aux <- rowSums(aux, na.rm=TRUE)
-  return(max(aux))
+  aux <- max(rowSums(aux))
+  return(aux)
 }
 
 f1v <- function(data) {
-  aux <- stats::predict(MASS::lda(class ~., data), data)
-  data <- data.frame(aux$x, class=data$class)
-  f1(data)
+
+  tryCatch({
+    aux <- stats::predict(MASS::lda(class ~., data), data)
+    data <- data.frame(aux$x, class=data$class)
+    return(f1(data))
+  }, error = function(e) {
+    return(NA)
+  })
 }
 
 regionOver <- function(data) {
