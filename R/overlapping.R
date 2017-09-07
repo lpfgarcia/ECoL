@@ -70,6 +70,7 @@ num <- function(data, j) {
 
   l <- levels(data$class)
   tmp <- branch(data, l[j])
+  if((j+1) > length(l)) return(0)
   aux <- sapply((j+1):length(l), function(k) {
     x <- branch(data, l[k])
     nrow(tmp) * nrow(x) * (colMeans(tmp) - colMeans(x))^2
@@ -88,7 +89,7 @@ den <- function(data, j) {
 f1 <- function(data) {
 
   aux <- do.call("cbind",
-    sapply(1:(nlevels(data$class)-1), function(i) num(data, i))
+    sapply(1:nlevels(data$class), function(i) num(data, i))
   )
 
   tmp <- sapply(levels(data$class), function(i) den(data, i))
