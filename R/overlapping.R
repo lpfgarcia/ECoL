@@ -83,13 +83,9 @@ den <- function(data, j) {
 
 f1 <- function(data) {
 
-  aux <- do.call("cbind", 
-    lapply(levels(data$class), function(i) {
-      num(data, i)/den(data, i)
-    })
-  )
-
-  aux <- max(rowSums(aux))
+  aux <- sapply(levels(data$class), function(i) num(data, i))
+  tmp <- sapply(levels(data$class), function(i) den(data, i))
+  aux <- max(rowSums(aux)/rowSums(tmp))
   return(aux)
 }
 
