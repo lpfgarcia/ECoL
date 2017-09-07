@@ -68,26 +68,34 @@ branch <- function(data, j) {
 
 num <- function(data, j) {
 
-  tmp <- branch(data, j)
-  aux <- nrow(tmp) * (colMeans(tmp) - 
-    colMeans(data[,-ncol(data), drop=FALSE]))^2
+  l <- levels(data$class)
+  tmp <- branch(data, l[j])
+  aux <- sapply((j+1):length(l), function(k) {
+    x <- branch(data, l[k])
+    nrow(tmp) * nrow(x) * (colMeans(tmp) - colMeans(x))^2
+  })
+
   return(aux)
 }
 
 den <- function(data, j) {
 
   tmp <- branch(data, j)
-  aux <- rowSums((t(tmp) - colMeans(tmp))^2)
+  aux <- nrow(tmp) * diag(var(tmp))
   return(aux)
 }
 
 f1 <- function(data) {
 
-  aux <- sapply(levels(data$class), function(i) num(data, i))
+  aux <- do.call("cbind",
+    sapply(1:(nlevels(data$class)-1), function(i) num(data, i))
+  )
+
   tmp <- sapply(levels(data$class), function(i) den(data, i))
   aux <- max(rowSums(aux)/rowSums(tmp))
   return(aux)
 }
+
 
 f1v <- function(data) {
 
