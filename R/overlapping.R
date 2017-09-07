@@ -81,7 +81,7 @@ num <- function(data, j) {
 den <- function(data, j) {
 
   tmp <- branch(data, j)
-  aux <- nrow(tmp) * diag(var(tmp))
+  aux <- nrow(tmp) * diag(stats::var(tmp))
   return(aux)
 }
 
