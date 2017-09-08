@@ -83,7 +83,7 @@ data("iris")
 ## Extract all complexity measures using formula
 iris.info <- complexity(Species ~ ., iris, groups="all")
 
-## Extract all measures using data frame
+## Extract all complexity measures using data frame
 iris.info <- complexity(iris[,1:4], iris[,5], groups="all")
 
 ## Extract overlapping measures
