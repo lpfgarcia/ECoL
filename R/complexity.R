@@ -53,7 +53,7 @@ complexity.formula <- function(formula, data, groups="all", ...) {
 
 #' @export
 ls.complexity <- function() {
-  c("overlapping", "neighborhood", "linearity", , "dimensionality", 
+  c("overlapping", "neighborhood", "linearity", "dimensionality", 
     "density", "balance", "network")
 }
 
