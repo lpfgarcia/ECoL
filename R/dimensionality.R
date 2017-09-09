@@ -59,7 +59,7 @@ dimensionality.formula <- function(formula, data, measures="all", ...) {
 
 #' @export
 ls.dimensionality <- function() {
-  c("m1", "m2", "m3", "c1")
+  c("m1", "m2", "m3")
 }
 
 pca <- function(data) {
@@ -78,12 +78,5 @@ m2 <- function(data) {
 
 m3 <- function(data) {
   pca(data)/(ncol(data)-1)
-}
-
-c1 <- function(data) {
-  c <- (-1/log(nlevels(data$class)))
-  i <- table(data$class)/nrow(data)
-  aux <- c*sum(i*log(i))
-  return(aux)
 }
 
