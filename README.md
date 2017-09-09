@@ -86,16 +86,16 @@ library(ECoL)
 data("iris")
 
 ## Extract all complexity measures using formula
-iris.info <- complexity(Species ~ ., iris, groups="all")
+info <- complexity(Species ~ ., iris, groups="all")
 
 ## Extract all complexity measures using data frame
-iris.info <- complexity(iris[,1:4], iris[,5], groups="all")
+info <- complexity(iris[,1:4], iris[,5], groups="all")
 
-## Extract overlapping measures using complexity function
-iris.info <- complexity(Species ~ ., iris, groups="overlapping")
+## Extract the overlapping measures using groups
+info <- complexity(Species ~ ., iris, groups="overlapping")
 
-## Extract F1 measure from overlapping group
-iris.info <- overlapping(Species ~ ., iris, measures="f1")
+## Extract the F1 measure using overlapping function
+info <- overlapping(Species ~ ., iris, measures="f1")
 
 ## Show the the available groups
 ls.complexity()
