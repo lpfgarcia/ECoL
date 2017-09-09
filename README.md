@@ -1,6 +1,6 @@
 # ECoL
 
-The Extended Complexity Library (ECoL) is the implementation in R of a set of measures to characterize the complexity of classification problems based on ambiguity and separation between the classes and the data sparsity and dimensionality of the datasets. The measures were originally proposed by Ho and Basu (2002) and extend by many other works including the [DCoL](https://github.com/nmacia/dcol). The main difference between the libraries is that ECoL provides bug fixes, generalizations and implementations of many other state-of-the-art measures.
+The Extended Complexity Library (ECoL) is the implementation in R of a set of measures to characterize the complexity of classification problems based on ambiguity and separation between the classes and the data sparsity and dimensionality of the datasets. The measures were originally proposed by Ho and Basu (2002) and extend by many other works including the [DCoL](https://github.com/nmacia/dcol) library. The main difference between the libraries is that ECoL provides bug fixes, generalizations and implementations of many other state-of-the-art measures.
 
 ## Measures
 
@@ -22,8 +22,8 @@ The Extended Complexity Library (ECoL) is the implementation in R of a set of me
 * N3: Leave-one-out error rate of the 1-nearest neighbor algorithm
 * N4: Nonlinearity of the one-nearest neighbor classifier
 * T1: Fraction of maximum covering spheres on data
-* T2: 
-* T4:
+* T2: Samples per group
+* T4: Inter-class scale variation
 
 **Measures of linearity** 
 
@@ -33,16 +33,21 @@ The Extended Complexity Library (ECoL) is the implementation in R of a set of me
 
 **Measures of dimensionality**
 
-* M1:
-* M2:
-* M3:
-* C1:
+* M1: Average number of samples per dimension
+* M2: Average intrinsic dimensionality  per number of examples
+* M3: Intrinsic dimensionality proportion
 
 **Measures of density**
 
-* D1:
-* D2:
-* D3:
+* D1: Density
+* D2: Volume of local neighborhood
+* D3: Class density in overlap region
+
+**Measures of class balance**
+
+* C1: Class balance
+* C2: Binary imbalance ratio
+* C3: Multi-class imbalance ratio
 
 **Measures of structural representation**
 
@@ -86,8 +91,11 @@ iris.info <- complexity(Species ~ ., iris, groups="all")
 ## Extract all complexity measures using data frame
 iris.info <- complexity(iris[,1:4], iris[,5], groups="all")
 
-## Extract overlapping measures
+## Extract overlapping measures using complexity function
 iris.info <- complexity(Species ~ ., iris, groups="overlapping")
+
+## Extract F1 measure from overlapping group
+iris.info <- overlapping(Species ~ ., iris, measures="f1")
 
 ## Show the the available groups
 ls.complexity()
