@@ -57,7 +57,7 @@ balance.formula <- function(formula, data, measures="all", ...) {
 
 #' @export
 ls.balance <- function() {
-  c("c1", "c2")
+  c("c1", "c2", "c3")
 }
 
 c1 <- function(data) {
