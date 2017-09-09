@@ -3,29 +3,25 @@ Type: Package
 Title: Extended Complexity Library
 Version: 0.1.0
 Date: 2017-08-31
-Authors@R: c(person("Luis", "Garcia", email="garcia@informatik.uni-leipzig.de", role=c("aut", "cre")), 
-  person("Ana", "Lorena", email="aclorena@unifesp.br", role="aut"), 
-  person("Marcilio", "de Souto", email="marcilio.souto@gmail.com ", role="aut"))
-Description: The Extended Complexity Library (ECoL) is the implementation in R of a set of measures 
-  to characterize the complexity of classification problems based on ambiguity and separation 
-  between the classes and the data sparsity and dimensionality of the datasets. The measures were 
-  originally proposed by Ho and Basu (2002) and extend by many other works including the DCoL. The 
-  main difference between the libraries is that ECoL provides bug fixes, generalizations and 
-  implementations of many other state-of-the-art measures.
+Authors@R: c(person("Luis", "Garcia", email="garcia@informatik.uni-leipzig.de", 
+  role=c("aut", "cre")), person("Ana", "Lorena", email="aclorena@unifesp.br", 
+  role="aut"), person("Marcilio", "de Souto", email="marcilio.souto@gmail.com ",
+  role="aut"))
+Description: The Extended Complexity Library (ECoL) is the implementation in R 
+  of a set of measures to characterize the complexity of classification problems
+  based on ambiguity and separation between the classes and the data sparsity 
+  and dimensionality of the datasets. The measures were originally proposed by 
+  Ho and Basu (2002) and extend by many other works including the DCoL libray. 
+  The main difference between the libraries is that ECoL provides bug fixes, 
+  generalizations and implementations of many other state-of-the-art measures.
 URL: https://github.com/lpfgarcia/ECoL
 Depends:
-    R (>= 3.4.1),
+    R (>= 3.3.1),
 Imports:
     cluster,
     e1071,
     igraph,
     MASS
-Suggests:
-    knitr,
-    rmarkdown,
-    testthat
 License: MIT + file LICENSE
-LazyData: true
 BugReports: https://github.com/lpfgarcia/ECoL/issues
 RoxygenNote: 6.0.1
-VignetteBuilder: knitr
