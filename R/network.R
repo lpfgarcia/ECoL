@@ -108,7 +108,7 @@ avg_hub <- function(graph) {
 }
 
 cluster_coefficient <- function(graph) {
-  igraph::transitivity(graph, type="global")
+  igraph::transitivity(graph, type="global", isolates="zero")
 }
 
 avg_path_length <- function(graph) {
