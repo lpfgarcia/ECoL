@@ -107,6 +107,8 @@ f1v <- function(data) {
     aux <- stats::predict(MASS::lda(class ~., data), data)
     data <- data.frame(aux$x, class=data$class)
     return(f1(data))
+  }, warning = function(w) {
+    return(NA)
   }, error = function(e) {
     return(NA)
   })
