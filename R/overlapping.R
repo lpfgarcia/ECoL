@@ -94,24 +94,32 @@ f1 <- function(data) {
     sapply(1:nlevels(data$class), function(i) num(data, i))
   )
 
-  tmp <- sapply(levels(data$class), function(i) den(data, i))
-  tmp <- rbind(tmp,1)
+  tmp <- rbind(sapply(levels(data$class), function(i) den(data, i)), 1)
   aux <- max(rowSums(aux)/rowSums(tmp))
   return(aux)
 }
 
+dvector <- function(data) {
+
+  m1 <- data[data$class == levels(data$class)[1], -ncol(data)]
+  m2 <- data[data$class == levels(data$class)[2], -ncol(data)]
+
+  c1 <- colMeans(m1)
+  c2 <- colMeans(m2)
+
+  W <- (nrow(m1)/nrow(data)) * stats::cov(m1) + 
+    (nrow(m2)/nrow(data)) * stats::cov(m2)
+  B <- (c1 - c2) %*% t(c1 - c2)
+  d <- MASS::ginv(W) %*% (c1 - c2)
+
+  aux <- (t(d) %*% B %*% d)/(t(d) %*% W %*% d)
+  return(aux)
+}
 
 f1v <- function(data) {
-
-  tryCatch({
-    aux <- stats::predict(MASS::lda(class ~., data), data)
-    data <- data.frame(aux$x, class=data$class)
-    return(f1(data))
-  }, warning = function(w) {
-    return(NA)
-  }, error = function(e) {
-    return(NA)
-  })
+  data <- ovo(data)
+  aux <- unlist(lapply(data, dvector))
+  return(mean(aux))
 }
 
 regionOver <- function(data) {
