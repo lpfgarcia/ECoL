@@ -137,7 +137,7 @@ radios <- function(dst, data, i) {
     return(di/2)
   } else {
     tmp <- radios(dst, data, j)
-    return(dj - tmp)
+    return(di - tmp)
   }
 }
 
@@ -174,15 +174,19 @@ adherence <- function(adh, data) {
 
     aux <- which.max(rowSums(adh))
     tmp <- names(which(adh[aux,]))
-    dif <- setdiff(rownames(adh), tmp)
-    adh <- adh[dif, dif]
+    dif <- setdiff(rownames(adh), c(tmp, names(aux)))
+    adh <- adh[dif, dif, drop=FALSE]
 
-    h <- c(h, length(tmp))
+    if(all(dim(adh) != 0)) {
+      h <- c(h, length(tmp))
+    } else {
+      h <- c(h, 1)
+    }
+
     n <- c(n, names(aux))
 
-    if(is.null(dim(adh)) | sum(adh) == 0 |
-      all(dim(adh) == 0))
-        break
+    if(all(dim(adh)) == 0)
+      break
   }
 
   names(h) <- n
