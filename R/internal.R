@@ -57,9 +57,8 @@ ovo <- function(data) {
 
 interpolation <- function(data) {
 
-  aux <- sample(levels(data$class), 1)
-  aux <- data[data$class == aux,] 
-  aux <- data[sample(1:nrow(aux), 2, replace=FALSE),]
+  aux <- data[data$class == sample(data$class, 1),] 
+  aux <- aux[sample(nrow(aux), 2, replace=FALSE),]
 
   for(i in 1:(ncol(data)-1)) {
     if(is.numeric(data[,i])) {
@@ -71,10 +70,10 @@ interpolation <- function(data) {
   return(aux[1,])
 }
 
-generate <- function(data) {
+generate <- function(data, n) {
 
   tmp <- do.call("rbind",
-    lapply(1:nrow(data),
+    lapply(1:n,
       function(i) {
         interpolation(data)
     })

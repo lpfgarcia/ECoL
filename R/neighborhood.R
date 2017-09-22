@@ -112,7 +112,7 @@ n3 <- function(dst, data) {
 
 n4 <- function(dst, data) {
 
-  aux <- rbind(data, generate(data))
+  aux <- rbind(data, generate(data, nrow(data)))
   vet <- setdiff(rownames(aux), rownames(data))
   dst <- dist(aux[,-ncol(aux), drop=FALSE])
 

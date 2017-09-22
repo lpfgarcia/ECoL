@@ -105,7 +105,7 @@ l2 <- function(model, data) {
 l3 <- function(model, data) {
 
   aux <- mapply(function(m, d) {
-    tmp <- generate(d)
+    tmp <- generate(d, nrow(d))
     pred <- stats::predict(m, tmp)
     error(pred, tmp$class)
   }, m=model, d=data)
