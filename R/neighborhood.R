@@ -64,10 +64,10 @@ ls.neighborhood <- function() {
 
 n1 <- function(dst, data) {
 
-  g <- igraph::graph.adjacency(dst, weighted=TRUE)
-  tree <- as.matrix(igraph::as_adj(igraph::mst(igraph::as.undirected(g))))
+  g <- igraph::graph.adjacency(dst, mode="undirected", weighted=TRUE)
+  tree <- as.matrix(igraph::as_adj(igraph::mst(g)))
 
-  tmp <- which(tree != 0, arr.ind=TRUE)  
+  tmp <- which(tree != 0, arr.ind=TRUE)
   aux <- which(data[tmp[,1],]$class != data[tmp[,2],]$class)
   aux <- length(unique(tmp[aux,1]))
   return(aux/nrow(data))
