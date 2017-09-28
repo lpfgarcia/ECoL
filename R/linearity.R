@@ -32,7 +32,7 @@ linearity.default <- function(x, y, measures="all", ...) {
   measures <- match.arg(measures, ls.linearity(), TRUE)
 
   data <- data.frame(x, class=y)
-  data <- normalize(binarize(data))
+  data <- binarize(data)
   data <- ovo(data)
 
   model <- lapply(data, smo)

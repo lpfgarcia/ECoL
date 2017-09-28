@@ -32,7 +32,6 @@ network.default <- function(x, y, measures="all", epsilon=0.15, ...) {
   measures <- match.arg(measures, ls.network(), TRUE)
 
   data <- data.frame(x, class=y)
-  data <- normalize(data)
 
   graph <- enn(data, epsilon)
   graph <- igraph::graph.adjacency(graph, mode="undirected")

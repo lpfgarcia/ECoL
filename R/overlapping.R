@@ -32,7 +32,7 @@ overlapping.default <- function(x, y, measures="all", ...) {
   measures <- match.arg(measures, ls.overlapping(), TRUE)
 
   data <- data.frame(x, class=y)
-  data <- normalize(binarize(data))
+  data <- binarize(data)
 
   sapply(measures, function(f) {
     eval(call(f, data=data))
