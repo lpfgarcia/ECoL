@@ -33,6 +33,7 @@ density.default <- function(x, y, measures="all", ...) {
 
   data <- data.frame(x, class=y)
   data <- binarize(data)
+
   dst <- dist(data[,-ncol(data)])
 
   sapply(measures, function(f) {
