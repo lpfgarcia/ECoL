@@ -69,11 +69,11 @@ pca <- function(data) {
 }
 
 m1 <- function(data) {
-  (ncol(data)-1)/nrow(data)
+  nrow(data)/(ncol(data)-1)
 }
 
 m2 <- function(data) {
-  pca(data)/nrow(data)
+  nrow(data)/pca(data)
 }
 
 m3 <- function(data) {
