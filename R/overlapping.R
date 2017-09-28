@@ -68,35 +68,30 @@ branch <- function(data, j) {
 
 num <- function(data, j) {
 
-  l <- levels(data$class)
-  tmp <- branch(data, l[j])
-  if((j+1) > length(l)) return(0)
-
-  aux <- sapply((j+1):length(l), function(k) {
-    x <- branch(data, l[k])
-    nrow(tmp) * nrow(x) * (colMeans(tmp) - colMeans(x))^2
-  })
-
-  aux <- rbind(aux,0)
+  tmp <- branch(data, j)
+  aux <- nrow(tmp) * (colMeans(tmp) - 
+    colMeans(data[,-ncol(data), drop=FALSE]))^2
   return(aux)
 }
 
 den <- function(data, j) {
 
   tmp <- branch(data, j)
-  aux <- nrow(tmp) * diag(stats::var(tmp))
+  aux <- rowSums((t(tmp) - colMeans(tmp))^2)
   return(aux)
 }
 
 f1 <- function(data) {
 
-  aux <- do.call("cbind",
-    sapply(1:nlevels(data$class), function(i) num(data, i))
+  aux <- do.call("cbind", 
+    lapply(levels(data$class), function(i) {
+      num(data, i)/den(data, i)
+    })
   )
 
-  tmp <- rbind(sapply(levels(data$class), function(i) den(data, i)), 1)
-  aux <- max(rowSums(aux)/rowSums(tmp))
-  return(aux)
+  aux[aux == Inf] <- NA
+  aux <- rowSums(aux, na.rm=TRUE)
+  return(max(aux))
 }
 
 dvector <- function(data) {
