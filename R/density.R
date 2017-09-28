@@ -69,7 +69,7 @@ volume <- function(data) {
 }
 
 d1 <- function(dst, data) {
-  volume(data)/nrow(data)
+  nrow(data)/volume(data)
 }
 
 d2 <- function(dst, data, k=3) {
