@@ -70,7 +70,7 @@ c1 <- function(data) {
 
 c2 <- function(data) {
   aux <- summary(data$class)
-  return(min(aux)/max(aux))
+  return(max(aux)/min(aux))
 }
 
 c3 <- function(data) {
