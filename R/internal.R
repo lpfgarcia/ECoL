@@ -12,7 +12,7 @@ rowMax <- function(data) {
 }
 
 dist <- function(data) {
-  as.matrix(cluster::daisy(data, metric="gower"))
+  as.matrix(cluster::daisy(data, metric="gower", stand=TRUE))
 }
 
 form <- function(data) {
