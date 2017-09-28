@@ -32,7 +32,7 @@ dimensionality.default <- function(x, y, measures="all", ...) {
   measures <- match.arg(measures, ls.dimensionality(), TRUE)
 
   data <- data.frame(x, class=y)
-  data <- binarize(data)
+  data <- normalize(binarize(data))
 
   sapply(measures, function(f) {
     eval(call(f, data=data))

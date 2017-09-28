@@ -32,7 +32,7 @@ density.default <- function(x, y, measures="all", ...) {
   measures <- match.arg(measures, ls.density(), TRUE)
 
   data <- data.frame(x, class=y)
-  data <- binarize(data)
+  data <- normalize(binarize(data))
 
   dst <- dist(data[,-ncol(data)])
 
@@ -73,12 +73,12 @@ d1 <- function(dst, data) {
   nrow(data)/volume(data)
 }
 
-d2 <- function(dst, data, k=3) {
+d2 <- function(dst, data) {
 
   aux <- unlist(
     lapply(rownames(data),
       function(i) {
-        tmp <- knn(dst, data, k, i)
+        tmp <- knn(dst, data, 3, i)
         volume(data[names(tmp),])
       })
   )
@@ -93,12 +93,12 @@ voting <- function(pred, data, i) {
   return(data[i,]$class)
 }
 
-d3 <- function(dst, data, k=3) {
+d3 <- function(dst, data) {
 
   aux <- unlist(
     lapply(rownames(data),
       function(i) {
-        tmp <- knn(dst, data, k, i)
+        tmp <- knn(dst, data, 3, i)
         voting(tmp, data, i)
     })
   )

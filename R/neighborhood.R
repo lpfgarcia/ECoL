@@ -32,6 +32,8 @@ neighborhood.default <- function(x, y, measures="all", ...) {
   measures <- match.arg(measures, ls.neighborhood(), TRUE)
 
   data <- data.frame(x, class=y)
+  data <- normalize(binarize(data))
+
   dst <- dist(data[,-ncol(data), drop=FALSE])
 
   sapply(measures, function(f) {
