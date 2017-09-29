@@ -61,7 +61,7 @@ network.formula <- function(formula, data, measures="all", epsilon=0.15, ...) {
 
 #' @export
 ls.network <- function() {
-  c("edges", "avg_degree", "avg_density", "max_componet", 
+  c("avg_degree", "avg_density", "max_componet", 
     "avg_closeness", "avg_betweenness", "avg_hub", 
     "cluster_coefficient", "avg_path_length")
 }
@@ -81,12 +81,10 @@ enn <- function(data, epsilon=0.15) {
   return(dst)
 }
 
-edges <- function(graph) {
-  igraph::ecount(graph)
-}
-
 avg_degree <- function(graph) {
-  mean(igraph::degree(graph))
+  n <- igraph::vcount(graph)
+  aux <- sum(igraph::degree(graph))/(n*(n-1))
+  return(aux)
 }
 
 avg_density <- function(graph) {
