@@ -95,14 +95,16 @@ f1 <- function(data) {
 
 dvector <- function(data) {
 
-  m1 <- data[data$class == levels(data$class)[1], -ncol(data)]
-  m2 <- data[data$class == levels(data$class)[2], -ncol(data)]
+  l <- levels(data$class)
+  a <- branch(data, l[1])
+  b <- branch(data, l[2])
 
-  c1 <- colMeans(m1)
-  c2 <- colMeans(m2)
+  c1 <- colMeans(a)
+  c2 <- colMeans(b)
 
-  W <- (nrow(m1)/nrow(data)) * stats::cov(m1) + 
-    (nrow(m2)/nrow(data)) * stats::cov(m2)
+  W <- (nrow(a)/nrow(data)) * stats::cov(a) + 
+    (nrow(b)/nrow(data)) * stats::cov(b)
+
   B <- (c1 - c2) %*% t(c1 - c2)
   d <- MASS::ginv(W) %*% (c1 - c2)
 
