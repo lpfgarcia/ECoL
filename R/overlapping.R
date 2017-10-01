@@ -89,9 +89,8 @@ f1 <- function(data) {
     })
   )
 
-  aux[aux == Inf] <- NA
-  aux <- rowSums(aux, na.rm=TRUE)
-  return(max(aux))
+  aux <- max(rowSums(aux))
+  return(aux)
 }
 
 dvector <- function(data) {
