@@ -16,14 +16,12 @@ The Extended Complexity Library (ECoL) is the implementation in R of a set of me
 
 **Measures of neighborhood information** 
 
-* LSCAvg: Local-Set cardinality average
 * N1: Fraction of points lying on the class boundary
 * N2: Average intra/inter class nearest neighbor distances
 * N3: Leave-one-out error rate of the 1-nearest neighbor algorithm
 * N4: Nonlinearity of the one-nearest neighbor classifier
 * T1: Fraction of maximum covering spheres on data
-* T2: Samples per group
-* T4: Inter-class scale variation
+* LSCAvg: Local-Set cardinality average
 
 **Measures of linearity** 
 
@@ -33,33 +31,22 @@ The Extended Complexity Library (ECoL) is the implementation in R of a set of me
 
 **Measures of dimensionality**
 
-* M1: Average number of samples per dimension
-* M2: Average intrinsic dimensionality  per number of examples
-* M3: Intrinsic dimensionality proportion
-
-**Measures of density**
-
-* D1: Density
-* D2: Volume of local neighborhood
-* D3: Class density in overlap region
+* T2: Average number of samples per dimension
+* T3: Average intrinsic dimensionality  per number of examples
+* T4: Intrinsic dimensionality proportion
 
 **Measures of class balance**
 
 * C1: Class balance
-* C2: Binary imbalance ratio
-* C3: Multi-class imbalance ratio
+* C2: Multi-class imbalance ratio
 
 **Measures of structural representation**
 
-* Edges: Number of edges
-* Avg_degree: Average degree of the network
-* Avg_density: Average density of network
-* Max_componet: Maximum number of components
-* Avg_closeness: Average closeness centrality
-* Avg_betweenness: Average betweenness centrality
-* Avg_hub: Average hub score
-* Cluster_coefficient: Clustering Coefficient
-* Avg_path_length: Average Path Length
+* Density: Average density of network
+* Degree: Average degree of the network
+* Closeness: Average closeness centrality
+* ClsCoef: Clustering Coefficient
+* Hubs: Average hub score
 
 ## Technical Requirements
 
