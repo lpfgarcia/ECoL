@@ -61,9 +61,7 @@ network.formula <- function(formula, data, measures="all", epsilon=0.15, ...) {
 
 #' @export
 ls.network <- function() {
-  c("avg_degree", "avg_density", "max_componet", 
-    "avg_closeness", "avg_betweenness", "avg_hub", 
-    "cluster_coefficient", "avg_path_length")
+  c("Density", "Degree", "Closeness", "ClsCoef", "Hubs")
 }
 
 enn <- function(data, epsilon=0.15) {
@@ -81,42 +79,25 @@ enn <- function(data, epsilon=0.15) {
   return(dst)
 }
 
-avg_degree <- function(graph) {
+Density <- function(graph) {
+  igraph::graph.density(graph)
+}
+
+Degree <- function(graph) {
   n <- igraph::vcount(graph)
   aux <- sum(igraph::degree(graph))/(n*(n-1))
   return(aux)
 }
 
-avg_density <- function(graph) {
-  igraph::graph.density(graph)
-}
-
-max_componet <- function(graph) {
-  max(igraph::clusters(graph)$csize)
-}
-
-avg_closeness <- function(graph) {
+Closeness <- function(graph) {
   mean(igraph::closeness(graph))
 }
 
-avg_betweenness <- function(graph) {
-  mean(igraph::betweenness(graph, directed=FALSE))
-}
-
-avg_hub <- function(graph) {
-  mean(igraph::hub.score(graph)$vector)
-}
-
-cluster_coefficient <- function(graph) {
+ClsCoef <- function(graph) {
   igraph::transitivity(graph, type="global", isolates="zero")
 }
 
-avg_path_length <- function(graph) {
-
-  cls <- igraph::clusters(graph)
-  g <- igraph::induced.subgraph(graph, which(cls$membership == which.max(cls$csize)))
-  disthist <- igraph::path.length.hist(g, directed=FALSE)$res
-  aux <- stats::weighted.mean(1:length(disthist), disthist)  
-  return(aux)
+Hubs <- function(graph) {
+  mean(igraph::hub.score(graph)$vector)
 }
 

@@ -59,7 +59,7 @@ overlapping.formula <- function(formula, data, measures="all", ...) {
 
 #' @export
 ls.overlapping <- function() {
-  c("f1", "f1v", "f2", "f3", "f4")
+  c("F1", "F1v", "F2", "F3", "F4")
 }
 
 branch <- function(data, j) {
@@ -81,7 +81,7 @@ den <- function(data, j) {
   return(aux)
 }
 
-f1 <- function(data) {
+F1 <- function(data) {
 
   aux <- do.call("cbind", 
     lapply(levels(data$class), function(i) {
@@ -112,7 +112,7 @@ dvector <- function(data) {
   return(aux)
 }
 
-f1v <- function(data) {
+F1v <- function(data) {
   data <- ovo(data)
   aux <- unlist(lapply(data, dvector))
   return(mean(aux))
@@ -133,7 +133,7 @@ regionOver <- function(data) {
   return(aux)
 }
 
-f2 <- function(data) {
+F2 <- function(data) {
 
   data <- ovo(data)
   aux <- unlist(lapply(data, regionOver))
@@ -162,7 +162,7 @@ nonOverlap <- function(data) {
   return(aux)
 }
 
-f3 <- function(data) {
+F3 <- function(data) {
 
   data <- ovo(data)
   aux <- mapply(function(d) {
@@ -189,7 +189,7 @@ removing <- function(data) {
   return(data)
 }
 
-f4 <- function(data) {
+F4 <- function(data) {
 
   data <- ovo(data)
   aux <- mapply(function(d) {

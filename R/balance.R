@@ -58,22 +58,17 @@ balance.formula <- function(formula, data, measures="all", ...) {
 
 #' @export
 ls.balance <- function() {
-  c("c1", "c2", "c3")
+  c("C1", "C2")
 }
 
-c1 <- function(data) {
+C1 <- function(data) {
   c <- (-1/log(nlevels(data$class)))
   i <- table(data$class)/nrow(data)
   aux <- c*sum(i*log(i))
   return(aux)
 }
 
-c2 <- function(data) {
-  aux <- summary(data$class)
-  return(max(aux)/min(aux))
-}
-
-c3 <- function(data) {
+C2 <- function(data) {
 
   nc <- nlevels(data$class)
   ii <- summary(data$class)
