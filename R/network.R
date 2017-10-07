@@ -31,6 +31,8 @@ network.default <- function(x, y, measures="all", epsilon=0.15, ...) {
 
   measures <- match.arg(measures, ls.network(), TRUE)
 
+  colnames(x) <- make.names(colnames(x))
+
   data <- data.frame(x, class=y)
 
   graph <- enn(data, epsilon)

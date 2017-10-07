@@ -31,6 +31,8 @@ dimensionality.default <- function(x, y, measures="all", ...) {
 
   measures <- match.arg(measures, ls.dimensionality(), TRUE)
 
+  colnames(x) <- make.names(colnames(x))
+
   data <- data.frame(x, class=y)
   data <- binarize(data)
 

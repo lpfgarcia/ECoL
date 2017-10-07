@@ -31,6 +31,8 @@ balance.default <- function(x, y, measures="all", ...) {
 
   measures <- match.arg(measures, ls.balance(), TRUE)
 
+  colnames(x) <- make.names(colnames(x))
+
   data <- data.frame(x, class=y)
 
   sapply(measures, function(f) {
