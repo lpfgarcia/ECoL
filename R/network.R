@@ -63,7 +63,7 @@ network.formula <- function(formula, data, measures="all", epsilon=0.15, ...) {
 
 #' @export
 ls.network <- function() {
-  c("Density", "Degree", "Closeness", "ClsCoef", "Hubs")
+  c("Density", "Closeness", "ClsCoef", "Hubs")
 }
 
 enn <- function(data, epsilon=0.15) {
@@ -83,12 +83,6 @@ enn <- function(data, epsilon=0.15) {
 
 Density <- function(graph) {
   igraph::graph.density(graph)
-}
-
-Degree <- function(graph) {
-  n <- igraph::vcount(graph)
-  aux <- sum(igraph::degree(graph))/(n*(n-1))
-  return(aux)
 }
 
 Closeness <- function(graph) {
