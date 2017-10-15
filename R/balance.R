@@ -17,10 +17,6 @@ balance.default <- function(x, y, measures="all", ...) {
 
   y <- as.factor(y)
 
-  if(min(table(y)) < 2) {
-    stop("number of examples in the minority class should be >= 2")
-  }
-
   if(nrow(x) != length(y)) {
     stop("x and y must have same number of rows")
   }
@@ -31,12 +27,8 @@ balance.default <- function(x, y, measures="all", ...) {
 
   measures <- match.arg(measures, ls.balance(), TRUE)
 
-  colnames(x) <- make.names(colnames(x))
-
-  data <- data.frame(x, class=y)
-
   sapply(measures, function(f) {
-    eval(call(f, data=data))
+    eval(call(f, y=y))
   })
 }
 
@@ -54,7 +46,7 @@ balance.formula <- function(formula, data, measures="all", ...) {
   modFrame <- stats::model.frame(formula, data)
   attr(modFrame, "terms") <- NULL
 
-  balance.default(modFrame[, -1, drop=FALSE], modFrame[, 1, drop=FALSE], 
+  balance.default(modFrame[, -1, drop=FALSE], modFrame[, 1, drop=FALSE],
     measures, ...)
 }
 
@@ -63,18 +55,16 @@ ls.balance <- function() {
   c("C1", "C2")
 }
 
-C1 <- function(data) {
-  c <- (-1/log(nlevels(data$class)))
-  i <- table(data$class)/nrow(data)
+C1 <- function(y) {
+  c <- -1/log(nlevels(y))
+  i <- table(y)/length(y)
   aux <- c*sum(i*log(i))
   return(aux)
 }
 
-C2 <- function(data) {
-
-  nc <- nlevels(data$class)
-  ii <- summary(data$class)
-  aux <- ((nc - 1)/nc) * sum(ii/(nrow(data) - ii))
+C2 <- function(y) {
+  ii <- summary(y)
+  nc <- length(ii)
+  aux <- ((nc - 1)/nc) * sum(ii/(length(y) - ii))
   return(aux)
 }
-
