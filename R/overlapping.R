@@ -30,11 +30,10 @@ overlapping.default <- function(x, y, measures="all", ...) {
   }
 
   measures <- match.arg(measures, ls.overlapping(), TRUE)
-
   colnames(x) <- make.names(colnames(x))
 
+  x <- binarize(x)
   data <- data.frame(x, class=y)
-  data <- binarize(data)
 
   sapply(measures, function(f) {
     eval(call(f, data=data))
@@ -55,7 +54,7 @@ overlapping.formula <- function(formula, data, measures="all", ...) {
   modFrame <- stats::model.frame(formula, data)
   attr(modFrame, "terms") <- NULL
 
-  overlapping.default(modFrame[, -1, drop=FALSE], modFrame[, 1, drop=FALSE], 
+  overlapping.default(modFrame[, -1, drop=FALSE], modFrame[, 1, drop=FALSE],
     measures, ...)
 }
 
@@ -91,7 +90,7 @@ F1 <- function(data) {
     })
   )
 
-  aux <- max(rowSums(aux))
+  aux <- max(rowSums(aux, na.rm=TRUE))
   return(aux)
 }
 
@@ -202,4 +201,3 @@ F4 <- function(data) {
   aux <- mean(aux)
   return(aux)
 }
-
