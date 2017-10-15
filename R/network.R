@@ -6,7 +6,7 @@ network <- function(...) {
 
 #' @rdname network
 #' @export
-network.default <- function(x, y, measures="all", epsilon=0.15, ...) {
+network.default <- function(x, y, measures="all", eps=0.15, ...) {
   if(!is.data.frame(x)) {
     stop("data argument must be a data.frame")
   }
@@ -30,13 +30,10 @@ network.default <- function(x, y, measures="all", epsilon=0.15, ...) {
   }
 
   measures <- match.arg(measures, ls.network(), TRUE)
-
   colnames(x) <- make.names(colnames(x))
 
-  data <- data.frame(x, class=y)
-
-  graph <- enn(data, epsilon)
-  graph <- igraph::graph.adjacency(graph, mode="undirected")
+  adj <- enn(x, y, eps)
+  graph <- igraph::graph.adjacency(adj, mode="undirected")
 
   sapply(measures, function(f) {
     eval(call(f, graph))
@@ -45,7 +42,7 @@ network.default <- function(x, y, measures="all", epsilon=0.15, ...) {
 
 #' @rdname network
 #' @export
-network.formula <- function(formula, data, measures="all", epsilon=0.15, ...) {
+network.formula <- function(formula, data, measures="all", eps=0.15, ...) {
   if(!inherits(formula, "formula")) {
     stop("method is only for formula datas")
   }
@@ -57,8 +54,8 @@ network.formula <- function(formula, data, measures="all", epsilon=0.15, ...) {
   modFrame <- stats::model.frame(formula, data)
   attr(modFrame, "terms") <- NULL
 
-  network.default(modFrame[, -1, drop=FALSE], modFrame[, 1, drop=FALSE], 
-    measures, ...)
+  network.default(modFrame[, -1, drop=FALSE], modFrame[, 1, drop=FALSE],
+    measures, eps, ...)
 }
 
 #' @export
@@ -66,16 +63,15 @@ ls.network <- function() {
   c("Density", "Closeness", "ClsCoef", "Hubs")
 }
 
-enn <- function(data, epsilon=0.15) {
+enn <- function(x, y, eps) {
 
-  dst <- dist(data[,-ncol(data), drop=FALSE])
-  e <- epsilon*nrow(data)
+  dst <- dist(x)
+  eps <- eps*nrow(x)
 
-  for(i in 1:nrow(dst)) {
-
-    x <- names(sort(dst[i,])[1:e+1])
-    y <- rownames(data[data$class == data[i,]$class,])
-    dst[i,] <- 0; dst[i, intersect(x, y)] <- 1
+  for(i in 1:nrow(x)) {
+    a <- names(sort(dst[i,])[1:eps+1])
+    b <- rownames(x[y == y[i],])
+    dst[i,] <- 0; dst[i, intersect(a, b)] <- 1
   }
 
   return(dst)
@@ -96,4 +92,3 @@ ClsCoef <- function(graph) {
 Hubs <- function(graph) {
   mean(igraph::hub.score(graph)$vector)
 }
-
