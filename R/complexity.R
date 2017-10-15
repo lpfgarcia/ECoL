@@ -30,10 +30,11 @@ complexity.default <- function(x, y, groups="all", ...) {
   }
 
   groups <- match.arg(groups, ls.complexity(), TRUE)
+  colnames(x) <- make.names(colnames(x))
 
   unlist(
     sapply(groups, function(group) {
-      do.call(paste(group, "default", sep="."), list(x=x, y=y, ...))
+      do.call(group, list(x=x, y=y, ...))
     }, simplify=FALSE)
   )
 }
@@ -52,13 +53,12 @@ complexity.formula <- function(formula, data, groups="all", ...) {
   modFrame <- stats::model.frame(formula, data)
   attr(modFrame, "terms") <- NULL
 
-  complexity.default(modFrame[, -1, drop=FALSE], modFrame[, 1, drop=FALSE], 
+  complexity.default(modFrame[, -1, drop=FALSE], modFrame[, 1, drop=FALSE],
     groups, ...)
 }
 
 #' @export
 ls.complexity <- function() {
-  c("overlapping", "neighborhood", "linearity", "dimensionality", 
-    "balance", "network")
+  c("overlapping", "neighborhood", "linearity", "dimensionality", "balance",
+    "network")
 }
-
