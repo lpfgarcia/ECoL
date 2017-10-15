@@ -7,39 +7,17 @@ colMax <- function(data) {
   apply(data, 2, max)
 }
 
-rowMax <- function(data) {
-    apply(data, 1, max)
+dist <- function(x) {
+  as.matrix(cluster::daisy(x, metric="gower", stand=TRUE))
 }
 
-dist <- function(data) {
-  as.matrix(cluster::daisy(data, metric="gower", stand=TRUE))
+form <- function(x) {
+  att <- paste(colnames(x), collapse="+")
+  stats::formula(paste("~ 0 +", att, sep=" "))
 }
 
-form <- function(data) {
-  att <- paste(colnames(data)[-ncol(data)], collapse="+")
-  aux <- stats::formula(paste("~ 0 +", att, sep=" "))
-  return(aux)
-}
-
-binarize <- function(data) {
-  aux <- stats::model.matrix(form(data), data)
-  aux <- data.frame(aux, class=data$class)
-  return(aux)
-}
-
-knn <- function(dst, data, k=3, i) {
-  tmp <- names(sort(dst[i,])[1:k+1])
-  aux <- data[tmp,]$class
-  names(aux) <- tmp
-  return(aux) 
-}
-
-normalize <- function(data) {
-
-  for(i in 1:(ncol(data)-1))
-    if(is.numeric(data[,i]))
-      data[,i] <- as.numeric(scale(data[,i]))
-  return(data)
+binarize <- function(x) {
+  data.frame(stats::model.matrix(form(x), x))
 }
 
 ovo <- function(data) {
@@ -47,7 +25,7 @@ ovo <- function(data) {
   aux <- utils::combn(levels(data$class), 2)
 
   tmp <- apply(aux, 2, function(i) {
-    vet <- subset(data, data$class %in% i)
+    vet <- base::subset(data, data$class %in% i)
     vet$class <- factor(vet$class)
     return(vet)
   })
@@ -81,4 +59,3 @@ generate <- function(data, n) {
 
   return(tmp)
 }
-
