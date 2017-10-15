@@ -30,15 +30,13 @@ linearity.default <- function(x, y, measures="all", ...) {
   }
 
   measures <- match.arg(measures, ls.linearity(), TRUE)
-
   colnames(x) <- make.names(colnames(x))
 
+  x <- binarize(x)
   data <- data.frame(x, class=y)
-  data <- binarize(data)
   data <- ovo(data)
 
   model <- lapply(data, smo)
-
   sapply(measures, function(f) {
     eval(call(f, model=model, data=data))
   })
@@ -58,7 +56,7 @@ linearity.formula <- function(formula, data, measures="all", ...) {
   modFrame <- stats::model.frame(formula, data)
   attr(modFrame, "terms") <- NULL
 
-  linearity.default(modFrame[, -1, drop=FALSE], modFrame[, 1, drop=FALSE], 
+  linearity.default(modFrame[, -1, drop=FALSE], modFrame[, 1, drop=FALSE],
     measures, ...)
 }
 
@@ -114,4 +112,3 @@ L3 <- function(model, data) {
 
   return(mean(aux))
 }
-
