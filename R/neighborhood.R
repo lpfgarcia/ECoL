@@ -30,13 +30,11 @@ neighborhood.default <- function(x, y, measures="all", ...) {
   }
 
   measures <- match.arg(measures, ls.neighborhood(), TRUE)
-
   colnames(x) <- make.names(colnames(x))
 
+  x <- binarize(x)
   data <- data.frame(x, class=y)
-  data <- binarize(data)
-
-  dst <- dist(data[,-ncol(data), drop=FALSE])
+  dst <- dist(x)
 
   sapply(measures, function(f) {
     eval(call(f, dst=dst, data=data))
@@ -57,13 +55,20 @@ neighborhood.formula <- function(formula, data, measures="all", ...) {
   modFrame <- stats::model.frame(formula, data)
   attr(modFrame, "terms") <- NULL
 
-  neighborhood.default(modFrame[, -1, drop=FALSE], modFrame[, 1, drop=FALSE], 
+  neighborhood.default(modFrame[, -1, drop=FALSE], modFrame[, 1, drop=FALSE],
     measures, ...)
 }
 
 #' @export
 ls.neighborhood <- function() {
   c("N1","N2", "N3", "N4", "T1", "LSCAvg")
+}
+
+knn <- function(dst, data, k=3, i) {
+  tmp <- names(sort(dst[i,])[1:k+1])
+  aux <- data[tmp,]$class
+  names(aux) <- tmp
+  return(aux) 
 }
 
 N1 <- function(dst, data) {
@@ -214,4 +219,3 @@ LSCAvg <- function(dst, data) {
   aux <- sum(aux)/(length(aux)^2)
   return(aux)
 }
-
