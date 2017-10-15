@@ -17,10 +17,6 @@ dimensionality.default <- function(x, y, measures="all", ...) {
 
   y <- as.factor(y)
 
-  if(min(table(y)) < 2) {
-    stop("number of examples in the minority class should be >= 2")
-  }
-
   if(nrow(x) != length(y)) {
     stop("x and y must have same number of rows")
   }
@@ -30,14 +26,12 @@ dimensionality.default <- function(x, y, measures="all", ...) {
   }
 
   measures <- match.arg(measures, ls.dimensionality(), TRUE)
-
   colnames(x) <- make.names(colnames(x))
 
-  data <- data.frame(x, class=y)
-  data <- binarize(data)
+  x <- binarize(x)
 
   sapply(measures, function(f) {
-    eval(call(f, data=data))
+    eval(call(f, x=x))
   })
 }
 
@@ -55,7 +49,7 @@ dimensionality.formula <- function(formula, data, measures="all", ...) {
   modFrame <- stats::model.frame(formula, data)
   attr(modFrame, "terms") <- NULL
 
-  dimensionality.default(modFrame[, -1, drop=FALSE], modFrame[, 1, drop=FALSE], 
+  dimensionality.default(modFrame[, -1, drop=FALSE], modFrame[, 1, drop=FALSE],
     measures, ...)
 }
 
@@ -64,21 +58,20 @@ ls.dimensionality <- function() {
   c("T2", "T3", "T4")
 }
 
-pca <- function(data) {
-  aux <- stats::prcomp(data[,-ncol(data)], scale=TRUE)$sdev
+pca <- function(x) {
+  aux <- stats::prcomp(x, scale=TRUE)$sdev
   aux <- which(cumsum(aux)/sum(aux) >= 0.95)
   return(aux[1])
 }
 
-T2 <- function(data) {
-  nrow(data)/(ncol(data)-1)
+T2 <- function(x) {
+  nrow(x)/ncol(x)
 }
 
-T3 <- function(data) {
-  nrow(data)/pca(data)
+T3 <- function(x) {
+  nrow(x)/pca(x)
 }
 
-T4 <- function(data) {
-  pca(data)/(ncol(data)-1)
+T4 <- function(x) {
+  pca(x)/ncol(x)
 }
-
