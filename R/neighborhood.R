@@ -216,6 +216,6 @@ LSCAvg <- function(dst, data) {
   })
 
   aux <- adherence(translate(dst, r), data)
-  aux <- sum(aux)/(length(aux)^2)
+  aux <- sum(aux)/(nrow(data)^2)
   return(aux)
 }
