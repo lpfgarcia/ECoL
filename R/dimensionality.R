@@ -59,9 +59,9 @@ ls.dimensionality <- function() {
 }
 
 pca <- function(x) {
-  aux <- stats::prcomp(x, scale=TRUE)$sdev
-  aux <- which(cumsum(aux)/sum(aux) <= 0.95)
-  return(aux[1])
+  aux <- stats::prcomp(x, scale=TRUE)
+  aux <- which(summary(aux)$importance[3,] <= 0.95)
+  return(length(aux))
 }
 
 T2 <- function(x) {
