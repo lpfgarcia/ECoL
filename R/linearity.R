@@ -81,7 +81,7 @@ L1 <- function(model, data) {
     prd <- stats::predict(m, d, decision.values=TRUE)
     err <- rownames(d[prd != d$class,])
     dst <- attr(prd, "decision.values")[err,]
-    sum(abs(dst))/(nrow(d)*hyperretangle(d))
+    sum(abs(dst))/nrow(d)
   }, m=model, d=data)
 
   aux <- mean(aux)
