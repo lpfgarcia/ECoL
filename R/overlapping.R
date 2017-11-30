@@ -90,7 +90,7 @@ F1 <- function(data) {
     })
   )
 
-  aux <- max(rowSums(aux, na.rm=TRUE))
+  aux <- max(rowSums(aux, na.rm=TRUE), na.rm=TRUE)
   return(aux)
 }
 
