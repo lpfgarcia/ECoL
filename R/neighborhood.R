@@ -210,7 +210,11 @@ T1 <- function(dst, data) {
 }
 
 LSCAvg <- function(dst, data) {
-  r <- hyperspher(dst, data)
+  
+  r <- sapply(rownames(data), function(i) {
+    as.numeric(inter(dst, data, i))
+  })
+  
   aux <- sum(translate(dst, r))/(nrow(dst)^2)
   return(aux)
 }
