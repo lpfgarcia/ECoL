@@ -43,8 +43,6 @@ The Extended Complexity Library (ECoL) is the implementation in R of a set of me
 **Measures of structural representation**
 
 * Density: Average density of network
-* Degree: Average degree of the network
-* Closeness: Average closeness centrality
 * ClsCoef: Clustering Coefficient
 * Hubs: Average hub score
 
