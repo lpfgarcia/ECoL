@@ -58,7 +58,7 @@ It is possible to install the development version using:
 if (!require("devtools")) {
     install.packages("devtools")
 }
-devtools::install_github("lpfgarcia/ECoL")
+devtools::install_github("SmartDataAnalytics/ECoL")
 library("ECoL")
 ```
 
