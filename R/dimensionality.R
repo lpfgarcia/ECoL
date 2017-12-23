@@ -60,7 +60,7 @@ ls.dimensionality <- function() {
 
 pca <- function(x) {
   aux <- stats::prcomp(x)
-  tmp <- length(which(summary(aux)$importance[3,] <= 0.95)) + 1
+  tmp <- length(which(summary(aux)$importance[3,] < 0.95)) + 1
   return(tmp)
 }
 
