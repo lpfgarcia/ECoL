@@ -91,7 +91,7 @@ ls.complexity()
 
 To cite `ECoL` in publications use: Garcia, L. P. F., Lehmann, J., de Souto, M., Lorena, A. (2017). ECoL: Extended Complexity Library. R package version 0.1.0. https://github.com/SmartDataAnalytics/ECoL
 
-To submit bugs and feature requests, report at [project issues](https://github.com/lpfgarcia/ECoL/issues).
+To submit bugs and feature requests, report at [project issues](https://github.com/SmartDataAnalytics/ECoL/issues).
 
 ## References
 
