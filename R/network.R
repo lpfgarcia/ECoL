@@ -18,15 +18,16 @@
 #' @details
 #'  The following measures are allowed for this method:
 #'  \describe{
-#'    \item{"Density"}{Average Density of the network represents the number of 
-#'      edges in the graph, divided by the maximum number of edges between pairs
-#'      of data points.}
-#'    \item{"ClsCoef"}{Clustering coefficient averages the clustering tendency 
-#'      of the vertexes by the ratio of existent edges between its neighbors and
-#'      the total number of edges that could possibly exist between them.}
-#'    \item{"Hubs"}{Hubs score is given by the number of connections it has to 
-#'      other nodes, weighted by the number of connections these neighbors 
-#'      have.}
+#'    \item{"Density"}{Average Density of the network (Density) represents the 
+#'      number of edges in the graph, divided by the maximum number of edges 
+#'      between pairs of data points.}
+#'    \item{"ClsCoef"}{Clustering coefficient (ClsCoef) averages the clustering 
+#'      tendency of the vertexes by the ratio of existent edges between its 
+#'      neighbors and the total number of edges that could possibly exist 
+#'      between them.}
+#'    \item{"Hubs"}{Hubs score (Hubs) is given by the number of connections it  
+#'      has to other nodes, weighted by the number of connections these 
+#'      neighbors have.}
 #'  }
 #' @return A list named by the requested class network measure.
 #'
@@ -101,14 +102,6 @@ network.formula <- function(formula, data, measures="all", eps=0.15, ...) {
     measures, eps, ...)
 }
 
-#' List the network measures
-#'
-#' @return A list of network measures names
-#' @export
-#'
-#' @examples
-#' ls.network()
-#' @export
 ls.network <- function() {
   c("Density", "ClsCoef", "Hubs")
 }

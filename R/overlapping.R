@@ -16,23 +16,23 @@
 #' @details
 #'  The following measures are allowed for this method:
 #'  \describe{
-#'    \item{"F1"}{Maximum Fisher's Discriminant Ratio measures the overlap 
+#'    \item{"F1"}{Maximum Fisher's Discriminant Ratio (F1) measures the overlap 
 #'      between the values of the features and takes the value of the largest 
 #'      discriminant ratio among all the available features.}
-#'    \item{"F1v"}{Directional-vector maximum Fisher's discriminant ratio 
+#'    \item{"F1v"}{Directional-vector maximum Fisher's discriminant ratio (F1v)
 #'      complements F1 by searching for a vector able to separate two classes 
 #'      after the training examples have been projected into it.}
-#'    \item{"F2"}{Volume of the overlapping region computes the overlap of the 
-#'      distributions of the features values within the classes. F2 can be 
+#'    \item{"F2"}{Volume of the overlapping region (F2) computes the overlap of 
+#'      the distributions of the features values within the classes. F2 can be 
 #'      determined by finding, for each feature its minimum and maximum values 
 #'      in the classes.}
-#'    \item{"F3"}{Measure the maximum individual feature efficiency of each 
+#'    \item{"F3"}{The maximum individual feature efficiency (F3) of each 
 #'      feature is given by the ratio between the number of examples that are 
 #'      not in the overlapping region of two classes and the total number of 
 #'      examples. This measure returns the maximum of the values found among 
 #'      the input features.}
-#'    \item{"F4"}{Collective feature efficiency get an overview on how various 
-#'      features may work together in data separation. First the most 
+#'    \item{"F4"}{Collective feature efficiency (F4) get an overview on how 
+#'      various features may work together in data separation. First the most 
 #'      discriminative feature according to F3 is selected and all examples that
 #'      can be separated by this feature are removed from the dataset. The 
 #'      previous step is repeated on the remaining dataset until all the 
@@ -108,14 +108,6 @@ overlapping.formula <- function(formula, data, measures="all", ...) {
     measures, ...)
 }
 
-#' List the overlapping measures
-#'
-#' @return A list of overlapping measures names
-#' @export
-#'
-#' @examples
-#' ls.overlapping()
-#' @export
 ls.overlapping <- function() {
   c("F1", "F1v", "F2", "F3", "F4")
 }
