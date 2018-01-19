@@ -39,33 +39,33 @@ we adopt a heterogeneous distance measure named Gower distance.
 \details{
 The following measures are allowed for this method:
  \describe{
-   \item{"N1"}{Fraction of borderline points  computes the percentage of 
+   \item{"N1"}{Fraction of borderline points (N1) computes the percentage of 
      vertexes incident to edges connecting examples of opposite classes in 
      a Minimum Spanning Tree (MST).}
-   \item{"N2"}{Ratio of intra/extra class nearest neighbor distance computes 
-     the ratio of two sums: intra-class and inter-class. The former 
+   \item{"N2"}{Ratio of intra/extra class nearest neighbor distance (N2)  
+     computes the ratio of two sums: intra-class and inter-class. The former 
      corresponds to the sum of the distances between each example and its 
      closest neighbor from the same class. The later is the sum of the 
      distances between each example and its closest neighbor from another 
      class (nearest enemy).}
-   \item{"N3"}{Error rate of the nearest neighbor classifier corresponds to 
-     the error rate of a 1NN (one Nearest Neighbor) classifier, estimated 
+   \item{"N3"}{Error rate of the nearest neighbor (N3) classifier corresponds
+     to the error rate of a one Nearest Neighbor (1NN) classifier, estimated 
      using a leave-one-out procedure in dataset.}
-   \item{"N4"}{Non-linearity of the nearest neighbor classifier creates a new
-     dataset randomly interpolating pairs of training examples of the same 
-     class and then induce a the 1NN classifier on the original data and 
+   \item{"N4"}{Non-linearity of the nearest neighbor classifier (N4) creates 
+     a new dataset randomly interpolating pairs of training examples of the 
+     same class and then induce a the 1NN classifier on the original data and
      measure the error rate in the new data points.}
-   \item{"T1"}{Fraction of hyperspheres covering data builds hyperspheres 
-     centered at each one of the training examples, which have their radios 
-     growth until the hypersphere reaches an example of another class. 
-     Afterwards, smaller hyperspheres contained in larger hyperspheres are 
-     eliminated. T1 is finally defined as the ratio between the number of 
+   \item{"T1"}{Fraction of hyperspheres covering data (T1) builds 
+     hyperspheres centered at each one of the training examples, which have 
+     their radios growth until the hypersphere reaches an example of another 
+     class. Afterwards, smaller hyperspheres contained in larger hyperspheres 
+     are eliminated. T1 is finally defined as the ratio between the number of 
      the remaining hyperspheres and the total number of examples in the 
      dataset.}
-   \item{"LSCAvg"}{Local Set Average Cardinality is based on Local Set (LS) 
-     and defined as the set of points from the dataset whose distance of each
-     example is smaller than the distance from the exemples of the different 
-     class. LSCAvg is the average of the LS.}
+   \item{"LSCAvg"}{Local Set Average Cardinality (LSCAvg) is based on Local 
+     Set (LS) and defined as the set of points from the dataset whose 
+     distance of each example is smaller than the distance from the exemples 
+     of the different class. LSCAvg is the average of the LS.}
  }
 }
 \examples{

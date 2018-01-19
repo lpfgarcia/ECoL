@@ -38,15 +38,15 @@ non-linear decision boundary.
 \details{
 The following measures are allowed for this method:
  \describe{
-   \item{"L1"}{Sum of the error distance by linear programming computes the 
-     sum of the distances of incorrectly classified examples to a linear 
+   \item{"L1"}{Sum of the error distance by linear programming (L1) computes  
+     the sum of the distances of incorrectly classified examples to a linear 
      boundary used in their classification.}
-   \item{"L2"}{Error rate of linear classifier computes the error rate of 
-     the linear SVM classifier induced from dataset.}
-   \item{"L3"}{Non-linearity of a linear classifier creates a new dataset 
-     randomly interpolating pairs of training examples of the same class and 
-     then induce a linear SVM on the original data and measure the error 
-     rate in the new data points.}
+   \item{"L2"}{Error rate of linear classifier (L2) computes the error rate  
+     of the linear SVM classifier induced from dataset.}
+   \item{"L3"}{Non-linearity of a linear classifier (L3) creates a new 
+     dataset randomly interpolating pairs of training examples of the same 
+     class and then induce a linear SVM on the original data and measure 
+     the error rate in the new data points.}
  }
 }
 \examples{

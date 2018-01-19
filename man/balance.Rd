@@ -38,9 +38,9 @@ the imbalance ratio.
 \details{
 The following measures are allowed for this method:
  \describe{
-   \item{"C1"}{The entropy of class proportions measure to capture the 
-     imbalance in a dataset.}
-   \item{"C2"}{The imbalance ratio measure is a index computed for measuring 
+   \item{"C1"}{The entropy of class proportions (C1) measure the imbalance in
+     a dataset based on the proportions of examples per class.}
+   \item{"C2"}{The imbalance ratio (C2) is an index computed for measuring
      class balance. This is a version of the measure that is also suited for 
      multiclass classification problems.}
  }
