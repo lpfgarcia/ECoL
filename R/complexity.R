@@ -98,13 +98,6 @@ complexity.formula <- function(formula, data, groups="all", ...) {
     groups, ...)
 }
 
-#' List the complexity measure groups
-#'
-#' @return A list of complexity measure groups
-#' @export
-#'
-#' @examples
-#' ls.complexity()
 ls.complexity <- function() {
   c("overlapping", "neighborhood", "linearity", "dimensionality", "balance",
     "network")

@@ -15,13 +15,13 @@
 #' @details
 #'  The following measures are allowed for this method:
 #'  \describe{
-#'    \item{"T2"}{Average number of points per dimension is given by the ratio 
-#'      between the number of examples and dimensionality of the dataset.} 
-#'    \item{"T3"}{Average number of points per PCA is similar to T2, but uses 
-#'      the number of PCA components needed to represent 95% of data variability
-#'      as the base of data sparsity assessment.}
-#'    \item{"T4"}{Ratio of the PCA Dimension to the Original it estimates the 
-#'       proportion of relevant and the original dimensions for a dataset.}
+#'    \item{"T2"}{Average number of points per dimension (T2) is given by the 
+#'      ratio between the number of examples and dimensionality of the dataset.} 
+#'    \item{"T3"}{Average number of points per PCA (T3) is similar to T2, but 
+#'      uses the number of PCA components needed to represent 95% of data 
+#'      variability as the base of data sparsity assessment.}
+#'    \item{"T4"}{Ratio of the PCA Dimension to the Original (T4) it estimates 
+#'      the proportion of relevant and the original dimensions for a dataset.}
 #'  }
 #' @return A list named by the requested class dimensionality measure.
 #'
@@ -87,14 +87,6 @@ dimensionality.formula <- function(formula, data, measures="all", ...) {
     measures, ...)
 }
 
-#' List the dimensionality measures
-#'
-#' @return A list of dimensionality measures names
-#' @export
-#'
-#' @examples
-#' ls.dimensionality()
-#' @export
 ls.dimensionality <- function() {
   c("T2", "T3", "T4")
 }
