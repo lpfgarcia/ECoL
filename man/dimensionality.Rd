@@ -38,17 +38,12 @@ more difficult to extract good classification models.
 The following measures are allowed for this method:
  \describe{
    \item{"T2"}{Average number of points per dimension is given by the ratio 
-     between the number of examples and dimensionality of the dataset:
-     \deqn{T2 = \frac{n}{m}} 
-     where n is the number of examples and m is the dimensionality.}
+     between the number of examples and dimensionality of the dataset.} 
    \item{"T3"}{Average number of points per PCA is similar to T2, but uses 
      the number of PCA components needed to represent 95% of data variability
-     as the base of data sparsity assessment:
-     \deqn{T3 = \frac{n}{m'}}
-     where m' is the number of PCA components.}
+     as the base of data sparsity assessment.}
    \item{"T4"}{Ratio of the PCA Dimension to the Original it estimates the 
-      proportion of relevant and the original dimensions for a dataset:
-      \deqn{T4 = \frac{m'}{m}}}
+      proportion of relevant and the original dimensions for a dataset.}
  }
 }
 \examples{

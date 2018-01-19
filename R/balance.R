@@ -17,15 +17,10 @@
 #'  The following measures are allowed for this method:
 #'  \describe{
 #'    \item{"C1"}{The entropy of class proportions measure to capture the 
-#'      imbalance in a dataset. It can be expressed as: 
-#'      \deqn{C1 = -\frac{1}{\log(n_c)}\sum_{i=1}^{n_c} p_i \log(p_i)}
-#'      where \eqn{p_i = n_i/n$} is the proportion of examples in each of the 
-#'      classes.}
+#'      imbalance in a dataset.}
 #'    \item{"C2"}{The imbalance ratio measure is a index computed for measuring 
 #'      class balance. This is a version of the measure that is also suited for 
-#'      multiclass classification problems:
-#'      \deqn{C2 = \frac{n_c-1}{n_c}\sum_{i=1}^{n_c}{\frac{n_i}{n-n_i}}}
-#'      where n_i is the number of instances from the i-th class.}
+#'      multiclass classification problems.}
 #'  }
 #' @return A list named by the requested class balance measure.
 #'

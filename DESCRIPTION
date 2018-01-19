@@ -2,7 +2,7 @@ Package: ECoL
 Type: Package
 Title: Extended Complexity Library
 Version: 0.1.0
-Date: 2017-10-04
+Date: 2018-01-19
 Authors@R: c(person("Luis", "Garcia", email="garcia@informatik.uni-leipzig.de", 
   role=c("aut", "cre")), person("Ana", "Lorena", 
   email="aclorena@unifesp.br", role="aut"), person("Jens", "Lehmann", 

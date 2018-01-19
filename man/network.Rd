@@ -34,9 +34,9 @@ A list named by the requested class network measure.
 \description{
 The network measures represent the dataset as a graph and extract structural 
 information from it. The transformation between raw data and the graph 
-representation is based on the \eqn{\epsilon-NN} algorithm. Next, a 
-post-processing step is applied to the graph, pruning edges between examples 
-of opposite classes.
+representation is based on the epsilon-NN algorithm. Next, a post-processing 
+step is applied to the graph, pruning edges between examples of opposite 
+classes.
 }
 \details{
 The following measures are allowed for this method:
