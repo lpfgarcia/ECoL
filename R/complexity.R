@@ -1,5 +1,46 @@
-
+#' Extract the complexity measures from datasets
+#'
+#' This function is responsable to extract the complexity measures from the 
+#' datasets. To set specific parameters for each group, use the characterization
+#' function.
+#'
+#' @param x A data.frame contained only the input attributes.
+#' @param y A factor response vector with one label for each row/component of x.
+#' @param groups A list of complexity measures groups or \code{"all"} to include
+#'  all of them.
+#' @param formula A formula to define the class column.
+#' @param data A data.frame dataset contained the input attributes and class.
+#' @param ... Not used.
+#'  The details section describes the valid values for this group.
+#' @details
+#'  The following groups are allowed for this method:
+#'  \describe{
+#'    \item{"overlapping"}{The feature overlapping measures characterize how 
+#'      informative the available features are to separate the classes See 
+#'      \link{overlapping} for more details.}
+#'    \item{"neighborhood"}{Neighborhood measures characterize the presence and 
+#'      density of same or different classes in local neighborhoods. See 
+#'      \link{neighborhood} for more details.}
+#'    \item{"linearity"}{Linearity measures try to quantify whether the classes 
+#'      can be linearly separated. See \link{linearity} for more details.}
+#'    \item{"dimensionality"}{The dimensionality measures compute information on
+#'      how smoothly the examples are distributed within the classes. See 
+#'      \link{dimensionality} for more details.}
+#'    \item{"balance"}{Class balance measures take into account the numbers of 
+#'      examples per class in the dataset. See \link{balance} for more details.}
+#'    \item{"network"}{Network measures represent the dataset as a graph and 
+#'      extract structural information from it. See \link{network} for more 
+#'      details.}
+#'  }
+#' @return A numeric vector named by the requested complexity measures.
 #' @export
+#'
+#' @examples
+#' ## Extract all complexity measures
+#' complexity(Species ~ ., iris)
+#'
+#' ## Extract the linearity group
+#' complexity(Species ~ ., iris, groups="linearity")
 complexity <- function(...) {
   UseMethod("complexity")
 }
@@ -57,7 +98,13 @@ complexity.formula <- function(formula, data, groups="all", ...) {
     groups, ...)
 }
 
+#' List the complexity measure groups
+#'
+#' @return A list of complexity measure groups
 #' @export
+#'
+#' @examples
+#' ls.complexity()
 ls.complexity <- function() {
   c("overlapping", "neighborhood", "linearity", "dimensionality", "balance",
     "network")

@@ -1,4 +1,46 @@
-
+#' Measures of class balance
+#'
+#' These measures capture the differences in the number of examples per class in
+#' the training dataset. When these differences are severe, problems related to 
+#' generalization of the ML classification techniques could happen because of
+#' the imbalance ratio.
+#'
+#' @family complexity-measures
+#' @param x A data.frame contained only the input attributes.
+#' @param y A factor response vector with one label for each row/component of x.
+#' @param measures A list of measures names or \code{"all"} to include all them.
+#' @param formula A formula to define the class column.
+#' @param data A data.frame dataset contained the input attributes and class.
+#' @param ... Not used.
+#' The details section describes the valid values for this group.
+#' @details
+#'  The following measures are allowed for this method:
+#'  \describe{
+#'    \item{"C1"}{The entropy of class proportions measure to capture the 
+#'      imbalance in a dataset. It can be expressed as: 
+#'      \deqn{C1 = -\frac{1}{\log(n_c)}\sum_{i=1}^{n_c} p_i \log(p_i)}
+#'      where \eqn{p_i = n_i/n$} is the proportion of examples in each of the 
+#'      classes.}
+#'    \item{"C2"}{The imbalance ratio measure is a index computed for measuring 
+#'      class balance. This is a version of the measure that is also suited for 
+#'      multiclass classification problems:
+#'      \deqn{C2 = \frac{n_c-1}{n_c}\sum_{i=1}^{n_c}{\frac{n_i}{n-n_i}}}
+#'      where n_i is the number of instances from the i-th class.}
+#'  }
+#' @return A list named by the requested class balance measure.
+#'
+#' @references
+#'  Ana C Lorena, Ivan G Costa, Newton Spolaor, and Marcilio C P Souto. (2012). 
+#'    Analysis of complexity indices for classification problems: Cancer gene 
+#'    expression data. Neurocomputing 75, 1, 33--42.
+#'
+#'  Ajay K Tanwani and Muddassar Farooq. (2010). Classification potential vs. 
+#'    classification accuracy: a comprehensive study of evolutionary algorithms 
+#'    with biomedical datasets. Learning Classifier Systems 6471, 127--144.
+#'
+#' @examples
+#' ## Extract all balance measures
+#' balance(Species ~ ., iris)
 #' @export
 balance <- function(...) {
   UseMethod("balance")
@@ -50,6 +92,13 @@ balance.formula <- function(formula, data, measures="all", ...) {
     measures, ...)
 }
 
+#' List the balance measures
+#'
+#' @return A list of balance measures names
+#' @export
+#'
+#' @examples
+#' ls.balance()
 #' @export
 ls.balance <- function() {
   c("C1", "C2")

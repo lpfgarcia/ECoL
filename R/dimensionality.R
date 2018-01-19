@@ -1,4 +1,43 @@
-
+#' Measures of dimensionality
+#'
+#' These measures give an indicative of data sparsity. They capture how sparse a
+#' datasets tend to have regions of low density. These regions are know to be 
+#' more difficult to extract good classification models.
+#'
+#' @family complexity-measures
+#' @param x A data.frame contained only the input attributes.
+#' @param y A factor response vector with one label for each row/component of x.
+#' @param measures A list of measures names or \code{"all"} to include all them.
+#' @param formula A formula to define the class column.
+#' @param data A data.frame dataset contained the input attributes and class.
+#' @param ... Not used.
+#' The details section describes the valid values for this group.
+#' @details
+#'  The following measures are allowed for this method:
+#'  \describe{
+#'    \item{"T2"}{Average number of points per dimension is given by the ratio 
+#'      between the number of examples and dimensionality of the dataset:
+#'      \deqn{T2 = \frac{n}{m}} 
+#'      where n is the number of examples and m is the dimensionality.}
+#'    \item{"T3"}{Average number of points per PCA is similar to T2, but uses 
+#'      the number of PCA components needed to represent 95% of data variability
+#'      as the base of data sparsity assessment:
+#'      \deqn{T3 = \frac{n}{m'}}
+#'      where m' is the number of PCA components.}
+#'    \item{"T4"}{Ratio of the PCA Dimension to the Original it estimates the 
+#'       proportion of relevant and the original dimensions for a dataset:
+#'       \deqn{T4 = \frac{m'}{m}}}
+#'  }
+#' @return A list named by the requested class dimensionality measure.
+#'
+#' @references
+#'  Ana C Lorena, Ivan G Costa, Newton Spolaor, and Marcilio C P Souto. (2012). 
+#'    Analysis of complexity indices for classification problems: Cancer gene 
+#'    expression data. Neurocomputing 75, 1, 33--42.
+#'
+#' @examples
+#' ## Extract all dimensionality measures
+#' dimensionality(Species ~ ., iris)
 #' @export
 dimensionality <- function(...) {
   UseMethod("dimensionality")
@@ -53,6 +92,13 @@ dimensionality.formula <- function(formula, data, measures="all", ...) {
     measures, ...)
 }
 
+#' List the dimensionality measures
+#'
+#' @return A list of dimensionality measures names
+#' @export
+#'
+#' @examples
+#' ls.dimensionality()
 #' @export
 ls.dimensionality <- function() {
   c("T2", "T3", "T4")

@@ -1,4 +1,54 @@
-
+#' Measures of overlapping
+#'
+#' The overlapping measures evaluate how informative the available features are
+#' to separate the classes. If there is at least one very discriminative feature
+#' in the dataset, the problem can be considered simpler than if there is no 
+#' such an attribute. 
+#'
+#' @family complexity-measures
+#' @param x A data.frame contained only the input attributes.
+#' @param y A factor response vector with one label for each row/component of x.
+#' @param measures A list of measures names or \code{"all"} to include all them.
+#' @param formula A formula to define the class column.
+#' @param data A data.frame dataset contained the input attributes and class.
+#' @param ... Not used.
+#' The details section describes the valid values for this group.
+#' @details
+#'  The following measures are allowed for this method:
+#'  \describe{
+#'    \item{"F1"}{Maximum Fisher's Discriminant Ratio measures the overlap 
+#'      between the values of the features and takes the value of the largest 
+#'      discriminant ratio among all the available features.}
+#'    \item{"F1v"}{Directional-vector maximum Fisher's discriminant ratio 
+#'      complements F1 by searching for a vector able to separate two classes 
+#'      after the training examples have been projected into it.}
+#'    \item{"F2"}{Volume of the overlapping region computes the overlap of the 
+#'      distributions of the features values within the classes. F2 can be 
+#'      determined by finding, for each feature its minimum and maximum values 
+#'      in the classes.}
+#'    \item{"F3"}{Measure the maximum individual feature efficiency of each 
+#'      feature is given by the ratio between the number of examples that are 
+#'      not in the overlapping region of two classes and the total number of 
+#'      examples. This measure returns the maximum of the values found among 
+#'      the input features.}
+#'    \item{"F4"}{Collective feature efficiency get an overview on how various 
+#'      features may work together in data separation. First the most 
+#'      discriminative feature according to F3 is selected and all examples that
+#'      can be separated by this feature are removed from the dataset. The 
+#'      previous step is repeated on the remaining dataset until all the 
+#'      features have been considered or no example remains. F4 returns the 
+#'      ratio of examples that have been discriminated.}
+#'  }
+#' @return A list named by the requested class overlapping measure.
+#'
+#' @references
+#'  Albert Orriols-Puig, Nuria Macia, and Tin K Ho. (2010). Documentation for 
+#'    the data complexity library in C++. Technical Report. La Salle - 
+#'    Universitat Ramon Llull.
+#'
+#' @examples
+#' ## Extract all overlapping measures
+#' overlapping(Species ~ ., iris)
 #' @export
 overlapping <- function(...) {
   UseMethod("overlapping")
@@ -58,6 +108,13 @@ overlapping.formula <- function(formula, data, measures="all", ...) {
     measures, ...)
 }
 
+#' List the overlapping measures
+#'
+#' @return A list of overlapping measures names
+#' @export
+#'
+#' @examples
+#' ls.overlapping()
 #' @export
 ls.overlapping <- function() {
   c("F1", "F1v", "F2", "F3", "F4")

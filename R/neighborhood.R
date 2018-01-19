@@ -1,4 +1,64 @@
-
+#' Measures of Neighborhood
+#'
+#' The Neighborhood measures analyze the neighborhoods of the data items and try
+#' to capture class overlapping and the shape of the decision boundary. They 
+#' work over a distance matrix storing the distances between all pairs of data 
+#' points in the dataset. To deal with both symbolic and numerical features, 
+#' we adopt a heterogeneous distance measure named Gower distance.
+#'
+#' @family complexity-measures
+#' @param x A data.frame contained only the input attributes.
+#' @param y A factor response vector with one label for each row/component of x.
+#' @param measures A list of measures names or \code{"all"} to include all them.
+#' @param formula A formula to define the class column.
+#' @param data A data.frame dataset contained the input attributes and class.
+#' @param ... Not used.
+#' The details section describes the valid values for this group.
+#' @details
+#'  The following measures are allowed for this method:
+#'  \describe{
+#'    \item{"N1"}{Fraction of borderline points  computes the percentage of 
+#'      vertexes incident to edges connecting examples of opposite classes in 
+#'      a Minimum Spanning Tree (MST).}
+#'    \item{"N2"}{Ratio of intra/extra class nearest neighbor distance computes 
+#'      the ratio of two sums: intra-class and inter-class. The former 
+#'      corresponds to the sum of the distances between each example and its 
+#'      closest neighbor from the same class. The later is the sum of the 
+#'      distances between each example and its closest neighbor from another 
+#'      class (nearest enemy).}
+#'    \item{"N3"}{Error rate of the nearest neighbor classifier corresponds to 
+#'      the error rate of a 1NN (one Nearest Neighbor) classifier, estimated 
+#'      using a leave-one-out procedure in dataset.}
+#'    \item{"N4"}{Non-linearity of the nearest neighbor classifier creates a new
+#'      dataset randomly interpolating pairs of training examples of the same 
+#'      class and then induce a the 1NN classifier on the original data and 
+#'      measure the error rate in the new data points.}
+#'    \item{"T1"}{Fraction of hyperspheres covering data builds hyperspheres 
+#'      centered at each one of the training examples, which have their radios 
+#'      growth until the hypersphere reaches an example of another class. 
+#'      Afterwards, smaller hyperspheres contained in larger hyperspheres are 
+#'      eliminated. T1 is finally defined as the ratio between the number of 
+#'      the remaining hyperspheres and the total number of examples in the 
+#'      dataset.}
+#'    \item{"LSCAvg"}{Local Set Average Cardinality is based on Local Set (LS) 
+#'      and defined as the set of points from the dataset whose distance of each
+#'      example is smaller than the distance from the exemples of the different 
+#'      class. LSCAvg is the average of the LS.}
+#'  }
+#' @return A list named by the requested class neighborhood measure.
+#'
+#' @references
+#'  Albert Orriols-Puig, Nuria Macia, and Tin K Ho. (2010). Documentation for 
+#'    the data complexity library in C++. Technical Report. La Salle - 
+#'    Universitat Ramon Llull.
+#'
+#'  Enrique Leyva, Antonio Gonzalez, and Raul Perez. (2014). A Set of Complexity
+#'    Measures Designed for Applying Meta-Learning to Instance Selection. IEEE
+#'    Transactions on Knowledge and Data Engineering 27, 2, 354--367.
+#'
+#' @examples
+#' ## Extract all neighborhood measures
+#' neighborhood(Species ~ ., iris)
 #' @export
 neighborhood <- function(...) {
   UseMethod("neighborhood")
@@ -59,6 +119,13 @@ neighborhood.formula <- function(formula, data, measures="all", ...) {
     measures, ...)
 }
 
+#' List the neighborhood measures
+#'
+#' @return A list of neighborhood measures names
+#' @export
+#'
+#' @examples
+#' ls.neighborhood()
 #' @export
 ls.neighborhood <- function() {
   c("N1","N2", "N3", "N4", "T1", "LSCAvg")

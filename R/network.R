@@ -1,4 +1,47 @@
-
+#' Measures of network
+#'
+#' The network measures represent the dataset as a graph and extract structural 
+#' information from it. The transformation between raw data and the graph 
+#' representation is based on the \eqn{\epsilon-NN} algorithm. Next, a 
+#' post-processing step is applied to the graph, pruning edges between examples 
+#' of opposite classes.
+#'
+#' @family complexity-measures
+#' @param x A data.frame contained only the input attributes.
+#' @param y A factor response vector with one label for each row/component of x.
+#' @param measures A list of measures names or \code{"all"} to include all them.
+#' @param formula A formula to define the class column.
+#' @param data A data.frame dataset contained the input attributes and class.
+#' @param eps The percentage of nodes in the graph to be connected.
+#' @param ... Not used.
+#' The details section describes the valid values for this group.
+#' @details
+#'  The following measures are allowed for this method:
+#'  \describe{
+#'    \item{"Density"}{Average Density of the network represents the number of 
+#'      edges in the graph, divided by the maximum number of edges between pairs
+#'      of data points.}
+#'    \item{"ClsCoef"}{Clustering coefficient averages the clustering tendency 
+#'      of the vertexes by the ratio of existent edges between its neighbors and
+#'      the total number of edges that could possibly exist between them.}
+#'    \item{"Hubs"}{Hubs score is given by the number of connections it has to 
+#'      other nodes, weighted by the number of connections these neighbors 
+#'      have.}
+#'  }
+#' @return A list named by the requested class network measure.
+#'
+#' @references
+#'  Gleison Morais and Ronaldo C Prati. (2013). Complex Network Measures for 
+#'    Data Set Characterization. In 2nd Brazilian Conference on Intelligent 
+#'    Systems (BRACIS). 12--18.
+#'
+#'  Luis P F Garcia, Andre C P L F de Carvalho, and Ana C Lorena. (2015). Effect
+#'    of label noise in the complexity of classification problems. 
+#'    Neurocomputing 160, 108--119.
+#'
+#' @examples
+#' ## Extract all network measures
+#' network(Species ~ ., iris)
 #' @export
 network <- function(...) {
   UseMethod("network")
@@ -58,6 +101,13 @@ network.formula <- function(formula, data, measures="all", eps=0.15, ...) {
     measures, eps, ...)
 }
 
+#' List the network measures
+#'
+#' @return A list of network measures names
+#' @export
+#'
+#' @examples
+#' ls.network()
 #' @export
 ls.network <- function() {
   c("Density", "ClsCoef", "Hubs")

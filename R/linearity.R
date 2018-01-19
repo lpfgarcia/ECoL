@@ -1,4 +1,41 @@
-
+#' Measures of Linearity
+#'
+#' The linearity measures try to quantify if it is possible to separate the 
+#' classes by a hyperplane. The underlying assumption is that a linearly 
+#' separable problem can be considered simpler than a problem requiring a 
+#' non-linear decision boundary.
+#'
+#' @family complexity-measures
+#' @param x A data.frame contained only the input attributes.
+#' @param y A factor response vector with one label for each row/component of x.
+#' @param measures A list of measures names or \code{"all"} to include all them.
+#' @param formula A formula to define the class column.
+#' @param data A data.frame dataset contained the input attributes and class.
+#' @param ... Not used.
+#' The details section describes the valid values for this group.
+#' @details
+#'  The following measures are allowed for this method:
+#'  \describe{
+#'    \item{"L1"}{Sum of the error distance by linear programming computes the 
+#'      sum of the distances of incorrectly classified examples to a linear 
+#'      boundary used in their classification.}
+#'    \item{"L2"}{Error rate of linear classifier computes the error rate of 
+#'      the linear SVM classifier induced from dataset.}
+#'    \item{"L3"}{Non-linearity of a linear classifier creates a new dataset 
+#'      randomly interpolating pairs of training examples of the same class and 
+#'      then induce a linear SVM on the original data and measure the error 
+#'      rate in the new data points.}
+#'  }
+#' @return A list named by the requested class linearity measure.
+#'
+#' @references
+#'  Albert Orriols-Puig, Nuria Macia, and Tin K Ho. (2010). Documentation for 
+#'    the data complexity library in C++. Technical Report. La Salle - 
+#'    Universitat Ramon Llull.
+#'
+#' @examples
+#' ## Extract all linearity measures
+#' linearity(Species ~ ., iris)
 #' @export
 linearity <- function(...) {
   UseMethod("linearity")
@@ -60,6 +97,13 @@ linearity.formula <- function(formula, data, measures="all", ...) {
     measures, ...)
 }
 
+#' List the linearity measures
+#'
+#' @return A list of linearity measures names
+#' @export
+#'
+#' @examples
+#' ls.linearity()
 #' @export
 ls.linearity <- function() {
   c("L1", "L2", "L3")

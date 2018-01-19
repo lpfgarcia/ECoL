@@ -4,10 +4,9 @@ Title: Extended Complexity Library
 Version: 0.1.0
 Date: 2017-10-04
 Authors@R: c(person("Luis", "Garcia", email="garcia@informatik.uni-leipzig.de", 
-  role=c("aut", "cre")), person("Jens", "Lehmann", 
-  email="jens.lehmann@cs.uni-bonn.de", role="aut"), person("Marcilio", 
-  "de Souto", email="marcilio.souto@gmail.com ", role="aut"), person("Ana", 
-  "Lorena", email="aclorena@unifesp.br", role="aut"))
+  role=c("aut", "cre")), person("Ana", "Lorena", 
+  email="aclorena@unifesp.br", role="aut"), person("Jens", "Lehmann", 
+  email="jens.lehmann@cs.uni-bonn.de", role="aut"))
 Description: The Extended Complexity Library (ECoL) is the implementation in R 
   of a set of measures to characterize the complexity of classification problems
   based on ambiguity and separation between the classes and the data sparsity 
@@ -24,5 +23,5 @@ Imports:
     igraph,
     MASS
 License: MIT + file LICENSE
-BugReports: https://github.com/lpfgarcia/ECoL/issues
+BugReports: https://github.com/SmartDataAnalytics/ECoL/issues
 RoxygenNote: 6.0.1
