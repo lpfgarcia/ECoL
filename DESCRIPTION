@@ -2,13 +2,13 @@ Package: ECoL
 Type: Package
 Version: 0.1.0
 Date: 2018-01-22
-Title: Extended Complexity Library
-Description: The Extended Complexity Library is the implementation in R of a set
-    of measures to characterize the complexity of classification problems based 
-    on the ambiguity and the separation between the classes and the data 
-    sparsity and dimensionality of the datasets. This package provides bug 
-    fixes, generalizations and implementations of many state of the art 
-    measures.
+Title: Complexity Measures for Classification Problems
+Description: Provides measures to characterize the complexity of classification 
+    problems based on the ambiguity and the separation between the classes and 
+    the data sparsity and dimensionality of the datasets. This package provides 
+    bug fixes, generalizations and implementations of many state of the art 
+    measures. The measures are described in the paper: Tin Ho and Mitra Basu 
+    (2002) <doi:10.1109/34.990132>.
 Author: Luis Garcia [aut, cre],
   Ana Lorena [aut, ctb],
   Jens Lehmann [aut]
