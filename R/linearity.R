@@ -1,4 +1,4 @@
-#' Measures of Linearity
+#' Measures of linearity
 #'
 #' The linearity measures try to quantify if it is possible to separate the 
 #' classes by a hyperplane. The underlying assumption is that a linearly 
@@ -12,7 +12,6 @@
 #' @param formula A formula to define the class column.
 #' @param data A data.frame dataset contained the input attributes and class.
 #' @param ... Not used.
-#' The details section describes the valid values for this group.
 #' @details
 #'  The following measures are allowed for this method:
 #'  \describe{
@@ -29,9 +28,9 @@
 #' @return A list named by the requested class linearity measure.
 #'
 #' @references
-#'  Albert Orriols-Puig, Nuria Macia, and Tin K Ho. (2010). Documentation for 
-#'    the data complexity library in C++. Technical Report. La Salle - 
-#'    Universitat Ramon Llull.
+#'  Albert Orriols-Puig, Nuria Macia and Tin K Ho. (2010). Documentation for the
+#'    data complexity library in C++. Technical Report. La Salle - Universitat 
+#'    Ramon Llull.
 #'
 #' @examples
 #' ## Extract all linearity measures

@@ -1,4 +1,4 @@
-#' Measures of Neighborhood
+#' Measures of neighborhood
 #'
 #' The Neighborhood measures analyze the neighborhoods of the data items and try
 #' to capture class overlapping and the shape of the decision boundary. They 
@@ -13,7 +13,6 @@
 #' @param formula A formula to define the class column.
 #' @param data A data.frame dataset contained the input attributes and class.
 #' @param ... Not used.
-#' The details section describes the valid values for this group.
 #' @details
 #'  The following measures are allowed for this method:
 #'  \describe{
@@ -48,11 +47,11 @@
 #' @return A list named by the requested class neighborhood measure.
 #'
 #' @references
-#'  Albert Orriols-Puig, Nuria Macia, and Tin K Ho. (2010). Documentation for 
-#'    the data complexity library in C++. Technical Report. La Salle - 
-#'    Universitat Ramon Llull.
+#'  Albert Orriols-Puig, Nuria Macia and Tin K Ho. (2010). Documentation for the
+#'    data complexity library in C++. Technical Report. La Salle - Universitat 
+#'    Ramon Llull.
 #'
-#'  Enrique Leyva, Antonio Gonzalez, and Raul Perez. (2014). A Set of Complexity
+#'  Enrique Leyva, Antonio Gonzalez and Raul Perez. (2014). A Set of Complexity
 #'    Measures Designed for Applying Meta-Learning to Instance Selection. IEEE
 #'    Transactions on Knowledge and Data Engineering 27, 2, 354--367.
 #'

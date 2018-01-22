@@ -12,7 +12,6 @@
 #' @param formula A formula to define the class column.
 #' @param data A data.frame dataset contained the input attributes and class.
 #' @param ... Not used.
-#' The details section describes the valid values for this group.
 #' @details
 #'  The following measures are allowed for this method:
 #'  \describe{
@@ -42,9 +41,9 @@
 #' @return A list named by the requested class overlapping measure.
 #'
 #' @references
-#'  Albert Orriols-Puig, Nuria Macia, and Tin K Ho. (2010). Documentation for 
-#'    the data complexity library in C++. Technical Report. La Salle - 
-#'    Universitat Ramon Llull.
+#'  Albert Orriols-Puig, Nuria Macia and Tin K Ho. (2010). Documentation for the
+#'    data complexity library in C++. Technical Report. La Salle - Universitat
+#'    Ramon Llull.
 #'
 #' @examples
 #' ## Extract all overlapping measures

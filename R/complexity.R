@@ -1,8 +1,11 @@
 #' Extract the complexity measures from datasets
 #'
 #' This function is responsable to extract the complexity measures from the 
-#' datasets. To set specific parameters for each group, use the characterization
-#' function.
+#' datasets. For such, they take into account the overlap between classes 
+#' imposed by feature values, the separability and distribution of the data 
+#' points and the value of structural measures based on the representation of 
+#' the dataset as a graph structure. To set specific parameters for each group, 
+#' use the characterization function.
 #'
 #' @param x A data.frame contained only the input attributes.
 #' @param y A factor response vector with one label for each row/component of x.
@@ -11,7 +14,6 @@
 #' @param formula A formula to define the class column.
 #' @param data A data.frame dataset contained the input attributes and class.
 #' @param ... Not used.
-#'  The details section describes the valid values for this group.
 #' @details
 #'  The following groups are allowed for this method:
 #'  \describe{
@@ -33,14 +35,23 @@
 #'      details.}
 #'  }
 #' @return A numeric vector named by the requested complexity measures.
-#' @export
+#'
+#' @references
+#'  Tin K Ho and Mitra Basu. (2002). Complexity measures of supervised 
+#'    classification problems. IEEE Transactions on Pattern Analysis and Machine
+#'    Intelligence, 24, 3, 289--300.
+#'
+#'  Albert Orriols-Puig, Nuria Macia and Tin K Ho. (2010). Documentation for 
+#'    the data complexity library in C++. Technical Report. La Salle - 
+#'    Universitat Ramon Llull.
 #'
 #' @examples
 #' ## Extract all complexity measures
 #' complexity(Species ~ ., iris)
 #'
-#' ## Extract the linearity group
+#' ## Extract the linearity measures
 #' complexity(Species ~ ., iris, groups="linearity")
+#' @export
 complexity <- function(...) {
   UseMethod("complexity")
 }

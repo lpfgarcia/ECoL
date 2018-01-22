@@ -14,7 +14,6 @@
 #' @param data A data.frame dataset contained the input attributes and class.
 #' @param eps The percentage of nodes in the graph to be connected.
 #' @param ... Not used.
-#' The details section describes the valid values for this group.
 #' @details
 #'  The following measures are allowed for this method:
 #'  \describe{
@@ -36,7 +35,7 @@
 #'    Data Set Characterization. In 2nd Brazilian Conference on Intelligent 
 #'    Systems (BRACIS). 12--18.
 #'
-#'  Luis P F Garcia, Andre C P L F de Carvalho, and Ana C Lorena. (2015). Effect
+#'  Luis P F Garcia, Andre C P L F de Carvalho and Ana C Lorena. (2015). Effect
 #'    of label noise in the complexity of classification problems. 
 #'    Neurocomputing 160, 108--119.
 #'

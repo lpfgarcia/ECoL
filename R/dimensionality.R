@@ -11,7 +11,6 @@
 #' @param formula A formula to define the class column.
 #' @param data A data.frame dataset contained the input attributes and class.
 #' @param ... Not used.
-#' The details section describes the valid values for this group.
 #' @details
 #'  The following measures are allowed for this method:
 #'  \describe{
@@ -26,7 +25,7 @@
 #' @return A list named by the requested class dimensionality measure.
 #'
 #' @references
-#'  Ana C Lorena, Ivan G Costa, Newton Spolaor, and Marcilio C P Souto. (2012). 
+#'  Ana C Lorena, Ivan G Costa, Newton Spolaor and Marcilio C P Souto. (2012). 
 #'    Analysis of complexity indices for classification problems: Cancer gene 
 #'    expression data. Neurocomputing 75, 1, 33--42.
 #'
