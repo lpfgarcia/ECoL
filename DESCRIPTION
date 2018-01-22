@@ -1,28 +1,26 @@
 Package: ECoL
 Type: Package
-Title: Extended Complexity Library
 Version: 0.1.0
-Date: 2018-01-19
-Authors@R: c(person("Luis", "Garcia", email="garcia@informatik.uni-leipzig.de", 
-  role=c("aut", "cre")), person("Ana", "Lorena", 
-  email="aclorena@unifesp.br", role="aut"), person("Jens", "Lehmann", 
-  email="jens.lehmann@cs.uni-bonn.de", role="aut"))
-Description: The Extended Complexity Library (ECoL) is the implementation in R 
-  of a set of measures to characterize the complexity of classification problems
-  based on the ambiguity and the separation between the classes and the data 
-  sparsity and dimensionality of the datasets. The measures were originally 
-  proposed by Ho and Basu (2002) and extend by many other works including the 
-  DCoL library. The main difference between the libraries is that ECoL provides 
-  bug fixes, generalizations and implementations of many other state-of-the-art 
-  measures.
-URL: https://github.com/lpfgarcia/ECoL
-Depends:
-    R (>= 3.4.3),
+Date: 2018-01-22
+Title: Extended Complexity Library
+Description: The Extended Complexity Library is the implementation in R of a set
+    of measures to characterize the complexity of classification problems based 
+    on the ambiguity and the separation between the classes and the data 
+    sparsity and dimensionality of the datasets. This package provides bug 
+    fixes, generalizations and implementations of many state of the art 
+    measures.
+Author: Luis Garcia [aut, cre],
+  Ana Lorena [aut, ctb],
+  Jens Lehmann [aut]
+Maintainer: Luis Garcia <garcia@informatik.uni-leipzig.de>
+URL: https://github.com/SmartDataAnalytics/ECoL/
 Imports:
-    cluster,
-    e1071,
-    igraph,
-    MASS
+  cluster,
+  e1071,
+  igraph,
+  MASS
 License: MIT + file LICENSE
 BugReports: https://github.com/SmartDataAnalytics/ECoL/issues
+Encoding: UTF-8
+LazyData: true
 RoxygenNote: 6.0.1
