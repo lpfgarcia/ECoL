@@ -4,7 +4,7 @@
 \alias{neighborhood}
 \alias{neighborhood.default}
 \alias{neighborhood.formula}
-\title{Measures of Neighborhood}
+\title{Measures of neighborhood}
 \usage{
 neighborhood(...)
 
@@ -13,8 +13,7 @@ neighborhood(...)
 \method{neighborhood}{formula}(formula, data, measures = "all", ...)
 }
 \arguments{
-\item{...}{Not used.
-The details section describes the valid values for this group.}
+\item{...}{Not used.}
 
 \item{x}{A data.frame contained only the input attributes.}
 
@@ -73,11 +72,11 @@ The following measures are allowed for this method:
 neighborhood(Species ~ ., iris)
 }
 \references{
-Albert Orriols-Puig, Nuria Macia, and Tin K Ho. (2010). Documentation for 
-   the data complexity library in C++. Technical Report. La Salle - 
-   Universitat Ramon Llull.
+Albert Orriols-Puig, Nuria Macia and Tin K Ho. (2010). Documentation for the
+   data complexity library in C++. Technical Report. La Salle - Universitat 
+   Ramon Llull.
 
- Enrique Leyva, Antonio Gonzalez, and Raul Perez. (2014). A Set of Complexity
+ Enrique Leyva, Antonio Gonzalez and Raul Perez. (2014). A Set of Complexity
    Measures Designed for Applying Meta-Learning to Instance Selection. IEEE
    Transactions on Knowledge and Data Engineering 27, 2, 354--367.
 }

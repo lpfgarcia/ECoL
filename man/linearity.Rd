@@ -4,7 +4,7 @@
 \alias{linearity}
 \alias{linearity.default}
 \alias{linearity.formula}
-\title{Measures of Linearity}
+\title{Measures of linearity}
 \usage{
 linearity(...)
 
@@ -13,8 +13,7 @@ linearity(...)
 \method{linearity}{formula}(formula, data, measures = "all", ...)
 }
 \arguments{
-\item{...}{Not used.
-The details section describes the valid values for this group.}
+\item{...}{Not used.}
 
 \item{x}{A data.frame contained only the input attributes.}
 
@@ -54,9 +53,9 @@ The following measures are allowed for this method:
 linearity(Species ~ ., iris)
 }
 \references{
-Albert Orriols-Puig, Nuria Macia, and Tin K Ho. (2010). Documentation for 
-   the data complexity library in C++. Technical Report. La Salle - 
-   Universitat Ramon Llull.
+Albert Orriols-Puig, Nuria Macia and Tin K Ho. (2010). Documentation for the
+   data complexity library in C++. Technical Report. La Salle - Universitat 
+   Ramon Llull.
 }
 \seealso{
 Other complexity-measures: \code{\link{balance}},

@@ -13,8 +13,7 @@ balance(...)
 \method{balance}{formula}(formula, data, measures = "all", ...)
 }
 \arguments{
-\item{...}{Not used.
-The details section describes the valid values for this group.}
+\item{...}{Not used.}
 
 \item{x}{A data.frame contained only the input attributes.}
 
@@ -31,7 +30,7 @@ A list named by the requested class balance measure.
 }
 \description{
 These measures capture the differences in the number of examples per class in
-the training dataset. When these differences are severe, problems related to 
+the dataset. When these differences are severe, problems related to 
 generalization of the ML classification techniques could happen because of
 the imbalance ratio.
 }
@@ -50,7 +49,7 @@ The following measures are allowed for this method:
 balance(Species ~ ., iris)
 }
 \references{
-Ana C Lorena, Ivan G Costa, Newton Spolaor, and Marcilio C P Souto. (2012). 
+Ana C Lorena, Ivan G Costa, Newton Spolaor and Marcilio C P Souto. (2012). 
    Analysis of complexity indices for classification problems: Cancer gene 
    expression data. Neurocomputing 75, 1, 33--42.
 

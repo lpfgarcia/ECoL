@@ -13,8 +13,7 @@ network(...)
 \method{network}{formula}(formula, data, measures = "all", eps = 0.15, ...)
 }
 \arguments{
-\item{...}{Not used.
-The details section describes the valid values for this group.}
+\item{...}{Not used.}
 
 \item{x}{A data.frame contained only the input attributes.}
 
@@ -62,7 +61,7 @@ Gleison Morais and Ronaldo C Prati. (2013). Complex Network Measures for
    Data Set Characterization. In 2nd Brazilian Conference on Intelligent 
    Systems (BRACIS). 12--18.
 
- Luis P F Garcia, Andre C P L F de Carvalho, and Ana C Lorena. (2015). Effect
+ Luis P F Garcia, Andre C P L F de Carvalho and Ana C Lorena. (2015). Effect
    of label noise in the complexity of classification problems. 
    Neurocomputing 160, 108--119.
 }
