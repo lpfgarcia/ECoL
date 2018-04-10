@@ -1,4 +1,5 @@
 # ECoL
+[![Travis-CI Build Status](https://travis-ci.org/SmartDataAnalytics/ECoL.svg?branch=master)](https://travis-ci.org/rSmartDataAnalytics/ECoL)
 
 The Extended Complexity Library (ECoL) is the implementation in R of a set of measures to characterize the complexity of classification problems based on the ambiguity and the separation between the classes and the data sparsity and dimensionality of the datasets. The measures were originally proposed by Ho and Basu (2002) and extend by many other works including the [DCoL](https://github.com/nmacia/dcol) library. The main difference between the libraries is that ECoL provides bug fixes, generalizations and implementations of many other state-of-the-art measures.
 
