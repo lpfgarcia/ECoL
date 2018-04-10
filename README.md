@@ -69,7 +69,6 @@ The simplest way to compute the complexity measures are using the `complexity` m
 
 ```r
 library(ECoL)
-data("iris")
 
 ## Extract all complexity measures using formula
 info <- complexity(Species ~ ., iris, groups="all")
