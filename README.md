@@ -83,9 +83,6 @@ info <- complexity(Species ~ ., iris, groups="overlapping")
 ## Extract the F1 measure using overlapping function
 info <- overlapping(Species ~ ., iris, measures="F1")
 
-## Show the the available groups
-ls.complexity()
-
 ```
 
 ## Developer notes
