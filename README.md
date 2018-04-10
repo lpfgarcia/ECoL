@@ -68,8 +68,6 @@ library("ECoL")
 The simplest way to compute the complexity measures are using the `complexity` method. The method can be called by a symbolic description of the model or by a data frame. The parameters are the dataset and the group of measures to be extracted. To extract all the measures, the parameter `group` needs to be set to `all`. A simple example is given next:
 
 ```r
-library(ECoL)
-
 ## Extract all complexity measures using formula
 info <- complexity(Species ~ ., iris, groups="all")
 
@@ -81,7 +79,6 @@ info <- complexity(Species ~ ., iris, groups="overlapping")
 
 ## Extract the F1 measure using overlapping function
 info <- overlapping(Species ~ ., iris, measures="F1")
-
 ```
 
 ## Developer notes
