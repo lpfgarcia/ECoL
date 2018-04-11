@@ -89,15 +89,14 @@ info <- overlapping(Species ~ ., iris, measures="F1")
 
 ## Developer notes
 
-To cite `ECoL` in publications use: Garcia, L. P. F., Lehmann, J., de Souto, M., Lorena, A. (2017). ECoL: Extended Complexity Library. R package version 0.1.0. https://github.com/SmartDataAnalytics/ECoL
+To cite `ECoL` in publications use: Garcia, L. P. F., Lorena, A. C., and Lehmann J. (2018). ECoL: Extended complexity library. R package version 0.1.0, https://CRAN.Rproject.org/package=ECoL.
 
 To submit bugs and feature requests, report at [project issues](https://github.com/SmartDataAnalytics/ECoL/issues).
 
 ## References
 
-[1] Ho, T. and Basu, M. (2002). Complexity measures of supervised classification problems. IEEE Trans. on Pattern Analysis and Machine Intelligence, 24(3):289-300.
+[1] Ho, T., and Basu, M. (2002). Complexity measures of supervised classification problems. IEEE Transactions on Pattern Analysis and Machine Intelligence, 24(3):289-300.
 
-[2] Orriols-Puig, A., Maciá, N., Ho, T. (2010). Documentation for the data complexity library in C++. Technical report, La Salle - Universitat Ramon Llull.
+[2] Orriols-Puig, A., Maciá, N., and Ho, T. (2010). Documentation for the data complexity library in C++. Technical report, La Salle - Universitat Ramon Llull.
 
-[3]   R Core Team (2017). R: A language and environment for statistical computing. R Foundation for Statistical Computing, Vienna, Austria.  URL https://www.R-project.org/.
-
+[3] R Core Team (2018). R: A language and environment for statistical computing. R Foundation for Statistical Computing, Vienna, Austria. URL https://www.R-project.org/.
