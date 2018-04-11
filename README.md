@@ -53,6 +53,12 @@ The requirements to run the ECoL are R version >= 3.4.1 and the packages `cluste
 
 ## Installation
 
+The installation process is similar to other packages available on CRAN:
+
+```r
+install.packages("ECoL")
+```
+
 It is possible to install the development version using:
 
 ```r
