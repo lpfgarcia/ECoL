@@ -5,7 +5,7 @@ The Extended Complexity Library (ECoL) is the implementation in R of a set of me
 
 ## Measures
 
-
+The measures can be divided into the following groups: (1) feature overlapping measures, (2) neighborhood measures, (3) linearity measures, (4) dimensionality measures, (5) class balance measures and (6) network measures. 
 
 **Measures of overlapping** 
 
@@ -67,20 +67,20 @@ library("ECoL")
 
 ## Example of use
 
-The simplest way to compute the complexity measures are using the `complexity` method. The method can be called by a symbolic description of the model or by a data frame. The parameters are the dataset and the group of measures to be extracted. To extract all the measures, the parameter `group` needs to be set to `all`. A simple example is given next:
+The simplest way to compute the complexity measures are using the `complexity` method. The method can be called by a symbolic description of the model or by a data frame. The parameters are the dataset and the group of measures to be extracted. The default paramenter is extract all the measures. To extract a specific measure, use the function related with the group. A simple example is given next:
 
 ```r
 ## Extract all complexity measures using formula
-info <- complexity(Species ~ ., iris, groups="all")
+complexity(Species ~ ., iris)
 
 ## Extract all complexity measures using data frame
-info <- complexity(iris[,1:4], iris[,5], groups="all")
+complexity(iris[,1:4], iris[,5])
 
-## Extract the overlapping measures using groups
-info <- complexity(Species ~ ., iris, groups="overlapping")
+## Extract the overlapping measures
+complexity(Species ~ ., iris, groups="overlapping")
 
 ## Extract the F1 measure using overlapping function
-info <- overlapping(Species ~ ., iris, measures="F1")
+overlapping(Species ~ ., iris, measures="F1")
 ```
 
 ## Developer notes
