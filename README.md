@@ -47,10 +47,6 @@ The Extended Complexity Library (ECoL) is the implementation in R of a set of me
 * ClsCoef: Clustering Coefficient
 * Hubs: Average hub score
 
-## Technical Requirements
-
-The requirements to run the ECoL are R version >= 3.4.1 and the packages `cluster`, `e1071` and `igraph`. The [R Project](https://www.r-project.org/) provide a full installation guide for Linux, Windows and Mac operating systems.
-
 ## Installation
 
 The installation process is similar to other packages available on CRAN:
