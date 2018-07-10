@@ -59,6 +59,7 @@ complexity <- function(...) {
 #' @rdname complexity
 #' @export
 complexity.default <- function(x, y, groups="all", ...) {
+
   if(!is.data.frame(x)) {
     stop("data argument must be a data.frame")
   }
@@ -67,10 +68,13 @@ complexity.default <- function(x, y, groups="all", ...) {
     y <- y[, 1]
   }
 
-  y <- as.factor(y)
-
-  if(min(table(y)) < 2) {
-    stop("number of examples in the minority class should be >= 2")
+  if(is.factor(y)) {
+    type <- "class"
+    if(min(table(y)) < 2) {
+      stop("number of examples in the minority class should be >= 2")
+    }
+  } else {
+    type <- "regr"
   }
 
   if(nrow(x) != length(y)) {
@@ -78,10 +82,10 @@ complexity.default <- function(x, y, groups="all", ...) {
   }
 
   if(groups[1] == "all") {
-    groups <- ls.complexity()
+    groups <- ls.complexity(type)
   }
 
-  groups <- match.arg(groups, ls.complexity(), TRUE)
+  groups <- match.arg(groups, ls.complexity(type), TRUE)
   colnames(x) <- make.names(colnames(x))
 
   unlist(
@@ -94,6 +98,7 @@ complexity.default <- function(x, y, groups="all", ...) {
 #' @rdname complexity
 #' @export
 complexity.formula <- function(formula, data, groups="all", ...) {
+
   if(!inherits(formula, "formula")) {
     stop("method is only for formula datas")
   }
@@ -109,7 +114,14 @@ complexity.formula <- function(formula, data, groups="all", ...) {
     groups, ...)
 }
 
-ls.complexity <- function() {
-  c("overlapping", "neighborhood", "linearity", "dimensionality", "balance",
-    "network")
+ls.complexity <- function(type) {
+
+  switch(type,
+    class = {
+      c("overlapping", "neighborhood", "linearity", "dimensionality",
+        "balance", "network")
+    }, regr = {
+      c("correlation", "smoothness")
+    }
+  )
 }

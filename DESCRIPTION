@@ -2,8 +2,8 @@ Package: ECoL
 Type: Package
 Version: 0.1.0
 Date: 2018-01-22
-Title: Complexity Measures for Classification Problems
-Description: Provides measures to characterize the complexity of classification 
+Title: Complexity Measures for Supervised Problems
+Description: Provides measures to characterize the complexity of supervised 
     problems based on the ambiguity and the separation between the classes and 
     the data sparsity and dimensionality of the datasets. This package provides 
     bug fixes, generalizations and implementations of many state of the art 
@@ -17,8 +17,8 @@ URL: https://github.com/SmartDataAnalytics/ECoL/
 Imports:
   cluster,
   e1071,
-  igraph,
-  MASS
+  FNN,
+  igraph
 License: MIT + file LICENSE
 BugReports: https://github.com/SmartDataAnalytics/ECoL/issues
 Encoding: UTF-8
