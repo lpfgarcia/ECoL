@@ -97,7 +97,7 @@ r.S4 <- function(x, y) {
   y <- y[order]
   x <- x[order,]
 
-  randomUniform <- runif(nrow(x) - 1)
+  randomUniform <- stats::runif(nrow(x) - 1)
 
   newInput <- randomUniform*x[2:nrow(x)-1,] + (1-randomUniform)*x[2:nrow(x),]
   newOutput <- randomUniform*y[2:nrow(x)-1] + (1-randomUniform)*y[2:nrow(x)]

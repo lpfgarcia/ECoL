@@ -81,7 +81,7 @@ r.C4 <- function(x, y, r=0.1) {
   repeat {
 
     aux <- aux + 1
-    tmp <- cor(y, x, method="spearman")
+    tmp <- stats::cor(y, x, method="spearman")
     idx <- maxPosition(abs(tmp))
 
     model <- stats::lm(y ~ x[,idx])
