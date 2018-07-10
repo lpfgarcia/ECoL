@@ -79,7 +79,7 @@ network.default <- function(x, y, measures="all", eps=0.15, ...) {
   graph <- igraph::graph.adjacency(adj, mode="undirected")
 
   sapply(measures, function(f) {
-    eval(call(f, graph))
+    eval(call(paste("c", f, sep="."), graph))
   })
 }
 
@@ -119,14 +119,14 @@ enn <- function(x, y, eps) {
   return(dst)
 }
 
-Density <- function(graph) {
+c.Density <- function(graph) {
   igraph::graph.density(graph)
 }
 
-ClsCoef <- function(graph) {
+c.ClsCoef <- function(graph) {
   igraph::transitivity(graph, type="global", isolates="zero")
 }
 
-Hubs <- function(graph) {
+c.Hubs <- function(graph) {
   mean(igraph::hub.score(graph)$vector)
 }

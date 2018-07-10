@@ -96,7 +96,7 @@ neighborhood.default <- function(x, y, measures="all", ...) {
   dst <- dist(x)
 
   sapply(measures, function(f) {
-    eval(call(f, dst=dst, data=data))
+    eval(call(paste("c", f, sep="."), dst=dst, data=data))
   })
 }
 
@@ -129,7 +129,7 @@ knn <- function(dst, data, k=3, i) {
   return(aux) 
 }
 
-N1 <- function(dst, data) {
+c.N1 <- function(dst, data) {
 
   g <- igraph::graph.adjacency(dst, mode="undirected", weighted=TRUE)
   tree <- as.matrix(igraph::as_adj(igraph::mst(g)))
@@ -152,7 +152,7 @@ inter <- function(dst, data, i) {
   return(aux)
 }
 
-N2 <- function(dst, data) {
+c.N2 <- function(dst, data) {
 
   aux <- sapply(rownames(data), 
     function(i) {
@@ -165,7 +165,7 @@ N2 <- function(dst, data) {
   return(aux)
 }
 
-N3 <- function(dst, data) {
+c.N3 <- function(dst, data) {
 
   aux <- unlist(
     lapply(rownames(data), 
@@ -177,7 +177,7 @@ N3 <- function(dst, data) {
   return(mean(aux))
 }
 
-N4 <- function(dst, data) {
+c.N4 <- function(dst, data) {
 
   aux <- rbind(data, generate(data, nrow(data)))
   vet <- setdiff(rownames(aux), rownames(data))
@@ -260,14 +260,14 @@ adherence <- function(adh, data) {
   return(h)
 }
 
-T1 <- function(dst, data) {
+c.T1 <- function(dst, data) {
   r <- hyperspher(dst, data)
   aux <- adherence(translate(dst, r), data)
   aux <- length(aux)/nrow(data)
   return(aux)
 }
 
-LSCAvg <- function(dst, data) {
+c.LSCAvg <- function(dst, data) {
   
   r <- sapply(rownames(data), function(i) {
     as.numeric(inter(dst, data, i))

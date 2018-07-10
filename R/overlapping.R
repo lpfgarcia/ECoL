@@ -85,7 +85,7 @@ overlapping.default <- function(x, y, measures="all", ...) {
   data <- data.frame(x, class=y)
 
   sapply(measures, function(f) {
-    eval(call(f, data=data))
+    eval(call(paste("c", f, sep="."), data=data))
   })
 }
 
@@ -130,7 +130,7 @@ den <- function(data, j) {
   return(aux)
 }
 
-F1 <- function(data) {
+c.F1 <- function(data) {
 
   aux <- do.call("cbind", 
     lapply(levels(data$class), function(i) {
@@ -161,7 +161,7 @@ dvector <- function(data) {
   return(aux)
 }
 
-F1v <- function(data) {
+c.F1v <- function(data) {
   data <- ovo(data)
   aux <- unlist(lapply(data, dvector))
   return(mean(aux))
@@ -182,7 +182,7 @@ regionOver <- function(data) {
   return(aux)
 }
 
-F2 <- function(data) {
+c.F2 <- function(data) {
 
   data <- ovo(data)
   aux <- unlist(lapply(data, regionOver))
@@ -211,7 +211,7 @@ nonOverlap <- function(data) {
   return(aux)
 }
 
-F3 <- function(data) {
+c.F3 <- function(data) {
 
   data <- ovo(data)
   aux <- mapply(function(d) {
@@ -238,7 +238,7 @@ removing <- function(data) {
   return(data)
 }
 
-F4 <- function(data) {
+c.F4 <- function(data) {
 
   data <- ovo(data)
   aux <- mapply(function(d) {

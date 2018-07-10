@@ -74,7 +74,7 @@ linearity.default <- function(x, y, measures="all", ...) {
 
   model <- lapply(data, smo)
   sapply(measures, function(f) {
-    eval(call(f, model=model, data=data))
+    eval(call(paste("c", f, sep="."), model=model, data=data))
   })
 }
 
@@ -110,7 +110,7 @@ hyperretangle <- function(data) {
   return(aux)
 }
 
-L1 <- function(model, data) {
+c.L1 <- function(model, data) {
 
   aux <- mapply(function(m, d) {
     prd <- stats::predict(m, d, decision.values=TRUE)
@@ -127,7 +127,7 @@ error <- function(pred, class) {
   1 - sum(diag(table(class, pred)))/sum(table(class, pred))
 }
 
-L2 <- function(model, data) {
+c.L2 <- function(model, data) {
 
   aux <- mapply(function(m, d) {
     pred <- stats::predict(m, d)
@@ -137,7 +137,7 @@ L2 <- function(model, data) {
   return(mean(aux))
 }
 
-L3 <- function(model, data) {
+c.L3 <- function(model, data) {
 
   aux <- mapply(function(m, d) {
     tmp <- generate(d, nrow(d))
