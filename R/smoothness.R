@@ -30,11 +30,15 @@ smoothness.default <- function(x, y, measures="all", ...) {
   measures <- match.arg(measures, ls.smoothness(), TRUE)
   colnames(x) <- make.names(colnames(x))
 
-  x <- normalize(binarize(x))
-  y <- normalize(y)
+  x <- normalize(x)
+  y <- normalize(y)[,1]
+
+  x <- x[order(y),]
+  y <- y[order(y)]
+  d <- dist(x)
 
   sapply(measures, function(f) {
-    eval(call(paste("r", f, sep="."), x=x, y=y))
+    eval(call(paste("r", f, sep="."), d=d, x=x, y=y))
   })
 }
 
@@ -61,46 +65,36 @@ ls.smoothness <- function() {
   c("S1", "S2", "S3", "S4")
 }
 
-r.S1 <- function(x, y) {
+r.S1 <- function(d, x, y) {
 
-  g <- igraph::graph.adjacency(dist(x), mode="undirected", weighted=TRUE)
+  g <- igraph::graph.adjacency(d, mode="undirected", weighted=TRUE)
   tree <- as.matrix(igraph::as_adj(igraph::mst(g)))
   tmp <- which(tree != 0, arr.ind=TRUE)
   mean(abs(y[tmp[,1]] - y[tmp[,2]]))
 }
 
-r.S2 <- function(x, y) {
+r.S2 <- function(d, x, y) {
 
-  x <- x[order(y),]
-  dst <-  as.matrix(dist(x))
-  pred <- sapply(2:nrow(dst), function(i) {
-    dst[i-1, i]
+  pred <- sapply(2:nrow(d), function(i) {
+    d[i-1, i]
   })
 
   mean(pred)
 }
 
-r.S3 <- function(x, y) {
+r.S3 <- function(d, x, y) {
 
-  dst <- dist(x)
-  diag(dst) <- Inf
-  pred <- apply(dst, 1, function(i) {
+  diag(d) <- Inf
+  pred <- apply(d, 1, function(i) {
     y[minPosition(i)]
   })
 
   mean((pred - y)^2)
 }
 
-r.S4 <- function(x, y) {
+r.S4 <- function(d, x, y) {
 
-  order <- order(y)
-  y <- y[order]
-  x <- x[order,]
-
-  randomUniform <- stats::runif(nrow(x) - 1)
-
-  newInput <- randomUniform*x[2:nrow(x)-1,] + (1-randomUniform)*x[2:nrow(x),]
-  newOutput <- randomUniform*y[2:nrow(x)-1] + (1-randomUniform)*y[2:nrow(x)]
-  newPredict <- FNN::knn.reg(x, as.data.frame(newInput), y, k=1)$pred
-  mean((newPredict - newOutput)^2)
+  tran <- r.generate(x, y, nrow(x))
+  pred <- FNN::knn.reg(x, tran[,-ncol(tran)], y, k=1)$pred
+  mean((pred - tran[,ncol(tran)])^2)
 }
