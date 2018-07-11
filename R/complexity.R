@@ -13,6 +13,8 @@
 #'  all of them.
 #' @param formula A formula to define the class column.
 #' @param data A data.frame dataset contained the input attributes and class.
+#' @param type The type of measures to be used. The \code{"class"} is used for 
+#'  classification problems and \code{"regr"} for regression problems.
 #' @param ... Not used.
 #' @details
 #'  The following groups are allowed for this method:
@@ -58,7 +60,7 @@ complexity <- function(...) {
 
 #' @rdname complexity
 #' @export
-complexity.default <- function(x, y, groups="all", ...) {
+complexity.default <- function(x, y, groups="all", type="class", ...) {
 
   if(!is.data.frame(x)) {
     stop("data argument must be a data.frame")
@@ -68,14 +70,11 @@ complexity.default <- function(x, y, groups="all", ...) {
     y <- y[, 1]
   }
 
-  if(is.factor(y)) {
-    type <- "class"
+  if(type == "class") {
     if(min(table(y)) < 2) {
       stop("number of examples in the minority class should be >= 2")
     }
-  } else {
-    type <- "regr"
-  }
+  } 
 
   if(nrow(x) != length(y)) {
     stop("x and y must have same number of rows")
@@ -97,7 +96,7 @@ complexity.default <- function(x, y, groups="all", ...) {
 
 #' @rdname complexity
 #' @export
-complexity.formula <- function(formula, data, groups="all", ...) {
+complexity.formula <- function(formula, data, groups="all", type="class", ...) {
 
   if(!inherits(formula, "formula")) {
     stop("method is only for formula datas")
@@ -111,17 +110,19 @@ complexity.formula <- function(formula, data, groups="all", ...) {
   attr(modFrame, "terms") <- NULL
 
   complexity.default(modFrame[, -1, drop=FALSE], modFrame[, 1, drop=FALSE],
-    groups, ...)
+    groups, type, ...)
 }
 
 ls.complexity <- function(type) {
 
   switch(type,
     class = {
-      c("overlapping", "neighborhood", "linearity", "dimensionality",
-        "balance", "network")
+      c("overlapping", "neighborhood", "linearity", "dimensionality", "balance",
+        "network")
     }, regr = {
       c("correlation", "smoothness")
+    }, {
+      stop("The type of measure are: class or regr")
     }
   )
 }
