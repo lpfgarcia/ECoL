@@ -31,7 +31,7 @@ correlation.default <- function(x, y, measures="all", ...) {
   colnames(x) <- make.names(colnames(x))
 
   x <- normalize(binarize(x))
-  y <- normalize(y)
+  y <- normalize(y)[,1]
 
   sapply(measures, function(f) {
     eval(call(paste("r", f, sep="."), x=x, y=y))
