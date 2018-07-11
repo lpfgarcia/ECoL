@@ -8,9 +8,10 @@
 \usage{
 complexity(...)
 
-\method{complexity}{default}(x, y, groups = "all", ...)
+\method{complexity}{default}(x, y, groups = "all", type = "class", ...)
 
-\method{complexity}{formula}(formula, data, groups = "all", ...)
+\method{complexity}{formula}(formula, data, groups = "all", type = "class",
+  ...)
 }
 \arguments{
 \item{...}{Not used.}
@@ -21,6 +22,9 @@ complexity(...)
 
 \item{groups}{A list of complexity measures groups or \code{"all"} to include
 all of them.}
+
+\item{type}{The type of measures to be used. The \code{"class"} is used for 
+classification problems and \code{"regr"} for regression problems.}
 
 \item{formula}{A formula to define the class column.}
 
