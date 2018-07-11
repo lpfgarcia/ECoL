@@ -33,7 +33,7 @@ ovo <- function(data) {
   return(tmp)
 }
 
-interpolation <- function(data) {
+c.interpolation <- function(data) {
 
   aux <- data[data$class == sample(data$class, 1),] 
   aux <- aux[sample(nrow(aux), 2, replace=FALSE),]
@@ -48,11 +48,11 @@ interpolation <- function(data) {
   return(aux[1,])
 }
 
-generate <- function(data, n) {
+c.generate <- function(data, n) {
 
   tmp <- do.call("rbind",
     lapply(1:n, function(i) {
-      interpolation(data)
+      c.interpolation(data)
     })
   )
 
@@ -65,13 +65,11 @@ maxmin <- function(x) {
 
 normalize <- function(x) {
 
-  if(is.data.frame(x)) {
-    for(i in 1:ncol(x))
+  x <- as.data.frame(x)
+  for(i in 1:ncol(x))
+    if(is.numeric(x[,i]))
       x[,i] <- maxmin(x[,i])
-    return(x)
-  } else {
-    return(maxmin(x))
-  }
+  return(x)
 }
 
 spearman <- function(x) {
@@ -121,3 +119,31 @@ minPosition = function(x) {
   order(x)[1]
 }
 
+r.interpolation <- function(x, y, i) {
+
+  aux <- x[(i-1):i,]
+
+  for(j in 1:ncol(x)) {
+    if(is.numeric(x[,j])) {
+      rnd <- stats::runif(1)
+      aux[1,j] <- aux[1,j]*rnd + aux[2,j]*(1-rnd)
+    }
+  }
+
+  tmp <- y[(i-1):i]
+  rnd <- stats::runif(1)
+  tmp[1] <- tmp[1]*rnd + tmp[2]*(1-rnd)
+
+  return(cbind(aux[1,], tmp[1]))
+}
+
+r.generate <- function(x, y, n) {
+
+  tmp <- do.call("rbind",
+    lapply(2:n, function(i) {
+      r.interpolation(x, y, i)
+    })
+  )
+
+  return(tmp)
+}
