@@ -121,7 +121,7 @@ minPosition = function(x) {
 
 r.interpolation <- function(x, y, i) {
 
-  aux <- x[(i-1):i,]
+  aux <- x[(i-1):i,,drop=FALSE]
 
   for(j in 1:ncol(x)) {
     if(is.numeric(x[,j])) {
@@ -145,5 +145,7 @@ r.generate <- function(x, y, n) {
     })
   )
 
+  tmp <- data.frame(tmp)
+  colnames(tmp) <- c(colnames(x), "y")
   return(tmp)
 }
