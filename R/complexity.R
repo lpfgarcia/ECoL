@@ -13,7 +13,7 @@
 #'  all of them.
 #' @param formula A formula to define the class column.
 #' @param data A data.frame dataset contained the input attributes and class.
-#' @param type The type of measures to be used. The \code{"class"} is used for 
+#' @param type The type of supervised problem: The \code{"class"} is used for 
 #'  classification problems and \code{"regr"} for regression problems.
 #' @param ... Not used.
 #' @details
@@ -26,7 +26,8 @@
 #'      density of same or different classes in local neighborhoods. See 
 #'      \link{neighborhood} for more details.}
 #'    \item{"linearity"}{Linearity measures try to quantify whether the classes 
-#'      can be linearly separated. See \link{linearity} for more details.}
+#'      can be linearly separated. See \link{linearity.class} or 
+#'      \link{linearity.regr} for more details.}
 #'    \item{"dimensionality"}{The dimensionality measures compute information on
 #'      how smoothly the examples are distributed within the classes. See 
 #'      \link{dimensionality} for more details.}
@@ -35,6 +36,8 @@
 #'    \item{"network"}{Network measures represent the dataset as a graph and 
 #'      extract structural information from it. See \link{network} for more 
 #'      details.}
+#'    \item{"correlation"}{\link{correlation}}
+#'    \item{"Smoothness"}{\link{smoothness}}
 #'  }
 #' @return A numeric vector named by the requested complexity measures.
 #'
@@ -47,12 +50,18 @@
 #'    the data complexity library in C++. Technical Report. La Salle - 
 #'    Universitat Ramon Llull.
 #'
-#' @examples
-#' ## Extract all complexity measures
-#' complexity(Species ~ ., iris)
+#'  Ana C Lorena and Aron I Maciel and Pericles B C Miranda and Ivan G Costa and
+#'    Ricardo B C Prudencio. (2018). Data complexity meta-features for 
+#'    regression problems. Machine Learning, 107, 1, 209--246.
 #'
-#' ## Extract the linearity measures
-#' complexity(Species ~ ., iris, groups="linearity")
+#' @examples
+#' ## Extract all complexity measures for classification problems
+#' data(iris)
+#' complexity(Species ~ ., iris, type="class")
+#'
+#' ## Extract all complexity measures for regression problems
+#' data(cars)
+#' complexity(speed~., cars, type="regr")
 #' @export
 complexity <- function(...) {
   UseMethod("complexity")
@@ -60,7 +69,7 @@ complexity <- function(...) {
 
 #' @rdname complexity
 #' @export
-complexity.default <- function(x, y, groups="all", type="class", ...) {
+complexity.default <- function(x, y, type, groups="all", ...) {
 
   if(!is.data.frame(x)) {
     stop("data argument must be a data.frame")
@@ -69,6 +78,10 @@ complexity.default <- function(x, y, groups="all", type="class", ...) {
   if(is.data.frame(y)) {
     y <- y[, 1]
   }
+
+  type.int <- pmatch(type, c("class", "regr"))
+  if(is.na(type.int))
+    stop("Invalid Type")
 
   if(type == "class") {
     if(min(table(y)) < 2) {
@@ -96,7 +109,7 @@ complexity.default <- function(x, y, groups="all", type="class", ...) {
 
 #' @rdname complexity
 #' @export
-complexity.formula <- function(formula, data, groups="all", type="class", ...) {
+complexity.formula <- function(formula, data, type, groups="all", ...) {
 
   if(!inherits(formula, "formula")) {
     stop("method is only for formula datas")
@@ -110,19 +123,17 @@ complexity.formula <- function(formula, data, groups="all", type="class", ...) {
   attr(modFrame, "terms") <- NULL
 
   complexity.default(modFrame[, -1, drop=FALSE], modFrame[, 1, drop=FALSE],
-    groups, type, ...)
+    type, groups, ...)
 }
 
 ls.complexity <- function(type) {
 
   switch(type,
     class = {
-      c("overlapping", "neighborhood", "linearity", "dimensionality", "balance",
-        "network")
+      c("overlapping", "neighborhood", "linearity.class", "dimensionality",
+        "balance", "network")
     }, regr = {
-      c("correlation", "smoothness")
-    }, {
-      stop("The type of measure are: class or regr")
+      c("correlation", "linearity.regr", "smoothness", "dimensionality")
     }
   )
 }
