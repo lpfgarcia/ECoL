@@ -47,6 +47,7 @@
 #'
 #' @examples
 #' ## Extract all overlapping measures
+#' data(iris)
 #' overlapping(Species ~ ., iris)
 #' @export
 overlapping <- function(...) {
@@ -56,6 +57,7 @@ overlapping <- function(...) {
 #' @rdname overlapping
 #' @export
 overlapping.default <- function(x, y, measures="all", ...) {
+
   if(!is.data.frame(x)) {
     stop("data argument must be a data.frame")
   }
@@ -92,6 +94,7 @@ overlapping.default <- function(x, y, measures="all", ...) {
 #' @rdname overlapping
 #' @export
 overlapping.formula <- function(formula, data, measures="all", ...) {
+
   if(!inherits(formula, "formula")) {
     stop("method is only for formula datas")
   }

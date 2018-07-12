@@ -41,6 +41,7 @@
 #'
 #' @examples
 #' ## Extract all network measures
+#' data(iris)
 #' network(Species ~ ., iris)
 #' @export
 network <- function(...) {
@@ -50,6 +51,7 @@ network <- function(...) {
 #' @rdname network
 #' @export
 network.default <- function(x, y, measures="all", eps=0.15, ...) {
+
   if(!is.data.frame(x)) {
     stop("data argument must be a data.frame")
   }
@@ -86,6 +88,7 @@ network.default <- function(x, y, measures="all", eps=0.15, ...) {
 #' @rdname network
 #' @export
 network.formula <- function(formula, data, measures="all", eps=0.15, ...) {
+
   if(!inherits(formula, "formula")) {
     stop("method is only for formula datas")
   }

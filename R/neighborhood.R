@@ -57,6 +57,7 @@
 #'
 #' @examples
 #' ## Extract all neighborhood measures
+#' data(iris)
 #' neighborhood(Species ~ ., iris)
 #' @export
 neighborhood <- function(...) {
@@ -66,6 +67,7 @@ neighborhood <- function(...) {
 #' @rdname neighborhood
 #' @export
 neighborhood.default <- function(x, y, measures="all", ...) {
+
   if(!is.data.frame(x)) {
     stop("data argument must be a data.frame")
   }
@@ -103,6 +105,7 @@ neighborhood.default <- function(x, y, measures="all", ...) {
 #' @rdname neighborhood
 #' @export
 neighborhood.formula <- function(formula, data, measures="all", ...) {
+
   if(!inherits(formula, "formula")) {
     stop("method is only for formula datas")
   }
