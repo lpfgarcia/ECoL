@@ -31,6 +31,7 @@
 #'
 #' @examples
 #' ## Extract all dimensionality measures
+#' data(iris)
 #' dimensionality(Species ~ ., iris)
 #' @export
 dimensionality <- function(...) {
@@ -40,6 +41,7 @@ dimensionality <- function(...) {
 #' @rdname dimensionality
 #' @export
 dimensionality.default <- function(x, y, measures="all", ...) {
+
   if(!is.data.frame(x)) {
     stop("data argument must be a data.frame")
   }
@@ -47,8 +49,6 @@ dimensionality.default <- function(x, y, measures="all", ...) {
   if(is.data.frame(y)) {
     y <- y[, 1]
   }
-
-  y <- as.factor(y)
 
   if(nrow(x) != length(y)) {
     stop("x and y must have same number of rows")
@@ -71,6 +71,7 @@ dimensionality.default <- function(x, y, measures="all", ...) {
 #' @rdname dimensionality
 #' @export
 dimensionality.formula <- function(formula, data, measures="all", ...) {
+
   if(!inherits(formula, "formula")) {
     stop("method is only for formula datas")
   }
