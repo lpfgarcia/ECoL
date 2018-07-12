@@ -1,11 +1,11 @@
 # ECoL
 [![Travis-CI Build Status](https://travis-ci.org/SmartDataAnalytics/ECoL.svg?branch=master)](https://travis-ci.org/SmartDataAnalytics/ECoL)
 
-The Extended Complexity Library (ECoL) is the implementation in R of a set of measures to characterize the complexity of classification problems based on the ambiguity and the separation between the classes and the data sparsity and dimensionality of the datasets. The measures were originally proposed by Ho and Basu (2002) and extend by many other works including the [DCoL](https://github.com/nmacia/dcol) library. The main difference between the libraries is that ECoL provides bug fixes, generalizations and implementations of many other state-of-the-art measures.
+The Extended Complexity Library (ECoL) is the implementation in R of a set of measures to characterize the complexity of classification and regression problems based on aspects that quantify the linearity of the data, the presence of informative feature, the sparsity and dimensionality of the datasets. The measures were originally proposed by Ho and Basu (2002) and extend by many other works including the [DCoL](https://github.com/nmacia/dcol) library. The main difference between the libraries is that ECoL provides bug fixes, generalizations and implementations of many other state-of-the-art measures.
 
 ## Measures
 
-The measures can be divided into the following groups: (1) feature overlapping measures, (2) neighborhood measures, (3) linearity measures, (4) dimensionality measures, (5) class balance measures and (6) network measures. 
+The measures can be divided into the following groups: (1) feature overlapping measures, (2) neighborhood measures, (3) linearity measures, (4) dimensionality measures, (5) class balance measures (6) network measures (7) correlation measures and (8) smoothness measures.
 
 **Measures of overlapping** 
 
@@ -38,7 +38,7 @@ The measures can be divided into the following groups: (1) feature overlapping m
 
 **Measures of class balance**
 
-* C1: Class balance
+* C1: Entropy of class proportions
 * C2: Multi-class imbalance ratio
 
 **Measures of structural representation**
@@ -46,6 +46,20 @@ The measures can be divided into the following groups: (1) feature overlapping m
 * Density: Average density of network
 * ClsCoef: Clustering Coefficient
 * Hubs: Average hub score
+
+**Measures of feature correlation**
+
+* C1: Maximum feature correlation to the output
+* C2: Average feature correlation to the output
+* C3: Individual feature efficiency
+* C4: Collective feature efficiency
+
+**Measures of smoothness**
+
+* S1: Output distribution
+* S2: Input distribution
+* S3: Error of a nearest neighbor regressor
+* S4: Non-linearity of nearest neighbor regressor
 
 ## Installation
 
@@ -67,17 +81,20 @@ library("ECoL")
 
 ## Example of use
 
-The simplest way to compute the complexity measures are using the `complexity` method. The method can be called by a symbolic description of the model or by a data frame. The parameters are the dataset and the group of measures to be extracted. The default paramenter is extract all the measures. To extract a specific measure, use the function related with the group. A simple example is given next:
+The simplest way to compute the complexity measures are using the `complexity` method. The method can be called by a symbolic description of the model or by a data frame. The parameters are the dataset, the type of task and the group of measures to be extracted. The default paramenter is extract all the measures. To extract a specific measure, use the function related with the group. A simple example is given next:
 
 ```r
-## Extract all complexity measures using formula
-complexity(Species ~ ., iris)
+## Extract all complexity measures for classification task
+complexity(Species ~ ., iris, type="class")
 
-## Extract all complexity measures using data frame
-complexity(iris[,1:4], iris[,5])
+## Extract all complexity measures using data frame for classification task
+complexity(iris[,1:4], iris[,5], type="class")
+
+## Extract all complexity measures for regression task
+complexity(speed~., cars, type="regr")
 
 ## Extract the overlapping measures
-complexity(Species ~ ., iris, groups="overlapping")
+complexity(Species ~ ., iris,  type="class", groups="overlapping")
 
 ## Extract the F1 measure using overlapping function
 overlapping(Species ~ ., iris, measures="F1")
@@ -85,7 +102,7 @@ overlapping(Species ~ ., iris, measures="F1")
 
 ## Developer notes
 
-To cite `ECoL` in publications use: Garcia, L. P. F., Lorena, A. C., and Lehmann J. (2018). ECoL: Extended complexity library. R package version 0.1.0, https://CRAN.Rproject.org/package=ECoL.
+To cite `ECoL` in publications use: Garcia, L. P. F., Lorena, A. C., and Lehmann J. (2018). ECoL: Extended complexity library. R package version 0.2.0, https://CRAN.Rproject.org/package=ECoL.
 
 To submit bugs and feature requests, report at [project issues](https://github.com/SmartDataAnalytics/ECoL/issues).
 
