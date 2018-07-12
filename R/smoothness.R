@@ -1,3 +1,36 @@
+#' Smoothness measures
+#'
+#' In regression problems, the smoother the function to be fitted to the data, 
+#' the simpler it shall be. Larger variations in the inputs and/or outputs, on 
+#' the other hand, usually indicate the existence of more intricate 
+#' relationships between them.
+#'
+#' @family complexity-measures
+#' @param x A data.frame contained only the input attributes.
+#' @param y A factor response vector with one label for each row/component of x.
+#' @param measures A list of measures names or \code{"all"} to include all them.
+#' @param formula A formula to define the class column.
+#' @param data A data.frame dataset contained the input attributes and class.
+#' @param ... Not used.
+#' @details
+#'  The following measures are allowed for this method:
+#'  \describe{
+#'    \item{"S1"}{Output distribution (S1)}
+#'    \item{"S2"}{Input distribution (S2)}
+#'    \item{"S3"}{Error of a nearest neighbor regressor (S3)}
+#'    \item{"S4"}{Non-linearity of nearest neighbor regressor (S4)}
+#'  }
+#' @return A list named by the requested regression smoothness measure.
+#'
+#' @references
+#'  Ana C Lorena and Aron I Maciel and Pericles B C Miranda and Ivan G Costa and
+#'    Ricardo B C Prudencio. (2018). Data complexity meta-features for 
+#'    regression problems. Machine Learning, 107, 1, 209--246.
+#'
+#' @examples
+#' ## Extract all smoothness measures
+#' data(cars)
+#' smoothness(speed~., cars)
 #' @export
 smoothness <- function(...) {
   UseMethod("smoothness")
@@ -33,7 +66,7 @@ smoothness.default <- function(x, y, measures="all", ...) {
   x <- normalize(x)
   y <- normalize(y)[,1]
 
-  x <- x[order(y),]
+  x <- x[order(y),,drop=FALSE]
   y <- y[order(y)]
   d <- dist(x)
 
@@ -93,8 +126,7 @@ r.S3 <- function(d, x, y) {
 }
 
 r.S4 <- function(d, x, y) {
-
-  tran <- r.generate(x, y, nrow(x))
-  pred <- FNN::knn.reg(x, tran[,-ncol(tran)], y, k=1)$pred
-  mean((pred - tran[,ncol(tran)])^2)
+  test <- r.generate(x, y, nrow(x))
+  pred <- FNN::knn.reg(x, test[,-ncol(test),drop=FALSE], y, k=1)$pred
+  mean((pred - test[,ncol(test)])^2)
 }
