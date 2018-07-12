@@ -34,15 +34,17 @@
 #'
 #' @examples
 #' ## Extract all linearity measures
-#' linearity(Species ~ ., iris)
+#' data(iris)
+#' linearity.class(Species ~ ., iris)
 #' @export
-linearity <- function(...) {
-  UseMethod("linearity")
+linearity.class <- function(...) {
+  UseMethod("linearity.class")
 }
 
-#' @rdname linearity
+#' @rdname linearity.class
 #' @export
-linearity.default <- function(x, y, measures="all", ...) {
+linearity.class.default <- function(x, y, measures="all", ...) {
+
   if(!is.data.frame(x)) {
     stop("data argument must be a data.frame")
   }
@@ -62,10 +64,10 @@ linearity.default <- function(x, y, measures="all", ...) {
   }
 
   if(measures[1] == "all") {
-    measures <- ls.linearity()
+    measures <- ls.linearity.class()
   }
 
-  measures <- match.arg(measures, ls.linearity(), TRUE)
+  measures <- match.arg(measures, ls.linearity.class(), TRUE)
   colnames(x) <- make.names(colnames(x))
 
   x <- binarize(x)
@@ -78,9 +80,10 @@ linearity.default <- function(x, y, measures="all", ...) {
   })
 }
 
-#' @rdname linearity
+#' @rdname linearity.class
 #' @export
-linearity.formula <- function(formula, data, measures="all", ...) {
+linearity.class.formula <- function(formula, data, measures="all", ...) {
+
   if(!inherits(formula, "formula")) {
     stop("method is only for formula datas")
   }
@@ -92,11 +95,11 @@ linearity.formula <- function(formula, data, measures="all", ...) {
   modFrame <- stats::model.frame(formula, data)
   attr(modFrame, "terms") <- NULL
 
-  linearity.default(modFrame[, -1, drop=FALSE], modFrame[, 1, drop=FALSE],
+  linearity.class.default(modFrame[, -1, drop=FALSE], modFrame[, 1, drop=FALSE],
     measures, ...)
 }
 
-ls.linearity <- function() {
+ls.linearity.class <- function() {
   c("L1", "L2", "L3")
 }
 
@@ -146,4 +149,117 @@ c.L3 <- function(model, data) {
   }, m=model, d=data)
 
   return(mean(aux))
+}
+
+#' Linearity measures
+#'
+#' These measures capture whether a linear function provides a good fit to the 
+#' problem. If this is the case, the problem can be considered simpler than one 
+#' in which a non-linear function is required.
+#'
+#' @family complexity-measures
+#' @param x A data.frame contained only the input attributes.
+#' @param y A factor response vector with one label for each row/component of x.
+#' @param measures A list of measures names or \code{"all"} to include all them.
+#' @param formula A formula to define the class column.
+#' @param data A data.frame dataset contained the input attributes and class.
+#' @param ... Not used.
+#' @details
+#'  The following measures are allowed for this method:
+#'  \describe{
+#'    \item{"L1"}{Mean absolute error (L1)}
+#'    \item{"L2"}{Residuals variance (L2)}
+#'    \item{"L3"}{Non-linearity of a linear regressor (L3)}
+#'  }
+#' @return A list named by the requested regression linearity measure.
+#'
+#' @references
+#'  Ana C Lorena and Aron I Maciel and Pericles B C Miranda and Ivan G Costa and
+#'    Ricardo B C Prudencio. (2018). Data complexity meta-features for 
+#'    regression problems. Machine Learning, 107, 1, 209--246.
+#'
+#' @examples
+#' ## Extract all regression linearity measures
+#' data(cars)
+#' linearity.regr(speed~., cars)
+#' @export
+linearity.regr <- function(...) {
+  UseMethod("linearity.regr")
+}
+
+#' @rdname linearity.regr
+#' @export
+linearity.regr.default <- function(x, y, measures="all", ...) {
+
+  if(!is.data.frame(x)) {
+    stop("data argument must be a data.frame")
+  }
+
+  if(is.data.frame(y)) {
+    y <- y[, 1]
+  }
+
+  if(is.factor(y)) {
+    stop("label attribute needs to be numeric")
+  }
+
+  if(nrow(x) != length(y)) {
+    stop("x and y must have same number of rows")
+  }
+
+  if(measures[1] == "all") {
+    measures <- ls.linearity.regr()
+  }
+
+  measures <- match.arg(measures, ls.linearity.regr(), TRUE)
+  colnames(x) <- make.names(colnames(x))
+
+  x <- normalize(x)
+  y <- normalize(y)[,1]
+
+  x <- x[order(y),,drop=FALSE]
+  y <- y[order(y)]
+
+  m <- stats::lm(y ~ ., cbind(y=y, x))
+
+  sapply(measures, function(f) {
+    eval(call(paste("r", f, sep="."), m=m, x=x, y=y))
+  })
+}
+
+#' @rdname linearity.regr
+#' @export
+linearity.regr.formula <- function(formula, data, measures="all", ...) {
+
+  if(!inherits(formula, "formula")) {
+    stop("method is only for formula datas")
+  }
+
+  if(!is.data.frame(data)) {
+    stop("data argument must be a data.frame")
+  }
+
+  modFrame <- stats::model.frame(formula, data)
+  attr(modFrame, "terms") <- NULL
+
+  linearity.regr.default(modFrame[, -1, drop=FALSE], modFrame[, 1, drop=FALSE],
+    measures, ...)
+}
+
+ls.linearity.regr <- function() {
+  c("L1", "L2", "L3")
+}
+
+r.L1 <- function(m, ...) {
+  mean(abs(m$residuals))
+}
+
+r.L2 <- function(m, ...) {
+  mean(m$residuals^2)
+}
+
+r.L3 <- function(m, x, y) {
+  test <- r.generate(x, y, nrow(x))
+  pred <- stats::predict.lm(m, test[,-ncol(test),drop=FALSE])
+  mean((pred - test[,ncol(test)])^2)
 }
