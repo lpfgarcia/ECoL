@@ -1,9 +1,9 @@
 #' Measures of overlapping
 #'
-#' The overlapping measures evaluate how informative the available features are
-#' to separate the classes. If there is at least one very discriminative feature
-#' in the dataset, the problem can be considered simpler than if there is no 
-#' such an attribute. 
+#' Classification task. The overlapping measures evaluate how informative the 
+#' available features are to separate the classes. If there is at least one very
+#' discriminative feature in the dataset, the problem can be considered simpler 
+#' than if there is no such an attribute. 
 #'
 #' @family complexity-measures
 #' @param x A data.frame contained only the input attributes.
@@ -38,7 +38,7 @@
 #'      features have been considered or no example remains. F4 returns the 
 #'      ratio of examples that have been discriminated.}
 #'  }
-#' @return A list named by the requested class overlapping measure.
+#' @return A list named by the requested overlapping measure.
 #'
 #' @references
 #'  Albert Orriols-Puig, Nuria Macia and Tin K Ho. (2010). Documentation for the

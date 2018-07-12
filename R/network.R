@@ -1,10 +1,10 @@
 #' Measures of network
 #'
-#' The network measures represent the dataset as a graph and extract structural 
-#' information from it. The transformation between raw data and the graph 
-#' representation is based on the epsilon-NN algorithm. Next, a post-processing 
-#' step is applied to the graph, pruning edges between examples of opposite 
-#' classes.
+#' Classification task. The network measures represent the dataset as a graph 
+#' and extract structural information from it. The transformation between raw 
+#' data and the graph representation is based on the epsilon-NN algorithm. Next,
+#' a post-processing step is applied to the graph, pruning edges between 
+#' examples of opposite classes.
 #'
 #' @family complexity-measures
 #' @param x A data.frame contained only the input attributes.
@@ -28,7 +28,7 @@
 #'      has to other nodes, weighted by the number of connections these 
 #'      neighbors have.}
 #'  }
-#' @return A list named by the requested class network measure.
+#' @return A list named by the requested network measure.
 #'
 #' @references
 #'  Gleison Morais and Ronaldo C Prati. (2013). Complex Network Measures for 

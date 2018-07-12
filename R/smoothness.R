@@ -1,26 +1,33 @@
-#' Smoothness measures
+#' Measures of smoothness
 #'
-#' In regression problems, the smoother the function to be fitted to the data, 
-#' the simpler it shall be. Larger variations in the inputs and/or outputs, on 
-#' the other hand, usually indicate the existence of more intricate 
-#' relationships between them.
+#' Regression task. In regression problems, the smoother the function to be 
+#' fitted to the data, the simpler it shall be. Larger variations in the inputs
+#' and/or outputs, on the other hand, usually indicate the existence of more 
+#' intricate relationships between them.
 #'
 #' @family complexity-measures
 #' @param x A data.frame contained only the input attributes.
-#' @param y A factor response vector with one label for each row/component of x.
+#' @param y A response vector with one value for each row/component of x.
 #' @param measures A list of measures names or \code{"all"} to include all them.
-#' @param formula A formula to define the class column.
-#' @param data A data.frame dataset contained the input attributes and class.
+#' @param formula A formula to define the output column.
+#' @param data A data.frame dataset contained the input and output attributes.
 #' @param ... Not used.
 #' @details
 #'  The following measures are allowed for this method:
 #'  \describe{
-#'    \item{"S1"}{Output distribution (S1)}
-#'    \item{"S2"}{Input distribution (S2)}
-#'    \item{"S3"}{Error of a nearest neighbor regressor (S3)}
-#'    \item{"S4"}{Non-linearity of nearest neighbor regressor (S4)}
+#'    \item{"S1"}{Output distribution (S1) monitors whether the examples 
+#'      joined in the MST have similar output values. Lower values indicate 
+#'      simpler problems, where the outputs of similar examples in the input 
+#'      space are also next to each other.}
+#'    \item{"S2"}{Input distribution (S2) measure how similar in the input space
+#'      are data items with similar outputs based on distance.}
+#'    \item{"S3"}{Error of a nearest neighbor regressor (S3) calculates the mean
+#'      squared error of a 1-nearest neighbor regressor  using leave-one-out.}
+#'    \item{"S4"}{Non-linearity of nearest neighbor regressor (S4) calculates 
+#'      the mean squared error of a 1-nearest neighbor regressor to the new 
+#'      randomly interpolated points.}
 #'  }
-#' @return A list named by the requested regression smoothness measure.
+#' @return A list named by the requested smoothness measure.
 #'
 #' @references
 #'  Ana C Lorena and Aron I Maciel and Pericles B C Miranda and Ivan G Costa and

@@ -1,9 +1,9 @@
 #' Measures of linearity
 #'
-#' The linearity measures try to quantify if it is possible to separate the 
-#' classes by a hyperplane. The underlying assumption is that a linearly 
-#' separable problem can be considered simpler than a problem requiring a 
-#' non-linear decision boundary.
+#' Classification task. The linearity measures try to quantify if it is possible
+#' to separate the classes by a hyperplane. The underlying assumption is that a 
+#' linearly separable problem can be considered simpler than a problem requiring
+#' a non-linear decision boundary.
 #'
 #' @family complexity-measures
 #' @param x A data.frame contained only the input attributes.
@@ -15,17 +15,17 @@
 #' @details
 #'  The following measures are allowed for this method:
 #'  \describe{
-#'    \item{"L1"}{Sum of the error distance by linear programming (L1) computes  
+#'    \item{"L1"}{Sum of the error distance by linear programming (L1) computes 
 #'      the sum of the distances of incorrectly classified examples to a linear 
 #'      boundary used in their classification.}
-#'    \item{"L2"}{Error rate of linear classifier (L2) computes the error rate  
+#'    \item{"L2"}{Error rate of linear classifier (L2) computes the error rate 
 #'      of the linear SVM classifier induced from dataset.}
 #'    \item{"L3"}{Non-linearity of a linear classifier (L3) creates a new 
 #'      dataset randomly interpolating pairs of training examples of the same 
 #'      class and then induce a linear SVM on the original data and measure 
 #'      the error rate in the new data points.}
 #'  }
-#' @return A list named by the requested class linearity measure.
+#' @return A list named by the requested linearity measure.
 #'
 #' @references
 #'  Albert Orriols-Puig, Nuria Macia and Tin K Ho. (2010). Documentation for the
@@ -151,27 +151,30 @@ c.L3 <- function(model, data) {
   return(mean(aux))
 }
 
-#' Linearity measures
+#' Measures of linearity
 #'
-#' These measures capture whether a linear function provides a good fit to the 
-#' problem. If this is the case, the problem can be considered simpler than one 
-#' in which a non-linear function is required.
+#' Regression task. These measures capture whether a linear function provides a 
+#' good fit to the problem. If this is the case, the problem can be considered 
+#' simpler than one in which a non-linear function is required.
 #'
 #' @family complexity-measures
 #' @param x A data.frame contained only the input attributes.
-#' @param y A factor response vector with one label for each row/component of x.
+#' @param y A response vector with one value for each row/component of x.
 #' @param measures A list of measures names or \code{"all"} to include all them.
-#' @param formula A formula to define the class column.
-#' @param data A data.frame dataset contained the input attributes and class.
+#' @param formula A formula to define the output column.
+#' @param data A data.frame dataset contained the input and output attributes.
 #' @param ... Not used.
 #' @details
 #'  The following measures are allowed for this method:
 #'  \describe{
-#'    \item{"L1"}{Mean absolute error (L1)}
-#'    \item{"L2"}{Residuals variance (L2)}
-#'    \item{"L3"}{Non-linearity of a linear regressor (L3)}
+#'    \item{"L1"}{Mean absolute error (L1) averages the absolute values of the 
+#'      residues of a multiple linear regressor.}
+#'    \item{"L2"}{Residuals variance (L2) averages the square of the residuals 
+#'      from a multiple linear regression.}
+#'    \item{"L3"}{Non-linearity of a linear regressor (L3) measures how 
+#'      sensitive the regressor is to the new randomly interpolated points.}
 #'  }
-#' @return A list named by the requested regression linearity measure.
+#' @return A list named by the requested linearity measure.
 #'
 #' @references
 #'  Ana C Lorena and Aron I Maciel and Pericles B C Miranda and Ivan G Costa and

@@ -1,10 +1,9 @@
 #' Measures of neighborhood
 #'
-#' The Neighborhood measures analyze the neighborhoods of the data items and try
-#' to capture class overlapping and the shape of the decision boundary. They 
-#' work over a distance matrix storing the distances between all pairs of data 
-#' points in the dataset. To deal with both symbolic and numerical features, 
-#' we adopt a heterogeneous distance measure named Gower distance.
+#' Classification task. The Neighborhood measures analyze the neighborhoods of 
+#' the data items and try to capture class overlapping and the shape of the 
+#' decision boundary. They work over a distance matrix storing the distances 
+#' between all pairs of data points in the dataset.
 #'
 #' @family complexity-measures
 #' @param x A data.frame contained only the input attributes.
@@ -44,7 +43,7 @@
 #'      distance of each example is smaller than the distance from the exemples 
 #'      of the different class. LSCAvg is the average of the LS.}
 #'  }
-#' @return A list named by the requested class neighborhood measure.
+#' @return A list named by the requested neighborhood measure.
 #'
 #' @references
 #'  Albert Orriols-Puig, Nuria Macia and Tin K Ho. (2010). Documentation for the
