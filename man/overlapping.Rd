@@ -26,13 +26,13 @@ overlapping(...)
 \item{data}{A data.frame dataset contained the input attributes and class.}
 }
 \value{
-A list named by the requested class overlapping measure.
+A list named by the requested overlapping measure.
 }
 \description{
-The overlapping measures evaluate how informative the available features are
-to separate the classes. If there is at least one very discriminative feature
-in the dataset, the problem can be considered simpler than if there is no 
-such an attribute.
+Classification task. The overlapping measures evaluate how informative the 
+available features are to separate the classes. If there is at least one very
+discriminative feature in the dataset, the problem can be considered simpler 
+than if there is no such an attribute.
 }
 \details{
 The following measures are allowed for this method:

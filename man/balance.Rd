@@ -29,15 +29,15 @@ balance(...)
 A list named by the requested class balance measure.
 }
 \description{
-These measures capture the differences in the number of examples per class in
-the dataset. When these differences are severe, problems related to 
-generalization of the ML classification techniques could happen because of
-the imbalance ratio.
+Classification task. These measures capture the differences in the number of 
+examples per class in the dataset. When these differences are severe, 
+problems related to generalization of the ML classification techniques could 
+happen because of the imbalance ratio.
 }
 \details{
 The following measures are allowed for this method:
  \describe{
-   \item{"C1"}{The entropy of class proportions (C1) measure the imbalance in
+   \item{"C1"}{The entropy of class proportions (C1) capture the imbalance in
      a dataset based on the proportions of examples per class.}
    \item{"C2"}{The imbalance ratio (C2) is an index computed for measuring
      class balance. This is a version of the measure that is also suited for 

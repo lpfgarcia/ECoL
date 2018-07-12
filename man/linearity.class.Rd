@@ -26,21 +26,21 @@ linearity.class(...)
 \item{data}{A data.frame dataset contained the input attributes and class.}
 }
 \value{
-A list named by the requested class linearity measure.
+A list named by the requested linearity measure.
 }
 \description{
-The linearity measures try to quantify if it is possible to separate the 
-classes by a hyperplane. The underlying assumption is that a linearly 
-separable problem can be considered simpler than a problem requiring a 
-non-linear decision boundary.
+Classification task. The linearity measures try to quantify if it is possible
+to separate the classes by a hyperplane. The underlying assumption is that a 
+linearly separable problem can be considered simpler than a problem requiring
+a non-linear decision boundary.
 }
 \details{
 The following measures are allowed for this method:
  \describe{
-   \item{"L1"}{Sum of the error distance by linear programming (L1) computes  
+   \item{"L1"}{Sum of the error distance by linear programming (L1) computes 
      the sum of the distances of incorrectly classified examples to a linear 
      boundary used in their classification.}
-   \item{"L2"}{Error rate of linear classifier (L2) computes the error rate  
+   \item{"L2"}{Error rate of linear classifier (L2) computes the error rate 
      of the linear SVM classifier induced from dataset.}
    \item{"L3"}{Non-linearity of a linear classifier (L3) creates a new 
      dataset randomly interpolating pairs of training examples of the same 

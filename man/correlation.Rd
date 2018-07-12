@@ -17,29 +17,36 @@ correlation(...)
 
 \item{x}{A data.frame contained only the input attributes.}
 
-\item{y}{A factor response vector with one label for each row/component of x.}
+\item{y}{A response vector with one value for each row/component of x.}
 
 \item{measures}{A list of measures names or \code{"all"} to include all them.}
 
-\item{formula}{A formula to define the class column.}
+\item{formula}{A formula to define the output column.}
 
-\item{data}{A data.frame dataset contained the input attributes and class.}
+\item{data}{A data.frame dataset contained the input and output attributes.}
 }
 \value{
-A list named by the requested regression correlation measure.
+A list named by the requested correlation measure.
 }
 \description{
-These measures calculate the correlation of the values of the features to the
-outputs. If at least one feature is highly correlated to the output, this 
-indicates that simpler functions can be fitted to the data.
+Regression task. These measures calculate the correlation of the values of 
+the features to the outputs. If at least one feature is highly correlated to 
+the output, this indicates that simpler functions can be fitted to the data.
 }
 \details{
 The following measures are allowed for this method:
  \describe{
-   \item{"C1"}{Maximum feature correlation to the output (C1)}
-   \item{"C2"}{Average feature correlation to the output (C2)}
-   \item{"C3"}{Individual feature efficiency (C3)}
-   \item{"C4"}{Collective feature efficiency (C4)}
+   \item{"C1"}{Maximum feature correlation to the output (C1) calculate the 
+     maximum absolute value of the Spearman correlation between each feature 
+     and the outputs.}
+   \item{"C2"}{Average feature correlation to the output (C2) computes the 
+     average of the Spearman correlations of all features to the output.}
+   \item{"C3"}{Individual feature efficiency (C3) calculates, for each 
+     feature, the number of examples that must be removed from the dataset 
+     until a high Spearman correlation value to the output is achieved.}
+   \item{"C4"}{Collective feature efficiency (C4) computes the ratio of 
+     examples removed from the dataset based on an iterative process of 
+     linear fitting between the features and the target attribute.}
  }
 }
 \examples{

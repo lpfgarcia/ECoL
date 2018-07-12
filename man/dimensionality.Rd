@@ -17,32 +17,33 @@ dimensionality(...)
 
 \item{x}{A data.frame contained only the input attributes.}
 
-\item{y}{A factor response vector with one label for each row/component of x.}
+\item{y}{A response vector with one value for each row/component of x.}
 
 \item{measures}{A list of measures names or \code{"all"} to include all them.}
 
-\item{formula}{A formula to define the class column.}
+\item{formula}{A formula to define the output column.}
 
-\item{data}{A data.frame dataset contained the input attributes and class.}
+\item{data}{A data.frame dataset contained the input and output attributes.}
 }
 \value{
-A list named by the requested class dimensionality measure.
+A list named by the requested dimensionality measure.
 }
 \description{
-These measures give an indicative of data sparsity. They capture how sparse a
-datasets tend to have regions of low density. These regions are know to be 
-more difficult to extract good classification models.
+Supervised task. These measures give an indicative of data sparsity. They
+capture how sparse adatasets tend to have regions of low density. These 
+regions are know to be more difficult to extract good classification and 
+regression models.
 }
 \details{
 The following measures are allowed for this method:
  \describe{
    \item{"T2"}{Average number of points per dimension (T2) is given by the 
-     ratio between the number of examples and dimensionality of the dataset.} 
+     ratio between the number of examples and dimensionality of the dataset.}
    \item{"T3"}{Average number of points per PCA (T3) is similar to T2, but 
      uses the number of PCA components needed to represent 95% of data 
      variability as the base of data sparsity assessment.}
-   \item{"T4"}{Ratio of the PCA Dimension to the Original (T4) it estimates 
-     the proportion of relevant and the original dimensions for a dataset.}
+   \item{"T4"}{Ratio of the PCA Dimension to the Original (T4) estimates the
+     proportion of relevant and the original dimensions for a dataset.}
  }
 }
 \examples{

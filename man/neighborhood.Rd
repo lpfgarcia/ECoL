@@ -26,14 +26,13 @@ neighborhood(...)
 \item{data}{A data.frame dataset contained the input attributes and class.}
 }
 \value{
-A list named by the requested class neighborhood measure.
+A list named by the requested neighborhood measure.
 }
 \description{
-The Neighborhood measures analyze the neighborhoods of the data items and try
-to capture class overlapping and the shape of the decision boundary. They 
-work over a distance matrix storing the distances between all pairs of data 
-points in the dataset. To deal with both symbolic and numerical features, 
-we adopt a heterogeneous distance measure named Gower distance.
+Classification task. The Neighborhood measures analyze the neighborhoods of 
+the data items and try to capture class overlapping and the shape of the 
+decision boundary. They work over a distance matrix storing the distances 
+between all pairs of data points in the dataset.
 }
 \details{
 The following measures are allowed for this method:

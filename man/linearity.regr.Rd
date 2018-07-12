@@ -4,7 +4,7 @@
 \alias{linearity.regr}
 \alias{linearity.regr.default}
 \alias{linearity.regr.formula}
-\title{Linearity measures}
+\title{Measures of linearity}
 \usage{
 linearity.regr(...)
 
@@ -17,28 +17,31 @@ linearity.regr(...)
 
 \item{x}{A data.frame contained only the input attributes.}
 
-\item{y}{A factor response vector with one label for each row/component of x.}
+\item{y}{A response vector with one value for each row/component of x.}
 
 \item{measures}{A list of measures names or \code{"all"} to include all them.}
 
-\item{formula}{A formula to define the class column.}
+\item{formula}{A formula to define the output column.}
 
-\item{data}{A data.frame dataset contained the input attributes and class.}
+\item{data}{A data.frame dataset contained the input and output attributes.}
 }
 \value{
-A list named by the requested regression linearity measure.
+A list named by the requested linearity measure.
 }
 \description{
-These measures capture whether a linear function provides a good fit to the 
-problem. If this is the case, the problem can be considered simpler than one 
-in which a non-linear function is required.
+Regression task. These measures capture whether a linear function provides a 
+good fit to the problem. If this is the case, the problem can be considered 
+simpler than one in which a non-linear function is required.
 }
 \details{
 The following measures are allowed for this method:
  \describe{
-   \item{"L1"}{Mean absolute error (L1)}
-   \item{"L2"}{Residuals variance (L2)}
-   \item{"L3"}{Non-linearity of a linear regressor (L3)}
+   \item{"L1"}{Mean absolute error (L1) averages the absolute values of the 
+     residues of a multiple linear regressor.}
+   \item{"L2"}{Residuals variance (L2) averages the square of the residuals 
+     from a multiple linear regression.}
+   \item{"L3"}{Non-linearity of a linear regressor (L3) measures how 
+     sensitive the regressor is to the new randomly interpolated points.}
  }
 }
 \examples{

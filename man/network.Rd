@@ -28,14 +28,14 @@ network(...)
 \item{data}{A data.frame dataset contained the input attributes and class.}
 }
 \value{
-A list named by the requested class network measure.
+A list named by the requested network measure.
 }
 \description{
-The network measures represent the dataset as a graph and extract structural 
-information from it. The transformation between raw data and the graph 
-representation is based on the epsilon-NN algorithm. Next, a post-processing 
-step is applied to the graph, pruning edges between examples of opposite 
-classes.
+Classification task. The network measures represent the dataset as a graph 
+and extract structural information from it. The transformation between raw 
+data and the graph representation is based on the epsilon-NN algorithm. Next,
+a post-processing step is applied to the graph, pruning edges between 
+examples of opposite classes.
 }
 \details{
 The following measures are allowed for this method:

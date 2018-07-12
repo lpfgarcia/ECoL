@@ -4,7 +4,7 @@
 \alias{smoothness}
 \alias{smoothness.default}
 \alias{smoothness.formula}
-\title{Smoothness measures}
+\title{Measures of smoothness}
 \usage{
 smoothness(...)
 
@@ -17,30 +17,37 @@ smoothness(...)
 
 \item{x}{A data.frame contained only the input attributes.}
 
-\item{y}{A factor response vector with one label for each row/component of x.}
+\item{y}{A response vector with one value for each row/component of x.}
 
 \item{measures}{A list of measures names or \code{"all"} to include all them.}
 
-\item{formula}{A formula to define the class column.}
+\item{formula}{A formula to define the output column.}
 
-\item{data}{A data.frame dataset contained the input attributes and class.}
+\item{data}{A data.frame dataset contained the input and output attributes.}
 }
 \value{
-A list named by the requested regression smoothness measure.
+A list named by the requested smoothness measure.
 }
 \description{
-In regression problems, the smoother the function to be fitted to the data, 
-the simpler it shall be. Larger variations in the inputs and/or outputs, on 
-the other hand, usually indicate the existence of more intricate 
-relationships between them.
+Regression task. In regression problems, the smoother the function to be 
+fitted to the data, the simpler it shall be. Larger variations in the inputs
+and/or outputs, on the other hand, usually indicate the existence of more 
+intricate relationships between them.
 }
 \details{
 The following measures are allowed for this method:
  \describe{
-   \item{"S1"}{Output distribution (S1)}
-   \item{"S2"}{Input distribution (S2)}
-   \item{"S3"}{Error of a nearest neighbor regressor (S3)}
-   \item{"S4"}{Non-linearity of nearest neighbor regressor (S4)}
+   \item{"S1"}{Output distribution (S1) monitors whether the examples 
+     joined in the MST have similar output values. Lower values indicate 
+     simpler problems, where the outputs of similar examples in the input 
+     space are also next to each other.}
+   \item{"S2"}{Input distribution (S2) measure how similar in the input space
+     are data items with similar outputs based on distance.}
+   \item{"S3"}{Error of a nearest neighbor regressor (S3) calculates the mean
+     squared error of a 1-nearest neighbor regressor  using leave-one-out.}
+   \item{"S4"}{Non-linearity of nearest neighbor regressor (S4) calculates 
+     the mean squared error of a 1-nearest neighbor regressor to the new 
+     randomly interpolated points.}
  }
 }
 \examples{

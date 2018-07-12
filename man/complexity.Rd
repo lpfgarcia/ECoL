@@ -17,28 +17,28 @@ complexity(...)
 
 \item{x}{A data.frame contained only the input attributes.}
 
-\item{y}{A factor response vector with one label for each row/component of x.}
+\item{y}{A response vector with one value for each row/component of x.}
 
 \item{type}{The type of supervised problem: The \code{"class"} is used for 
-classification problems and \code{"regr"} for regression problems.}
+classification tasks and \code{"regr"} for regression tasks.}
 
 \item{groups}{A list of complexity measures groups or \code{"all"} to include
 all of them.}
 
-\item{formula}{A formula to define the class column.}
+\item{formula}{A formula to define the output column.}
 
-\item{data}{A data.frame dataset contained the input attributes and class.}
+\item{data}{A data.frame dataset contained the input and output attributes.}
 }
 \value{
 A numeric vector named by the requested complexity measures.
 }
 \description{
 This function is responsable to extract the complexity measures from the 
-datasets. For such, they take into account the overlap between classes 
-imposed by feature values, the separability and distribution of the data 
-points and the value of structural measures based on the representation of 
-the dataset as a graph structure. To set specific parameters for each group, 
-use the characterization function.
+classification and regression tasks. For such, they take into account the 
+overlap between classes imposed by feature values, the separability and 
+distribution of the data points and the value of structural measures based on
+the representation of the dataset as a graph structure. To set specific 
+parameters for each group, use the characterization function.
 }
 \details{
 The following groups are allowed for this method:
@@ -53,23 +53,25 @@ The following groups are allowed for this method:
      can be linearly separated. See \link{linearity.class} or 
      \link{linearity.regr} for more details.}
    \item{"dimensionality"}{The dimensionality measures compute information on
-     how smoothly the examples are distributed within the classes. See 
+     how smoothly the examples are distributed within the attributes. See 
      \link{dimensionality} for more details.}
    \item{"balance"}{Class balance measures take into account the numbers of 
      examples per class in the dataset. See \link{balance} for more details.}
    \item{"network"}{Network measures represent the dataset as a graph and 
      extract structural information from it. See \link{network} for more 
      details.}
-   \item{"correlation"}{\link{correlation}}
-   \item{"Smoothness"}{\link{smoothness}}
+   \item{"correlation"}{Capture the relationship of the feature values with 
+     the outputs. See \link{correlation} for more details.}
+   \item{"Smoothness"}{Estimate the smoothness of the function that must be 
+     fitted to the data. See \link{smoothness} for more details.}
  }
 }
 \examples{
-## Extract all complexity measures for classification problems
+## Extract all complexity measures for classification task
 data(iris)
 complexity(Species ~ ., iris, type="class")
 
-## Extract all complexity measures for regression problems
+## Extract all complexity measures for regression task
 data(cars)
 complexity(speed~., cars, type="regr")
 }
