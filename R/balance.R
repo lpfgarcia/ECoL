@@ -34,6 +34,7 @@
 #'
 #' @examples
 #' ## Extract all balance measures
+#' data(iris)
 #' balance(Species ~ ., iris)
 #' @export
 balance <- function(...) {
@@ -43,6 +44,7 @@ balance <- function(...) {
 #' @rdname balance
 #' @export
 balance.default <- function(x, y, measures="all", ...) {
+
   if(!is.data.frame(x)) {
     stop("data argument must be a data.frame")
   }
@@ -71,6 +73,7 @@ balance.default <- function(x, y, measures="all", ...) {
 #' @rdname balance
 #' @export
 balance.formula <- function(formula, data, measures="all", ...) {
+
   if(!inherits(formula, "formula")) {
     stop("method is only for formula datas")
   }
