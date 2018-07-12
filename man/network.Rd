@@ -54,6 +54,7 @@ The following measures are allowed for this method:
 }
 \examples{
 ## Extract all network measures
+data(iris)
 network(Species ~ ., iris)
 }
 \references{
@@ -67,6 +68,8 @@ Gleison Morais and Ronaldo C Prati. (2013). Complex Network Measures for
 }
 \seealso{
 Other complexity-measures: \code{\link{balance}},
-  \code{\link{dimensionality}}, \code{\link{linearity}},
-  \code{\link{neighborhood}}, \code{\link{overlapping}}
+  \code{\link{correlation}}, \code{\link{dimensionality}},
+  \code{\link{linearity.class}},
+  \code{\link{linearity.regr}}, \code{\link{neighborhood}},
+  \code{\link{overlapping}}, \code{\link{smoothness}}
 }

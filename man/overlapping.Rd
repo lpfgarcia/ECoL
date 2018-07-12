@@ -63,6 +63,7 @@ The following measures are allowed for this method:
 }
 \examples{
 ## Extract all overlapping measures
+data(iris)
 overlapping(Species ~ ., iris)
 }
 \references{
@@ -72,6 +73,8 @@ Albert Orriols-Puig, Nuria Macia and Tin K Ho. (2010). Documentation for the
 }
 \seealso{
 Other complexity-measures: \code{\link{balance}},
-  \code{\link{dimensionality}}, \code{\link{linearity}},
-  \code{\link{neighborhood}}, \code{\link{network}}
+  \code{\link{correlation}}, \code{\link{dimensionality}},
+  \code{\link{linearity.class}},
+  \code{\link{linearity.regr}}, \code{\link{neighborhood}},
+  \code{\link{network}}, \code{\link{smoothness}}
 }

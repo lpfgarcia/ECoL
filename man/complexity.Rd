@@ -8,10 +8,9 @@
 \usage{
 complexity(...)
 
-\method{complexity}{default}(x, y, groups = "all", type = "class", ...)
+\method{complexity}{default}(x, y, type, groups = "all", ...)
 
-\method{complexity}{formula}(formula, data, groups = "all", type = "class",
-  ...)
+\method{complexity}{formula}(formula, data, type, groups = "all", ...)
 }
 \arguments{
 \item{...}{Not used.}
@@ -20,11 +19,11 @@ complexity(...)
 
 \item{y}{A factor response vector with one label for each row/component of x.}
 
+\item{type}{The type of supervised problem: The \code{"class"} is used for 
+classification problems and \code{"regr"} for regression problems.}
+
 \item{groups}{A list of complexity measures groups or \code{"all"} to include
 all of them.}
-
-\item{type}{The type of measures to be used. The \code{"class"} is used for 
-classification problems and \code{"regr"} for regression problems.}
 
 \item{formula}{A formula to define the class column.}
 
@@ -51,7 +50,8 @@ The following groups are allowed for this method:
      density of same or different classes in local neighborhoods. See 
      \link{neighborhood} for more details.}
    \item{"linearity"}{Linearity measures try to quantify whether the classes 
-     can be linearly separated. See \link{linearity} for more details.}
+     can be linearly separated. See \link{linearity.class} or 
+     \link{linearity.regr} for more details.}
    \item{"dimensionality"}{The dimensionality measures compute information on
      how smoothly the examples are distributed within the classes. See 
      \link{dimensionality} for more details.}
@@ -60,14 +60,18 @@ The following groups are allowed for this method:
    \item{"network"}{Network measures represent the dataset as a graph and 
      extract structural information from it. See \link{network} for more 
      details.}
+   \item{"correlation"}{\link{correlation}}
+   \item{"Smoothness"}{\link{smoothness}}
  }
 }
 \examples{
-## Extract all complexity measures
-complexity(Species ~ ., iris)
+## Extract all complexity measures for classification problems
+data(iris)
+complexity(Species ~ ., iris, type="class")
 
-## Extract the linearity measures
-complexity(Species ~ ., iris, groups="linearity")
+## Extract all complexity measures for regression problems
+data(cars)
+complexity(speed~., cars, type="regr")
 }
 \references{
 Tin K Ho and Mitra Basu. (2002). Complexity measures of supervised 
@@ -77,4 +81,8 @@ Tin K Ho and Mitra Basu. (2002). Complexity measures of supervised
  Albert Orriols-Puig, Nuria Macia and Tin K Ho. (2010). Documentation for 
    the data complexity library in C++. Technical Report. La Salle - 
    Universitat Ramon Llull.
+
+ Ana C Lorena and Aron I Maciel and Pericles B C Miranda and Ivan G Costa and
+   Ricardo B C Prudencio. (2018). Data complexity meta-features for 
+   regression problems. Machine Learning, 107, 1, 209--246.
 }

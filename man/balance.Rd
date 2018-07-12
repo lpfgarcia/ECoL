@@ -46,6 +46,7 @@ The following measures are allowed for this method:
 }
 \examples{
 ## Extract all balance measures
+data(iris)
 balance(Species ~ ., iris)
 }
 \references{
@@ -58,7 +59,10 @@ Ana C Lorena, Ivan G Costa, Newton Spolaor and Marcilio C P Souto. (2012).
    with biomedical datasets. Learning Classifier Systems 6471, 127--144.
 }
 \seealso{
-Other complexity-measures: \code{\link{dimensionality}},
-  \code{\link{linearity}}, \code{\link{neighborhood}},
-  \code{\link{network}}, \code{\link{overlapping}}
+Other complexity-measures: \code{\link{correlation}},
+  \code{\link{dimensionality}},
+  \code{\link{linearity.class}},
+  \code{\link{linearity.regr}}, \code{\link{neighborhood}},
+  \code{\link{network}}, \code{\link{overlapping}},
+  \code{\link{smoothness}}
 }
