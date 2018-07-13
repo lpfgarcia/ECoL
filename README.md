@@ -1,7 +1,7 @@
 # ECoL
 [![Travis-CI Build Status](https://travis-ci.org/SmartDataAnalytics/ECoL.svg?branch=master)](https://travis-ci.org/SmartDataAnalytics/ECoL)
 
-The Extended Complexity Library (ECoL) is the implementation in R of a set of measures to characterize the complexity of classification and regression problems based on aspects that quantify the linearity of the data, the presence of informative feature, the sparsity and dimensionality of the datasets. The measures were originally proposed by Ho and Basu (2002) and extend by many other works including the [DCoL](https://github.com/nmacia/dcol) library. The main difference between the libraries is that ECoL provides bug fixes, generalizations and implementations of many other state-of-the-art measures.
+The Extended Complexity Library (ECoL) is the implementation in R of a set of measures to characterize the complexity of classification and regression problems based on aspects that quantify the linearity of the data, the presence of informative feature, the sparsity and dimensionality of the datasets. The measures were originally proposed by Ho and Basu [1] and extend by many other works including the DCoL library [2]. The main difference between the libraries is that ECoL provides bug fixes, generalizations and implementations of many other state-of-the-art measures.
 
 ## Measures
 
@@ -87,11 +87,11 @@ The simplest way to compute the complexity measures are using the `complexity` m
 ## Extract all complexity measures for classification task
 complexity(Species ~ ., iris, type="class")
 
-## Extract all complexity measures using data frame for classification task
-complexity(iris[,1:4], iris[,5], type="class")
-
 ## Extract all complexity measures for regression task
 complexity(speed~., cars, type="regr")
+
+## Extract all complexity measures using data frame for classification task
+complexity(iris[,1:4], iris[,5], type="class")
 
 ## Extract the overlapping measures
 complexity(Species ~ ., iris,  type="class", groups="overlapping")
