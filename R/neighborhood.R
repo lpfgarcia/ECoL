@@ -123,7 +123,7 @@ ls.neighborhood <- function() {
   c("N1","N2", "N3", "N4", "T1", "LSC")
 }
 
-knn <- function(dst, data, k=3, i) {
+knn <- function(data, dst, i, k) {
   tmp <- names(sort(dst[i,])[1:k+1])
   aux <- data[tmp,]$class
   names(aux) <- tmp
@@ -143,44 +143,40 @@ c.N1 <- function(dst, data) {
 
 intra <- function(dst, data, i) {
   tmp <- rownames(data[data$class == data[i,]$class,])
-  aux <- sort(dst[i, setdiff(tmp, i)])[1]
+  aux <- min(dst[i, setdiff(tmp, i)])
   return(aux)
 }
 
 inter <- function(dst, data, i) {
   tmp <- rownames(data[data$class != data[i,]$class,])
-  aux <- sort(dst[i, tmp])[1]
+  aux <- min(dst[i, tmp])
   return(aux)
 }
 
 c.N2 <- function(dst, data) {
 
-  aux <- sapply(rownames(data), 
-    function(i) {
-      a <- intra(dst, data, i)
-      r <- inter(dst, data, i)
-      return(c(a,r))
+  aux <- sapply(rownames(data), function(i) {
+    c(intra(dst, data, i), inter(dst, data, i))
   })
 
-  aux = sum(aux[1,])/sum(aux[2,])
+  aux <- sum(aux[1,])/sum(aux[2,])
   return(aux)
 }
 
 c.N3 <- function(dst, data) {
 
-  aux <- unlist(
-    lapply(rownames(data), 
-      function(i) {
-        knn(dst, data, 1, i) != data[i,]$class
-    })
-  )
+  aux <- sapply(rownames(data), function(i) {
+    knn(data, dst, i, 1) != data[i,]$class
+  })
 
   return(mean(aux))
 }
 
 c.N4 <- function(dst, data) {
 
-  aux <- rbind(data, c.generate(data, nrow(data)))
+  newdata <- c.generate(data, nrow(data))
+  aux <- rbind(data, newdata)
+
   vet <- setdiff(rownames(aux), rownames(data))
   dst <- dist(aux[,-ncol(aux), drop=FALSE])
 
@@ -194,11 +190,17 @@ c.N4 <- function(dst, data) {
   return(mean(aux))
 }
 
+interclass <- function(dst, data, i) {
+  tmp <- rownames(data[data$class != data[i,]$class,])
+  aux <- sort(dst[i, tmp])[1]
+  return(aux)
+}
+
 radios <- function(dst, data, i) {
 
-  di <- inter(dst, data, i)
+  di <- interclass(dst, data, i)
   j <- names(di)
-  dj <- inter(dst, data, j)
+  dj <- interclass(dst, data, j)
   k <- names(dj)
 
   if(i == k) {
@@ -211,26 +213,19 @@ radios <- function(dst, data, i) {
 
 hyperspher <- function(dst, data) {
 
-  r <- rep(0, nrow(data))
-  names(r) <- rownames(data)
+  aux <- sapply(rownames(data), function(i) {
+    as.numeric(radios(dst, data, i))
+  })
 
-  for(i in names(r)){
-    r[i] <- radios(dst, data, i)
-  }
-
-  return(r)
+  return(aux)
 }
 
 translate <- function(dst, r) {
 
-  aux <- do.call("rbind",
-    lapply(rownames(dst), 
-      function(i) {
-        dst[i,] < r[i]
-    })
-  )
+  aux <- t(sapply(rownames(dst), function(i) {
+    dst[i,] < r[i]
+  }))
 
-  rownames(aux) <- rownames(dst)
   return(aux)
 }
 
@@ -271,7 +266,7 @@ c.T1 <- function(dst, data) {
 c.LSC <- function(dst, data) {
   
   r <- sapply(rownames(data), function(i) {
-    as.numeric(inter(dst, data, i))
+    inter(dst, data, i)
   })
   
   aux <- sum(translate(dst, r))/(nrow(dst)^2)
