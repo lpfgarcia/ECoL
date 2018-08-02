@@ -35,17 +35,19 @@ ovo <- function(data) {
 
 c.interpolation <- function(data) {
 
-  aux <- data[data$class == sample(data$class, 1),] 
-  aux <- aux[sample(nrow(aux), 2, replace=FALSE),]
+  aux <- data[data$class == sample(data$class, 1),]
+  tmp <- aux[sample(nrow(aux), 2),]
 
   for(i in 1:(ncol(data)-1)) {
     if(is.numeric(data[,i])) {
       rnd <- stats::runif(1)
-      aux[1,i] <- aux[1,i]*rnd + aux[2,i]*(1-rnd)
+      tmp[1,i] <- tmp[1,i]*rnd + tmp[2,i]*(1-rnd)
+    } else {
+      tmp[1,i] <- sample(aux[,i], 1)
     }
   }
 
-  return(aux[1,])
+  return(tmp[1,])
 }
 
 c.generate <- function(data, n) {

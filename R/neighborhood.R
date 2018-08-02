@@ -38,10 +38,10 @@
 #'      are eliminated. T1 is finally defined as the ratio between the number of 
 #'      the remaining hyperspheres and the total number of examples in the 
 #'      dataset.}
-#'    \item{"LSCAvg"}{Local Set Average Cardinality (LSCAvg) is based on Local 
-#'      Set (LS) and defined as the set of points from the dataset whose 
-#'      distance of each example is smaller than the distance from the exemples 
-#'      of the different class. LSCAvg is the average of the LS.}
+#'    \item{"LSC"}{Local Set Average Cardinality (LSC) is based on Local Set 
+#'      (LS) and defined as the set of points from the dataset whose distance of
+#'      each example is smaller than the distance from the exemples of the 
+#'      different class. LSC is the average of the LS.}
 #'  }
 #' @return A list named by the requested neighborhood measure.
 #'
@@ -92,7 +92,6 @@ neighborhood.default <- function(x, y, measures="all", ...) {
   measures <- match.arg(measures, ls.neighborhood(), TRUE)
   colnames(x) <- make.names(colnames(x))
 
-  x <- binarize(x)
   data <- data.frame(x, class=y)
   dst <- dist(x)
 
@@ -121,7 +120,7 @@ neighborhood.formula <- function(formula, data, measures="all", ...) {
 }
 
 ls.neighborhood <- function() {
-  c("N1","N2", "N3", "N4", "T1", "LSCAvg")
+  c("N1","N2", "N3", "N4", "T1", "LSC")
 }
 
 knn <- function(dst, data, k=3, i) {
@@ -269,7 +268,7 @@ c.T1 <- function(dst, data) {
   return(aux)
 }
 
-c.LSCAvg <- function(dst, data) {
+c.LSC <- function(dst, data) {
   
   r <- sapply(rownames(data), function(i) {
     as.numeric(inter(dst, data, i))
