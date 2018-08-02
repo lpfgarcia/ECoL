@@ -22,7 +22,7 @@ The measures can be divided into the following groups: (1) feature overlapping m
 * N3: Leave-one-out error rate of the 1-nearest neighbor algorithm
 * N4: Nonlinearity of the one-nearest neighbor classifier
 * T1: Fraction of maximum covering spheres on data
-* LSCAvg: Local-Set cardinality average
+* LSC: Local-Set cardinality average
 
 **Measures of linearity** 
 
