@@ -174,18 +174,16 @@ c.N3 <- function(dst, data) {
 
 c.N4 <- function(dst, data) {
 
-  newdata <- c.generate(data, nrow(data))
-  aux <- rbind(data, newdata)
+  test <- c.generate(data, nrow(data))
+  tran <- rbind(data, test)
 
-  vet <- setdiff(rownames(aux), rownames(data))
-  dst <- dist(aux[,-ncol(aux), drop=FALSE])
+  vet <- setdiff(rownames(tran), rownames(data))
+  dst <- dist(tran[,-ncol(tran), drop=FALSE])
 
-  aux <- unlist(
-    lapply(vet, function(i) {
-      idx <- which.min(dst[i, rownames(data)])
-      data[names(idx),]$class != aux[i,]$class
-    })
-  )
+  aux <- sapply(vet, function(i) {
+    idx <- names(which.min(dst[i, rownames(data)]))
+    data[idx,]$class != tran[i,]$class
+  })
 
   return(mean(aux))
 }
