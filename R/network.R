@@ -77,8 +77,8 @@ network.default <- function(x, y, measures="all", eps=0.15, ...) {
   measures <- match.arg(measures, ls.network(), TRUE)
   colnames(x) <- make.names(colnames(x))
 
-  adj <- enn(x, y, eps)
-  graph <- igraph::graph.adjacency(adj, mode="undirected")
+  dst <- enn(x, y, eps*nrow(x))
+  graph <- igraph::graph.adjacency(dst, mode="undirected", weighted=TRUE)
 
   sapply(measures, function(f) {
     eval(call(paste("c", f, sep="."), graph))
@@ -108,15 +108,14 @@ ls.network <- function() {
   c("Density", "ClsCoef", "Hubs")
 }
 
-enn <- function(x, y, eps) {
+enn <- function(x, y, e) {
 
   dst <- dist(x)
-  eps <- eps*nrow(x)
 
   for(i in 1:nrow(x)) {
-    a <- names(sort(dst[i,])[1:eps+1])
+    a <- names(sort(dst[i,])[1:e+1])
     b <- rownames(x[y == y[i],])
-    dst[i,] <- 0; dst[i, intersect(a, b)] <- 1
+    dst[i, setdiff(rownames(x), intersect(a, b))] <- 0
   }
 
   return(dst)
