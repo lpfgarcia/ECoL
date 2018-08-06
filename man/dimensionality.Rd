@@ -29,10 +29,9 @@ dimensionality(...)
 A list named by the requested dimensionality measure.
 }
 \description{
-Supervised task. These measures give an indicative of data sparsity. They
-capture how sparse adatasets tend to have regions of low density. These 
-regions are know to be more difficult to extract good classification and 
-regression models.
+These measures give an indicative of data sparsity. They capture how sparse 
+a datasets tend to have regions of low density. These regions are know to be 
+more difficult to extract good classification and regression models.
 }
 \details{
 The following measures are allowed for this method:
@@ -50,6 +49,9 @@ The following measures are allowed for this method:
 ## Extract all dimensionality measures
 data(iris)
 dimensionality(Species ~ ., iris)
+
+data(cars)
+correlation(speed~., cars)
 }
 \references{
 Ana C Lorena, Ivan G Costa, Newton Spolaor and Marcilio C P Souto. (2012). 
@@ -63,3 +65,4 @@ Other complexity-measures: \code{\link{balance}},
   \code{\link{network}}, \code{\link{overlapping}},
   \code{\link{smoothness}}
 }
+\concept{complexity-measures}

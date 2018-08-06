@@ -67,3 +67,4 @@ Other complexity-measures: \code{\link{balance}},
   \code{\link{linearity.regr}}, \code{\link{neighborhood}},
   \code{\link{network}}, \code{\link{overlapping}}
 }
+\concept{complexity-measures}

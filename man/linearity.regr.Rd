@@ -61,3 +61,4 @@ Other complexity-measures: \code{\link{balance}},
   \code{\link{neighborhood}}, \code{\link{network}},
   \code{\link{overlapping}}, \code{\link{smoothness}}
 }
+\concept{complexity-measures}

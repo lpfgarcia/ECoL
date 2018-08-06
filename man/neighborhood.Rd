@@ -60,10 +60,10 @@ The following measures are allowed for this method:
      are eliminated. T1 is finally defined as the ratio between the number of 
      the remaining hyperspheres and the total number of examples in the 
      dataset.}
-   \item{"LSCAvg"}{Local Set Average Cardinality (LSCAvg) is based on Local 
-     Set (LS) and defined as the set of points from the dataset whose 
-     distance of each example is smaller than the distance from the exemples 
-     of the different class. LSCAvg is the average of the LS.}
+   \item{"LSC"}{Local Set Average Cardinality (LSC) is based on Local Set 
+     (LS) and defined as the set of points from the dataset whose distance of
+     each example is smaller than the distance from the exemples of the 
+     different class. LSC is the average of the LS.}
  }
 }
 \examples{
@@ -87,3 +87,4 @@ Other complexity-measures: \code{\link{balance}},
   \code{\link{linearity.regr}}, \code{\link{network}},
   \code{\link{overlapping}}, \code{\link{smoothness}}
 }
+\concept{complexity-measures}

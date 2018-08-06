@@ -10,7 +10,8 @@ network(...)
 
 \method{network}{default}(x, y, measures = "all", eps = 0.15, ...)
 
-\method{network}{formula}(formula, data, measures = "all", eps = 0.15, ...)
+\method{network}{formula}(formula, data, measures = "all", eps = 0.15,
+  ...)
 }
 \arguments{
 \item{...}{Not used.}
@@ -73,3 +74,4 @@ Other complexity-measures: \code{\link{balance}},
   \code{\link{linearity.regr}}, \code{\link{neighborhood}},
   \code{\link{overlapping}}, \code{\link{smoothness}}
 }
+\concept{complexity-measures}

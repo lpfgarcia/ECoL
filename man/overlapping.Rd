@@ -78,3 +78,4 @@ Other complexity-measures: \code{\link{balance}},
   \code{\link{linearity.regr}}, \code{\link{neighborhood}},
   \code{\link{network}}, \code{\link{smoothness}}
 }
+\concept{complexity-measures}

@@ -66,3 +66,4 @@ Other complexity-measures: \code{\link{correlation}},
   \code{\link{network}}, \code{\link{overlapping}},
   \code{\link{smoothness}}
 }
+\concept{complexity-measures}
