@@ -1,9 +1,8 @@
 #' Measures of dimensionality
 #'
-#' Supervised task. These measures give an indicative of data sparsity. They
-#' capture how sparse adatasets tend to have regions of low density. These 
-#' regions are know to be more difficult to extract good classification and 
-#' regression models.
+#' These measures give an indicative of data sparsity. They capture how sparse 
+#' a datasets tend to have regions of low density. These regions are know to be 
+#' more difficult to extract good classification and regression models.
 #'
 #' @family complexity-measures
 #' @param x A data.frame contained only the input attributes.
@@ -34,6 +33,9 @@
 #' ## Extract all dimensionality measures
 #' data(iris)
 #' dimensionality(Species ~ ., iris)
+#'
+#' data(cars)
+#' correlation(speed~., cars)
 #' @export
 dimensionality <- function(...) {
   UseMethod("dimensionality")

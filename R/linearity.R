@@ -70,7 +70,6 @@ linearity.class.default <- function(x, y, measures="all", ...) {
   measures <- match.arg(measures, ls.linearity.class(), TRUE)
   colnames(x) <- make.names(colnames(x))
 
-  x <- binarize(x)
   data <- data.frame(x, class=y)
   data <- ovo(data)
 
@@ -133,8 +132,8 @@ error <- function(pred, class) {
 c.L2 <- function(model, data) {
 
   aux <- mapply(function(m, d) {
-    pred <- stats::predict(m, d)
-    error(pred, d$class)
+    prd <- stats::predict(m, d)
+    error(prd, d$class)
   }, m=model, d=data)
 
   return(mean(aux))
@@ -144,8 +143,8 @@ c.L3 <- function(model, data) {
 
   aux <- mapply(function(m, d) {
     tmp <- c.generate(d, nrow(d))
-    pred <- stats::predict(m, tmp)
-    error(pred, tmp$class)
+    prd <- stats::predict(m, tmp)
+    error(prd, tmp$class)
   }, m=model, d=data)
 
   return(mean(aux))
