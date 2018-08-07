@@ -106,12 +106,6 @@ smo <- function(data) {
   e1071::svm(class ~ ., data, scale=TRUE, kernel="linear")
 }
 
-hyperretangle <- function(data) {
-  data <- data[,-ncol(data), drop=FALSE]
-  aux <- sqrt(sum((colMax(data)-colMin(data))^2))
-  return(aux)
-}
-
 c.L1 <- function(model, data) {
 
   aux <- mapply(function(m, d) {
