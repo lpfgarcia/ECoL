@@ -123,13 +123,6 @@ ls.neighborhood <- function() {
   c("N1","N2", "N3", "N4", "T1", "LSC")
 }
 
-knn <- function(data, dst, i, k) {
-  tmp <- names(sort(dst[i,])[1:k+1])
-  aux <- data[tmp,]$class
-  names(aux) <- tmp
-  return(aux) 
-}
-
 c.N1 <- function(dst, data) {
 
   g <- igraph::graph.adjacency(dst, mode="undirected", weighted=TRUE)
@@ -149,7 +142,7 @@ intra <- function(dst, data, i) {
 
 inter <- function(dst, data, i) {
   tmp <- rownames(data[data$class != data[i,]$class,])
-  aux <- min(dst[i, tmp])
+  aux <- sort(dst[i, tmp])[1]
   return(aux)
 }
 
@@ -163,10 +156,15 @@ c.N2 <- function(dst, data) {
   return(aux)
 }
 
+knn <- function(data, dst, i) {
+  tmp <- names(sort(dst[i,])[2])
+  data[tmp,]$class
+}
+
 c.N3 <- function(dst, data) {
 
   aux <- sapply(rownames(data), function(i) {
-    knn(data, dst, i, 1) != data[i,]$class
+    knn(data, dst, i) != data[i,]$class
   })
 
   return(mean(aux))
@@ -188,17 +186,11 @@ c.N4 <- function(dst, data) {
   return(mean(aux))
 }
 
-interclass <- function(dst, data, i) {
-  tmp <- rownames(data[data$class != data[i,]$class,])
-  aux <- sort(dst[i, tmp])[1]
-  return(aux)
-}
-
 radios <- function(dst, data, i) {
 
-  di <- interclass(dst, data, i)
+  di <- inter(dst, data, i)
   j <- names(di)
-  dj <- interclass(dst, data, j)
+  dj <- inter(dst, data, j)
   k <- names(dj)
 
   if(i == k) {
@@ -264,7 +256,7 @@ c.T1 <- function(dst, data) {
 c.LSC <- function(dst, data) {
   
   r <- sapply(rownames(data), function(i) {
-    inter(dst, data, i)
+    as.numeric(inter(dst, data, i))
   })
   
   aux <- sum(translate(dst, r))/(nrow(dst)^2)
