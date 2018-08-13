@@ -156,33 +156,27 @@ c.N2 <- function(dst, data) {
   return(aux)
 }
 
-knn <- function(data, dst, i) {
-  tmp <- names(sort(dst[i,])[2])
-  data[tmp,]$class
+knn <- function(data, dst, k) {
+  apply(dst, 1, function(i) {
+    tmp <- names(sort(i)[k])
+    data[tmp,]$class
+  })
 }
 
 c.N3 <- function(dst, data) {
-
-  aux <- sapply(rownames(data), function(i) {
-    knn(data, dst, i) != data[i,]$class
-  })
-
+  aux <- knn(data, dst, 2) != data$class
   return(mean(aux))
 }
 
 c.N4 <- function(dst, data) {
 
-  test <- c.generate(data, nrow(data))
-  tran <- rbind(data, test)
+  tran <- rbind(data, c.generate(data, nrow(data)))
+  test <- tail(tran, nrow(data))
 
-  vet <- setdiff(rownames(tran), rownames(data))
   dst <- dist(tran[,-ncol(tran), drop=FALSE])
+  dst <- dst[rownames(test), rownames(data)]
 
-  aux <- sapply(vet, function(i) {
-    idx <- names(which.min(dst[i, rownames(data)]))
-    data[idx,]$class != tran[i,]$class
-  })
-
+  aux <- knn(data, dst, 1) != test$class
   return(mean(aux))
 }
 
