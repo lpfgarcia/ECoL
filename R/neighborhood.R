@@ -171,7 +171,7 @@ c.N3 <- function(dst, data) {
 c.N4 <- function(dst, data) {
 
   tran <- rbind(data, c.generate(data, nrow(data)))
-  test <- tail(tran, nrow(data))
+  test <- utils::tail(tran, nrow(data))
 
   dst <- dist(tran[,-ncol(tran), drop=FALSE])
   dst <- dst[rownames(test), rownames(data)]
