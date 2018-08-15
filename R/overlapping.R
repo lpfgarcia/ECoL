@@ -118,7 +118,7 @@ branch <- function(data, j) {
   data[data$class == j, -ncol(data), drop=FALSE]
 }
 
-num <- function(data, j) {
+numerator <- function(j, data) {
 
   tmp <- branch(data, j)
   aux <- nrow(tmp) * (colMeans(tmp) - 
@@ -126,7 +126,7 @@ num <- function(data, j) {
   return(aux)
 }
 
-den <- function(data, j) {
+denominator <- function(j, data) {
 
   tmp <- branch(data, j)
   aux <- rowSums((t(tmp) - colMeans(tmp))^2)
@@ -135,14 +135,10 @@ den <- function(data, j) {
 
 c.F1 <- function(data) {
 
-  aux <- do.call("cbind", 
-    lapply(levels(data$class), function(i) {
-      num(data, i)/den(data, i)
-    })
-  )
+  aux <- rowSums(sapply(levels(data$class), numerator, data)) / 
+    rowSums(sapply(levels(data$class), denominator, data))
 
-  aux <- max(rowSums(aux, na.rm=TRUE), na.rm=TRUE)
-  return(aux)
+  return(max(aux, na.rm=TRUE))
 }
 
 dvector <- function(data) {
@@ -166,8 +162,8 @@ dvector <- function(data) {
 
 c.F1v <- function(data) {
   data <- ovo(data)
-  aux <- unlist(lapply(data, dvector))
-  return(mean(aux))
+  aux <- mean(sapply(data, dvector))
+  return(aux)
 }
 
 regionOver <- function(data) {
@@ -188,8 +184,8 @@ regionOver <- function(data) {
 c.F2 <- function(data) {
 
   data <- ovo(data)
-  aux <- unlist(lapply(data, regionOver))
-  return(mean(aux))
+  aux <- mean(sapply(data, regionOver))
+  return(aux)
 }
 
 nonOverlap <- function(data) {
@@ -221,7 +217,6 @@ c.F3 <- function(data) {
     colSums(nonOverlap(d))/nrow(d)
   }, d=data)
 
-  aux <- data.frame(aux)
   aux <- mean(colMax(aux))
   return(aux)
 }
@@ -229,10 +224,12 @@ c.F3 <- function(data) {
 removing <- function(data) {
 
   repeat {
+
     tmp <- nonOverlap(data)
     col <- which.max(colSums(tmp))
     aux <- rownames(tmp[tmp[,col] != TRUE, , drop=FALSE])
     data <- data[aux,- col, drop=FALSE]
+
     if(nrow(data) == 0 | ncol(data) == 1 |
       length(unique(data$class)) == 1)
         break
@@ -245,8 +242,7 @@ c.F4 <- function(data) {
 
   data <- ovo(data)
   aux <- mapply(function(d) {
-    n <- removing(d)
-    (nrow(d) - nrow(n))/nrow(d)
+    (nrow(d) - nrow(removing(d)))/nrow(d)
   }, d=data)
 
   aux <- mean(aux)
