@@ -88,7 +88,7 @@ The simplest way to compute the complexity measures are using the `complexity` m
 complexity(Species ~ ., iris, type="class")
 
 ## Extract all complexity measures for regression task
-complexity(speed~., cars, type="regr")
+complexity(speed ~., cars, type="regr")
 
 ## Extract all complexity measures using data frame for classification task
 complexity(iris[,1:4], iris[,5], type="class")
