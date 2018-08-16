@@ -108,6 +108,41 @@ r.C2 <- function(x, y) {
   mean(abs(stats::cor(x, y, method="spearman")))
 }
 
+remove <- function(y, x, c) {
+
+  remainingRows <- length(x)
+  xorder <- rank(x)
+  yorder <- rank(y)
+
+  diff <- xorder - yorder
+  correlation <- spearman(diff)
+
+  if(correlation < 0) {
+    yorder <- rank(-y)
+    diff <- xorder - yorder
+    correlation <- spearman(diff)
+  }
+
+  while(abs(correlation) < c && !is.na(correlation)) {
+
+    maxPosition <- which.max(abs(diff))
+
+    diff <- diff + ((yorder > yorder[maxPosition]) - 
+      (xorder > xorder[maxPosition]))
+
+    yorder <- yorder[-maxPosition]
+    xorder <- xorder[-maxPosition]
+    diff <- diff[-maxPosition]
+    remainingRows <- remainingRows - 1
+    correlation <- spearman(diff)
+
+    if(is.na(correlation))
+      correlation
+  }
+
+  (length(x) - remainingRows)/length(x)
+}
+
 r.C3 <- function(x, y, c=0.9) {
   min(apply(x, 2, remove, y, c))
 }
