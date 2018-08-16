@@ -5,7 +5,7 @@ The Extended Complexity Library (ECoL) is the implementation in R of a set of me
 
 ## Measures
 
-The measures can be divided into the following groups: (1) feature overlapping measures, (2) neighborhood measures, (3) linearity measures, (4) dimensionality measures, (5) class balance measures (6) network measures (7) correlation measures and (8) smoothness measures.
+The measures can be divided into two groups: classification and regression measures. The classification measures are based on:  (1) feature overlapping measures, (2) neighborhood measures, (3) linearity measures, (4) dimensionality measures, (5) class balance measures and (6) network measures. The regression measures are based on: (3) linearity measures, (7) correlation measures, (4) dimensionality measures and (8) smoothness measures.
 
 **Measures of overlapping** 
 
@@ -81,7 +81,7 @@ library("ECoL")
 
 ## Example of use
 
-The simplest way to compute the complexity measures are using the `complexity` method. The method can be called by a symbolic description of the model or by a data frame. The parameters are the dataset, the type of task and the group of measures to be extracted. The default paramenter is extract all the measures. To extract a specific measure, use the function related with the group. A simple example is given next:
+The simplest way to compute the complexity measures are using the `complexity` method. The method can be called by a symbolic description of the model or by a data frame. The parameters are the dataset, the type of task and the group of measures to be extracted. If it is a classification task, `type` needs to be set as `class`, otherwise `regr` for regression task. The default paramenter is extract all the measures. To extract a specific measure, use the function related with the group. A simple example is given next:
 
 ```r
 ## Extract all complexity measures for classification task

@@ -13,7 +13,7 @@ Description: Provides measures to characterize the complexity of classification
 Author: Luis Garcia [aut, cre],
   Ana Lorena [aut, ctb],
   Jens Lehmann [aut]
-Maintainer: Luis Garcia <garcia@informatik.uni-leipzig.de>
+Maintainer: Luis Garcia <lpgarcia@icmc.usp.br>
 URL: https://github.com/SmartDataAnalytics/ECoL/
 Imports:
   cluster,
