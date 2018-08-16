@@ -38,10 +38,11 @@ c.interpolation <- function(data) {
   aux <- data[data$class == sample(data$class, 1),]
   tmp <- aux[sample(nrow(aux), 2),]
 
+  rnd <- stats::runif(1)
+
   for(i in 1:(ncol(data)-1)) {
     if(is.numeric(data[,i])) {
-      rnd <- stats::runif(1)
-      tmp[1,i] <- tmp[1,i]*rnd + tmp[2,i]*(1-rnd)
+      tmp[1,i] <- tmp[1,i] + (tmp[2,i] - tmp[1,i]) * rnd
     } else {
       tmp[1,i] <- sample(aux[,i], 1)
     }
@@ -125,10 +126,10 @@ r.interpolation <- function(x, y, i) {
 
   aux <- x[(i-1):i,,drop=FALSE]
 
+  rnd <- stats::runif(1)
   for(j in 1:ncol(x)) {
     if(is.numeric(x[,j])) {
-      rnd <- stats::runif(1)
-      aux[1,j] <- aux[1,j]*rnd + aux[2,j]*(1-rnd)
+      aux[1,j] <- aux[1,j] + (aux[2,j] - aux[1,j]) * rnd
     }
   }
 
