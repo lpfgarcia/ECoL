@@ -135,8 +135,11 @@ denominator <- function(j, data) {
 
 c.F1 <- function(data) {
 
-  aux <- rowSums(sapply(levels(data$class), numerator, data)) / 
-    rowSums(sapply(levels(data$class), denominator, data))
+  num <- lapply(levels(data$class), numerator, data)
+  den <- lapply(levels(data$class), denominator, data)
+
+  aux <- rowSums(do.call("cbind", num)) / 
+    rowSums(do.call("cbind", den))
 
   return(max(aux, na.rm=TRUE))
 }
@@ -198,10 +201,8 @@ nonOverlap <- function(data) {
   maxmin <- colMax(rbind(colMin(a), colMin(b)))
 
   aux <- do.call("cbind",
-    lapply(1:(ncol(data)-1), 
-      function(i) {
-        data[,i, drop=FALSE] < maxmin[i] | 
-          data[,i, drop=FALSE] > minmax[i]
+    lapply(1:(ncol(data)-1), function(i) {
+        data[,i] < maxmin[i] | data[,i] > minmax[i]
     })
   )
 
