@@ -79,46 +79,11 @@ spearman <- function(x) {
   1-6*sum(x^2)/(length(x)^3 - length(x))
 }
 
-remove <- function(y, x, c) {
-
-  remainingRows <- length(x)
-  xorder <- rank(x)
-  yorder <- rank(y)
-
-  diff <- xorder - yorder
-  correlation <- spearman(diff)
-
-  if(correlation < 0) {
-    yorder <- rank(-y)
-    diff <- xorder - yorder
-    correlation <- spearman(diff)
-  }
-
-  while(abs(correlation) < c && !is.na(correlation)) {
-
-    maxPosition <- which.max(abs(diff))
-
-    diff <- diff + ((yorder > yorder[maxPosition]) - 
-      (xorder > xorder[maxPosition]))
-
-    yorder <- yorder[-maxPosition]
-    xorder <- xorder[-maxPosition]
-    diff <- diff[-maxPosition]
-    remainingRows <- remainingRows - 1
-    correlation <- spearman(diff)
-
-    if(is.na(correlation))
-      correlation
-  }
-
-  (length(x) - remainingRows)/length(x)
-}
-
 maxPosition <- function(x) {
   order(-x)[1]
 }
 
-minPosition = function(x) {
+minPosition <- function(x) {
   order(x)[1]
 }
 
@@ -130,6 +95,8 @@ r.interpolation <- function(x, y, i) {
   for(j in 1:ncol(x)) {
     if(is.numeric(x[,j])) {
       aux[1,j] <- aux[1,j] + (aux[2,j] - aux[1,j]) * rnd
+    } else {
+      aux[1,j] <- sample(aux[,j], 1)
     }
   }
 
