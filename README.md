@@ -102,7 +102,7 @@ overlapping(Species ~ ., iris, measures="F1")
 
 ## Developer notes
 
-To cite `ECoL` in publications use: Garcia, L. P. F., Lorena, A. C., and Lehmann J. (2018). ECoL: Extended complexity library. R package version 0.2.0, https://CRAN.Rproject.org/package=ECoL.
+To cite `ECoL` in publications use: Lorena, A. C., Garcia, L. P. F., Lehmann, J., de Souto, M. C. P., and Ho, T. K. (2018). How Complex is your classification problem? A survey on measuring classification complexity. arXiv:1808.03591
 
 To submit bugs and feature requests, report at [project issues](https://github.com/SmartDataAnalytics/ECoL/issues).
 
