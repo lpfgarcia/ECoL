@@ -38,7 +38,7 @@
 #'      details.}
 #'    \item{"correlation"}{Capture the relationship of the feature values with 
 #'      the outputs. See \link{correlation} for more details.}
-#'    \item{"Smoothness"}{Estimate the smoothness of the function that must be 
+#'    \item{"smoothness"}{Estimate the smoothness of the function that must be 
 #'      fitted to the data. See \link{smoothness} for more details.}
 #'  }
 #' @return A numeric vector named by the requested complexity measures.
