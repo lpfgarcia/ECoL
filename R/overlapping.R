@@ -141,7 +141,9 @@ c.F1 <- function(data) {
   aux <- rowSums(do.call("cbind", num)) / 
     rowSums(do.call("cbind", den))
 
-  return(max(aux, na.rm=TRUE))
+  aux <- max(aux, na.rm=TRUE)
+  aux <- 1/(aux + 1)
+  return(aux)
 }
 
 dvector <- function(data) {
@@ -166,6 +168,7 @@ dvector <- function(data) {
 c.F1v <- function(data) {
   data <- ovo(data)
   aux <- mean(sapply(data, dvector))
+  aux <- 1/(aux + 1)
   return(aux)
 }
 

@@ -153,6 +153,7 @@ c.N2 <- function(dst, data) {
   })
 
   aux <- sum(aux[1,])/sum(aux[2,])
+  aux <- 1/(aux + 1)
   return(aux)
 }
 
@@ -254,5 +255,6 @@ c.LSC <- function(dst, data) {
   })
   
   aux <- sum(translate(dst, r))/(nrow(dst)^2)
+  aux <- 1/(aux + 1)
   return(aux)
 }
