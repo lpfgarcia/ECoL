@@ -213,7 +213,7 @@ linearity.regr.default <- function(x, y, measures="all", ...) {
   x <- normalize(x)
   y <- normalize(y)[,1]
 
-  x <- x[order(y),,drop=FALSE]
+  x <- x[order(y), ,drop=FALSE]
   y <- y[order(y)]
 
   m <- stats::lm(y ~ ., cbind(y=y, x))
@@ -256,6 +256,6 @@ r.L2 <- function(m, ...) {
 
 r.L3 <- function(m, x, y) {
   test <- r.generate(x, y, nrow(x))
-  pred <- stats::predict.lm(m, test[,-ncol(test),drop=FALSE])
-  mean((pred - test[,ncol(test)])^2)
+  pred <- stats::predict.lm(m, test[, -ncol(test), drop=FALSE])
+  mean((pred - test[, ncol(test)])^2)
 }

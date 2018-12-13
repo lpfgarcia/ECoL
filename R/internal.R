@@ -79,14 +79,6 @@ spearman <- function(x) {
   1-6*sum(x^2)/(length(x)^3 - length(x))
 }
 
-maxPosition <- function(x) {
-  order(-x)[1]
-}
-
-minPosition <- function(x) {
-  order(x)[1]
-}
-
 r.interpolation <- function(x, y, i) {
 
   aux <- x[(i-1):i,,drop=FALSE]

@@ -73,7 +73,7 @@ smoothness.default <- function(x, y, measures="all", ...) {
   x <- normalize(x)
   y <- normalize(y)[,1]
 
-  x <- x[order(y),,drop=FALSE]
+  x <- x[order(y), , drop=FALSE]
   y <- y[order(y)]
   d <- dist(x)
 
@@ -126,7 +126,7 @@ r.S3 <- function(d, x, y) {
 
   diag(d) <- Inf
   pred <- apply(d, 1, function(i) {
-    y[minPosition(i)]
+    y[which.min(i)]
   })
 
   mean((pred - y)^2)
@@ -134,6 +134,6 @@ r.S3 <- function(d, x, y) {
 
 r.S4 <- function(d, x, y) {
   test <- r.generate(x, y, nrow(x))
-  pred <- FNN::knn.reg(x, test[,-ncol(test),drop=FALSE], y, k=1)$pred
-  mean((pred - test[,ncol(test)])^2)
+  pred <- FNN::knn.reg(x, test[, -ncol(test), drop=FALSE], y, k=1)$pred
+  mean((pred - test[, ncol(test)])^2)
 }
