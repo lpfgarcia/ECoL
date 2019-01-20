@@ -115,7 +115,7 @@ c.L1 <- function(model, data) {
     sum(abs(dst))/nrow(d)
   }, m=model, d=data)
 
-  aux <- mean(aux)
+  aux <- 1/(mean(aux) + 1)
   return(aux)
 }
 
