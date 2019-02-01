@@ -255,6 +255,5 @@ c.LSC <- function(dst, data) {
   })
   
   aux <- sum(translate(dst, r))/(nrow(dst)^2)
-  aux <- 1/(aux + 1)
   return(aux)
 }
