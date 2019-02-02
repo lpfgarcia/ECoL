@@ -13,8 +13,8 @@ Description: Provides measures to characterize the complexity of classification
 Author: Luis Garcia [aut, cre],
   Ana Lorena [aut, ctb],
   Jens Lehmann [aut]
-Maintainer: Luis Garcia <lpgarcia@icmc.usp.br>
-URL: https://github.com/SmartDataAnalytics/ECoL/
+Maintainer: Luis Garcia <lpfgarcia@icmc.usp.br>
+URL: https://github.com/lpfgarcia/ECoL/
 Imports:
   cluster,
   e1071,
@@ -22,7 +22,7 @@ Imports:
   igraph,
   MASS
 License: MIT + file LICENSE
-BugReports: https://github.com/SmartDataAnalytics/ECoL/issues
+BugReports: https://github.com/lpfgarcia/ECoL/issues
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 6.1.1
