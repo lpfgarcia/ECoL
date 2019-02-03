@@ -1,5 +1,5 @@
 # ECoL
-[![Travis-CI Build Status](https://travis-ci.org/SmartDataAnalytics/ECoL.svg?branch=master)](https://travis-ci.org/SmartDataAnalytics/ECoL)
+[![Travis-CI Build Status](https://travis-ci.org/lpfgarcia/ECoL.svg?branch=master)](https://travis-ci.org/lpfgarcia/ECoL)
 
 The Extended Complexity Library (ECoL) is the implementation in R of a set of measures to characterize the complexity of classification and regression problems based on aspects that quantify the linearity of the data, the presence of informative feature, the sparsity and dimensionality of the datasets. The measures were originally proposed by Ho and Basu [1] and extend by many other works including the DCoL library [2]. The main difference between the libraries is that ECoL provides bug fixes, generalizations and implementations of many other state-of-the-art measures.
 
@@ -75,7 +75,7 @@ It is possible to install the development version using:
 if (!require("devtools")) {
     install.packages("devtools")
 }
-devtools::install_github("SmartDataAnalytics/ECoL")
+devtools::install_github("lpfgarcia/ECoL")
 library("ECoL")
 ```
 
@@ -108,7 +108,7 @@ To cite `ECoL` in publications use:
 
 * Lorena, A. C., Maciel, A. I., de Miranda, P. B. C., Costa, I. G., and Prudêncio, R. B. C. (2018). Data complexity meta-features for regression problems. Machine Learning, 107(1):209-246.
 
-To submit bugs and feature requests, report at [project issues](https://github.com/SmartDataAnalytics/ECoL/issues).
+To submit bugs and feature requests, report at [project issues](https://github.com/lpfgarcia/ECoL/issues).
 
 ## References
 
