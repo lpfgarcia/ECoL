@@ -5,7 +5,7 @@ The Extended Complexity Library (ECoL) is the implementation in R of a set of me
 
 ## Measures
 
-The measures can be divided into two groups: classification and regression measures. The classification measures are based on:  (1) feature overlapping measures, (2) neighborhood measures, (3) linearity measures, (4) dimensionality measures, (5) class balance measures and (6) network measures. The regression measures are based on: (3) linearity measures, (7) correlation measures, (4) dimensionality measures and (8) smoothness measures.
+The measures can be divided into two groups: classification and regression measures. The classification measures are based on:  (1) feature overlapping measures, (2) neighborhood measures, (3) linearity measures, (4) dimensionality measures, (5) class balance measures and (6) network measures. The regression measures are based on: (3) linearity measures, (4) dimensionality measures, (7) correlation measures and (8) smoothness measures.
 
 **Measures of overlapping** 
 
