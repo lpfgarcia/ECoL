@@ -1,7 +1,7 @@
 Package: ECoL
 Type: Package
 Version: 0.2.0
-Date: 2018-01-22
+Date: 2018-02-08
 Title: Complexity Measures for Supervised Problems
 Description: Provides measures to characterize the complexity of classification 
     and regression problems based on aspects that quantify the linearity of the 
@@ -12,7 +12,6 @@ Description: Provides measures to characterize the complexity of classification
     Lorena et al. (2018) <doi:10.1007/s10994-017-5681-1>.
 Author: Luis Garcia [aut, cre],
   Ana Lorena [aut, ctb],
-  Jens Lehmann [aut]
 Maintainer: Luis Garcia <lpfgarcia@icmc.usp.br>
 URL: https://github.com/lpfgarcia/ECoL/
 Imports:
