@@ -122,13 +122,13 @@ enn <- function(x, y, e) {
 }
 
 c.Density <- function(graph) {
-  igraph::graph.density(graph)
+  1 - igraph::graph.density(graph)
 }
 
 c.ClsCoef <- function(graph) {
-  igraph::transitivity(graph, type="global", isolates="zero")
+  1 - igraph::transitivity(graph, type="global", isolates="zero")
 }
 
 c.Hubs <- function(graph) {
-  mean(igraph::hub.score(graph)$vector)
+  1 - mean(igraph::hub.score(graph)$vector)
 }
