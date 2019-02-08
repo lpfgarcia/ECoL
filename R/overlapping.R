@@ -221,7 +221,7 @@ c.F3 <- function(data) {
     colSums(nonOverlap(d))/nrow(d)
   }, d=data)
 
-  aux <- mean(colMax(aux))
+  aux <- 1 - mean(colMax(aux))
   return(aux)
 }
 
@@ -249,6 +249,6 @@ c.F4 <- function(data) {
     (nrow(d) - nrow(removing(d)))/nrow(d)
   }, d=data)
 
-  aux <- mean(aux)
+  aux <- 1 - mean(aux)
   return(aux)
 }
