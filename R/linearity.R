@@ -116,6 +116,7 @@ c.L1 <- function(model, data) {
   }, m=model, d=data)
 
   aux <- 1/(mean(aux) + 1)
+  aux <- 1 - aux
   return(aux)
 }
 
