@@ -11,7 +11,7 @@ Description: Provides measures to characterize the complexity of classification
     described in the papers: Ho and Basu (2002) <doi:10.1109/34.990132> and 
     Lorena et al. (2018) <doi:10.1007/s10994-017-5681-1>.
 Author: Luis Garcia [aut, cre],
-  Ana Lorena [aut, ctb],
+  Ana Lorena [aut, ctb]
 Maintainer: Luis Garcia <lpfgarcia@icmc.usp.br>
 URL: https://github.com/lpfgarcia/ECoL/
 Imports:
