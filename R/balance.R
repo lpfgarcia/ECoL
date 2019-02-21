@@ -104,5 +104,6 @@ c.C2 <- function(y) {
   ii <- summary(y)
   nc <- length(ii)
   aux <- ((nc - 1)/nc) * sum(ii/(length(y) - ii))
-  return(1/aux)
+  aux <- 1 - (1/aux)
+  return(aux)
 }
