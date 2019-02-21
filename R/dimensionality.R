@@ -101,11 +101,11 @@ pca <- function(x) {
 }
 
 c.T2 <- function(x) {
-  nrow(x)/ncol(x)
+  ncol(x)/nrow(x)
 }
 
 c.T3 <- function(x) {
-  nrow(x)/pca(x)
+  pca(x)/nrow(x)
 }
 
 c.T4 <- function(x) {
