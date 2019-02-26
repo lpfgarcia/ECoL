@@ -246,9 +246,9 @@ c.F4 <- function(data) {
 
   data <- ovo(data)
   aux <- mapply(function(d) {
-    (nrow(d) - nrow(removing(d)))/nrow(d)
+    nrow(removing(d))/nrow(d)
   }, d=data)
 
-  aux <- 1 - mean(aux)
+  aux <- mean(aux)
   return(aux)
 }
