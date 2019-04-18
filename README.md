@@ -81,20 +81,23 @@ library("ECoL")
 
 ## Example of use
 
-The simplest way to compute the complexity measures are using the `complexity` method. The method can be called by a symbolic description of the model or by a data frame. The parameters are the dataset, the type of task and the group of measures to be extracted. If it is a classification task, `type` needs to be set as `class`, otherwise `regr` for regression task. The default paramenter is extract all the measures. To extract a specific measure, use the function related with the group. A simple example is given next:
+The simplest way to compute the complexity measures are using the `complexity` method. The method can be called by a symbolic description of the model or by a data frame. The parameters are the dataset the group of measures to be extracted and the summarization functions. If it is a classification task, the response needs to be a factor, otherwise the package will assume a regression task. The default paramenter is extract all the measures. To extract a specific measure, use the function related with the group. A simple example is given next:
 
 ```r
 ## Extract all complexity measures for classification task
-complexity(Species ~ ., iris, type="class")
+complexity(Species ~ ., iris)
 
 ## Extract all complexity measures for regression task
-complexity(speed ~., cars, type="regr")
+complexity(speed ~., cars)
 
 ## Extract all complexity measures using data frame for classification task
-complexity(iris[,1:4], iris[,5], type="class")
+complexity(iris[,1:4], iris[,5])
 
 ## Extract the overlapping measures
-complexity(Species ~ ., iris,  type="class", groups="overlapping")
+complexity(Species ~ ., iris, groups="overlapping")
+
+## Extract all measures using min, median and max 
+complexity(Species ~ ., iris, summary=c("min", "median", "max"))
 
 ## Extract the F1 measure using overlapping function
 overlapping(Species ~ ., iris, measures="F1")
