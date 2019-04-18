@@ -72,8 +72,8 @@ install.packages("ECoL")
 It is possible to install the development version using:
 
 ```r
-if (!require("devtools")) {
-    install.packages("devtools")
+if(!require("devtools")) {
+  install.packages("devtools")
 }
 devtools::install_github("lpfgarcia/ECoL")
 library("ECoL")
