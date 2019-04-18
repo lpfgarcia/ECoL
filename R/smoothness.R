@@ -68,7 +68,7 @@ smoothness.default <- function(x, y, measures="all", ...) {
   }
 
   measures <- match.arg(measures, ls.smoothness(), TRUE)
-  colnames(x) <- make.names(colnames(x))
+  colnames(x) <- make.names(colnames(x), unique=TRUE)
 
   x <- normalize(x)
   y <- normalize(y)[,1]

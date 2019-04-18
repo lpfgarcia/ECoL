@@ -67,7 +67,7 @@ correlation.default <- function(x, y, measures="all", ...) {
   }
 
   measures <- match.arg(measures, ls.correlation(), TRUE)
-  colnames(x) <- make.names(colnames(x))
+  colnames(x) <- make.names(colnames(x), unique=TRUE)
 
   x <- normalize(binarize(x))
   y <- normalize(y)[,1]
