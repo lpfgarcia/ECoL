@@ -8,9 +8,11 @@
 \usage{
 linearity.regr(...)
 
-\method{linearity.regr}{default}(x, y, measures = "all", ...)
+\method{linearity.regr}{default}(x, y, measures = "all",
+  summary = c("mean", "sd"), ...)
 
-\method{linearity.regr}{formula}(formula, data, measures = "all", ...)
+\method{linearity.regr}{formula}(formula, data, measures = "all",
+  summary = c("mean", "sd"), ...)
 }
 \arguments{
 \item{...}{Not used.}
@@ -20,6 +22,10 @@ linearity.regr(...)
 \item{y}{A response vector with one value for each row/component of x.}
 
 \item{measures}{A list of measures names or \code{"all"} to include all them.}
+
+\item{summary}{A list of summarization functions or empty for all values. See
+\link{post.processing} method to more information. (Default: 
+\code{c("mean", "sd")})}
 
 \item{formula}{A formula to define the output column.}
 

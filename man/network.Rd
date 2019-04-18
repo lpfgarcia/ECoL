@@ -8,10 +8,11 @@
 \usage{
 network(...)
 
-\method{network}{default}(x, y, measures = "all", eps = 0.15, ...)
+\method{network}{default}(x, y, measures = "all", eps = 0.15,
+  summary = c("mean", "sd"), ...)
 
 \method{network}{formula}(formula, data, measures = "all", eps = 0.15,
-  ...)
+  summary = c("mean", "sd"), ...)
 }
 \arguments{
 \item{...}{Not used.}
@@ -23,6 +24,10 @@ network(...)
 \item{measures}{A list of measures names or \code{"all"} to include all them.}
 
 \item{eps}{The percentage of nodes in the graph to be connected.}
+
+\item{summary}{A list of summarization functions or empty for all values. See
+\link{post.processing} method to more information. (Default: 
+\code{c("mean", "sd")})}
 
 \item{formula}{A formula to define the class column.}
 

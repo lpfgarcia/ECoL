@@ -8,9 +8,11 @@
 \usage{
 complexity(...)
 
-\method{complexity}{default}(x, y, type, groups = "all", ...)
+\method{complexity}{default}(x, y, type, groups = "all",
+  summary = c("mean", "sd"), ...)
 
-\method{complexity}{formula}(formula, data, type, groups = "all", ...)
+\method{complexity}{formula}(formula, data, type, groups = "all",
+  summary = c("mean", "sd"), ...)
 }
 \arguments{
 \item{...}{Not used.}
@@ -24,6 +26,10 @@ classification tasks and \code{"regr"} for regression tasks.}
 
 \item{groups}{A list of complexity measures groups or \code{"all"} to include
 all of them.}
+
+\item{summary}{A list of summarization functions or empty for all values. See
+\link{post.processing} method to more information. (Default: 
+\code{c("mean", "sd")})}
 
 \item{formula}{A formula to define the output column.}
 
