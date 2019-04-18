@@ -26,9 +26,8 @@
 #'    \item{"neighborhood"}{Neighborhood measures characterize the presence and 
 #'      density of same or different classes in local neighborhoods. See 
 #'      \link{neighborhood} for more details.}
-#'    \item{"linearity"}{Linearity measures try to quantify whether the classes 
-#'      can be linearly separated. See \link{linearity_class} or 
-#'      \link{linearity_regr} for more details.}
+#'    \item{"linearity"}{Linearity measures try to quantify whether the labels 
+#'      can be linearly separated. See \link{linearity} for more details.}
 #'    \item{"dimensionality"}{The dimensionality measures compute information on
 #'      how smoothly the examples are distributed within the attributes. See 
 #'      \link{dimensionality} for more details.}
@@ -64,7 +63,7 @@
 #'
 #' ## Extract all complexity measures for regression task
 #' data(cars)
-#' complexity(speed~., cars)
+#' complexity(speed ~ ., cars)
 #' @export
 complexity <- function(...) {
   UseMethod("complexity")
@@ -140,10 +139,10 @@ ls.complexity <- function(type) {
   switch(type,
     class = {
       c("overlapping", "neighborhood", 
-        "linearity_class", "dimensionality",
+        "linearity", "dimensionality",
         "balance", "network")
     }, regr = {
-      c("correlation", "linearity_regr", 
+      c("correlation", "linearity", 
         "smoothness", "dimensionality")
     }
   )
