@@ -11,6 +11,9 @@
 #' @param measures A list of measures names or \code{"all"} to include all them.
 #' @param formula A formula to define the output column.
 #' @param data A data.frame dataset contained the input and output attributes.
+#' @param summary A list of summarization functions or empty for all values. See
+#'  \link{post.processing} method to more information. (Default: 
+#'  \code{c("mean", "sd")})
 #' @param ... Not used.
 #' @details
 #'  The following measures are allowed for this method:
@@ -45,7 +48,8 @@ smoothness <- function(...) {
 
 #' @rdname smoothness
 #' @export
-smoothness.default <- function(x, y, measures="all", ...) {
+smoothness.default <- function(x, y, measures="all", summary=c("mean", "sd"), 
+                               ...) {
 
   if(!is.data.frame(x)) {
     stop("data argument must be a data.frame")
@@ -68,8 +72,12 @@ smoothness.default <- function(x, y, measures="all", ...) {
   }
 
   measures <- match.arg(measures, ls.smoothness(), TRUE)
-  colnames(x) <- make.names(colnames(x), unique=TRUE)
 
+  if (length(summary) == 0) {
+    summary <- "non.aggregated"
+  }
+
+  colnames(x) <- make.names(colnames(x), unique=TRUE)
   x <- normalize(x)
   y <- normalize(y)[,1]
 
@@ -78,13 +86,15 @@ smoothness.default <- function(x, y, measures="all", ...) {
   d <- dist(x)
 
   sapply(measures, function(f) {
-    eval(call(paste("r", f, sep="."), d=d, x=x, y=y))
-  })
+    measure = eval(call(paste("r", f, sep="."), d=d, x=x, y=y))
+    post.processing(measure, summary, f %in% ls.smoothness.multiples(), ...)
+  }, simplify=FALSE)
 }
 
 #' @rdname smoothness
 #' @export
-smoothness.formula <- function(formula, data, measures="all", ...) {
+smoothness.formula <- function(formula, data, measures="all", 
+                               summary=c("mean", "sd"), ...) {
 
   if(!inherits(formula, "formula")) {
     stop("method is only for formula datas")
@@ -98,11 +108,15 @@ smoothness.formula <- function(formula, data, measures="all", ...) {
   attr(modFrame, "terms") <- NULL
 
   smoothness.default(modFrame[, -1, drop=FALSE], modFrame[, 1, drop=FALSE],
-    measures, ...)
+    measures, summary, ...)
 }
 
 ls.smoothness <- function() {
   c("S1", "S2", "S3", "S4")
+}
+
+ls.smoothness.multiples <- function() {
+  ls.smoothness()
 }
 
 r.S1 <- function(d, x, y) {
@@ -110,7 +124,8 @@ r.S1 <- function(d, x, y) {
   g <- igraph::graph.adjacency(d, mode="undirected", weighted=TRUE)
   tree <- as.matrix(igraph::as_adj(igraph::mst(g)))
   tmp <- which(tree != 0, arr.ind=TRUE)
-  mean(abs(y[tmp[,1]] - y[tmp[,2]]))
+  #mean(abs(y[tmp[,1]] - y[tmp[,2]]))
+  abs(y[tmp[,1]] - y[tmp[,2]])
 }
 
 r.S2 <- function(d, x, y) {
@@ -119,7 +134,8 @@ r.S2 <- function(d, x, y) {
     d[i-1, i]
   })
 
-  mean(pred)
+  #mean(pred)
+  pred
 }
 
 r.S3 <- function(d, x, y) {
@@ -129,11 +145,13 @@ r.S3 <- function(d, x, y) {
     y[which.min(i)]
   })
 
-  mean((pred - y)^2)
+  #mean((pred - y)^2)
+  (pred - y)^2
 }
 
 r.S4 <- function(d, x, y) {
   test <- r.generate(x, y, nrow(x))
   pred <- FNN::knn.reg(x, test[, -ncol(test), drop=FALSE], y, k=1)$pred
-  mean((pred - test[, ncol(test)])^2)
+  #mean((pred - test[, ncol(test)])^2)
+  (pred - test[, ncol(test)])^2
 }

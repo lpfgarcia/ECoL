@@ -174,6 +174,9 @@ c.L3 <- function(model, data) {
 #' @param measures A list of measures names or \code{"all"} to include all them.
 #' @param formula A formula to define the output column.
 #' @param data A data.frame dataset contained the input and output attributes.
+#' @param summary A list of summarization functions or empty for all values. See
+#'  \link{post.processing} method to more information. (Default: 
+#'  \code{c("mean", "sd")})
 #' @param ... Not used.
 #' @details
 #'  The following measures are allowed for this method:
@@ -203,7 +206,8 @@ linearity.regr <- function(...) {
 
 #' @rdname linearity.regr
 #' @export
-linearity.regr.default <- function(x, y, measures="all", ...) {
+linearity.regr.default <- function(x, y, measures="all", 
+                                   summary=c("mean", "sd"), ...) {
 
   if(!is.data.frame(x)) {
     stop("data argument must be a data.frame")
@@ -226,8 +230,12 @@ linearity.regr.default <- function(x, y, measures="all", ...) {
   }
 
   measures <- match.arg(measures, ls.linearity.regr(), TRUE)
-  colnames(x) <- make.names(colnames(x), unique=TRUE)
 
+  if (length(summary) == 0) {
+    summary <- "non.aggregated"
+  }
+
+  colnames(x) <- make.names(colnames(x), unique=TRUE)
   x <- normalize(x)
   y <- normalize(y)[,1]
 
@@ -237,13 +245,15 @@ linearity.regr.default <- function(x, y, measures="all", ...) {
   m <- stats::lm(y ~ ., cbind(y=y, x))
 
   sapply(measures, function(f) {
-    eval(call(paste("r", f, sep="."), m=m, x=x, y=y))
-  })
+    measure = eval(call(paste("r", f, sep="."), m=m, x=x, y=y))
+    post.processing(measure, summary, f %in% ls.linearity.regr.multiples(), ...)
+  }, simplify=FALSE)
 }
 
 #' @rdname linearity.regr
 #' @export
-linearity.regr.formula <- function(formula, data, measures="all", ...) {
+linearity.regr.formula <- function(formula, data, measures="all", 
+                                   summary=c("mean", "sd"), ...) {
 
   if(!inherits(formula, "formula")) {
     stop("method is only for formula datas")
@@ -257,23 +267,30 @@ linearity.regr.formula <- function(formula, data, measures="all", ...) {
   attr(modFrame, "terms") <- NULL
 
   linearity.regr.default(modFrame[, -1, drop=FALSE], modFrame[, 1, drop=FALSE],
-    measures, ...)
+    measures, summary, ...)
 }
 
 ls.linearity.regr <- function() {
   c("L1", "L2", "L3")
 }
 
+ls.linearity.regr.multiples <- function() {
+  ls.linearity.regr()
+}
+
 r.L1 <- function(m, ...) {
-  mean(abs(m$residuals))
+  #mean(abs(m$residuals))
+  abs(m$residuals)
 }
 
 r.L2 <- function(m, ...) {
+  #mean(m$residuals^2)
   mean(m$residuals^2)
 }
 
 r.L3 <- function(m, x, y) {
   test <- r.generate(x, y, nrow(x))
   pred <- stats::predict.lm(m, test[, -ncol(test), drop=FALSE])
-  mean((pred - test[, ncol(test)])^2)
+  #mean((pred - test[, ncol(test)])^2)
+  (pred - test[, ncol(test)])^2
 }
