@@ -96,11 +96,18 @@ complexity(iris[,1:4], iris[,5])
 ## Extract the overlapping measures
 complexity(Species ~ ., iris, groups="overlapping")
 
-## Extract all measures using min, median and max 
-complexity(Species ~ ., iris, summary=c("min", "median", "max"))
-
 ## Extract the F1 measure using overlapping function
 overlapping(Species ~ ., iris, measures="F1")
+```
+Several measures return more than one value. To aggregate the returned values, post processed methods can be used. This method can compute min, max, mean, median, kurtosis, standard deviation, among others (see the post.processing documentation for more details). The default methods are the mean and the sd. Next, it is possible to see an example of the use of this method:
+
+```r
+## Extract all measures using min, median and max for classification task
+complexity(Species ~ ., iris, summary=c("min", "median", "max"))
+
+## Extract all measures using min, median and max for regression task
+complexity(speed ~., cars, summary=c("min", "median", "max"))
+
 ```
 
 ## Developer notes
