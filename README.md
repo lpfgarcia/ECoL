@@ -99,7 +99,7 @@ complexity(Species ~ ., iris, groups="overlapping")
 ## Extract the F1 measure using overlapping function
 overlapping(Species ~ ., iris, measures="F1")
 ```
-Several measures return more than one value. To aggregate the returned values, post processed methods can be used. This method can compute min, max, mean, median, kurtosis, standard deviation, among others (see the post.processing documentation for more details). The default methods are the mean and the sd. Next, it is possible to see an example of the use of this method:
+Several measures return more than one value. To aggregate the returned values, post processed methods can be used. This method can compute `min`, `max`, `mean`, `median`, `kurtosis`, `standard deviation`, among others (see the `post.processing` documentation for more details). The default methods are the `mean` and the `sd`. Next, it is possible to see an example of the use of this method:
 
 ```r
 ## Extract all measures using min, median and max for classification task
