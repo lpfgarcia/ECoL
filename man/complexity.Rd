@@ -8,10 +8,10 @@
 \usage{
 complexity(...)
 
-\method{complexity}{default}(x, y, type, groups = "all",
-  summary = c("mean", "sd"), ...)
+\method{complexity}{default}(x, y, groups = "all", summary = c("mean",
+  "sd"), ...)
 
-\method{complexity}{formula}(formula, data, type, groups = "all",
+\method{complexity}{formula}(formula, data, groups = "all",
   summary = c("mean", "sd"), ...)
 }
 \arguments{
@@ -20,9 +20,6 @@ complexity(...)
 \item{x}{A data.frame contained only the input attributes.}
 
 \item{y}{A response vector with one value for each row/component of x.}
-
-\item{type}{The type of supervised problem: The \code{"class"} is used for 
-classification tasks and \code{"regr"} for regression tasks.}
 
 \item{groups}{A list of complexity measures groups or \code{"all"} to include
 all of them.}
@@ -75,11 +72,11 @@ The following groups are allowed for this method:
 \examples{
 ## Extract all complexity measures for classification task
 data(iris)
-complexity(Species ~ ., iris, type="class")
+complexity(Species ~ ., iris)
 
 ## Extract all complexity measures for regression task
 data(cars)
-complexity(speed~., cars, type="regr")
+complexity(speed~., cars)
 }
 \references{
 Tin K Ho and Mitra Basu. (2002). Complexity measures of supervised 

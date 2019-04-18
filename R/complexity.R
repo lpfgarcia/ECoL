@@ -13,8 +13,6 @@
 #'  all of them.
 #' @param formula A formula to define the output column.
 #' @param data A data.frame dataset contained the input and output attributes.
-#' @param type The type of supervised problem: The \code{"class"} is used for 
-#'  classification tasks and \code{"regr"} for regression tasks.
 #' @param summary A list of summarization functions or empty for all values. See
 #'  \link{post.processing} method to more information. (Default: 
 #'  \code{c("mean", "sd")})
@@ -62,11 +60,11 @@
 #' @examples
 #' ## Extract all complexity measures for classification task
 #' data(iris)
-#' complexity(Species ~ ., iris, type="class")
+#' complexity(Species ~ ., iris)
 #'
 #' ## Extract all complexity measures for regression task
 #' data(cars)
-#' complexity(speed~., cars, type="regr")
+#' complexity(speed~., cars)
 #' @export
 complexity <- function(...) {
   UseMethod("complexity")
@@ -74,8 +72,8 @@ complexity <- function(...) {
 
 #' @rdname complexity
 #' @export
-complexity.default <- function(x, y, type, groups="all", 
-                               summary=c("mean", "sd"), ...) {
+complexity.default <- function(x, y, groups="all", summary=c("mean", "sd"), 
+                               ...) {
 
   if(!is.data.frame(x)) {
     stop("data argument must be a data.frame")
@@ -85,13 +83,14 @@ complexity.default <- function(x, y, type, groups="all",
     y <- y[, 1]
   }
 
-  type <- match.arg(type, c("class", "regr"), TRUE)
-
-  if(type == "class") {
+  if(is.factor(y)) {
+    type <- "class"
     if(min(table(y)) < 2) {
       stop("number of examples in the minority class should be >= 2")
     }
-  } 
+  } else {
+    type <- "regr"
+  }
 
   if(nrow(x) != length(y)) {
     stop("x and y must have same number of rows")
@@ -118,7 +117,7 @@ complexity.default <- function(x, y, type, groups="all",
 
 #' @rdname complexity
 #' @export
-complexity.formula <- function(formula, data, type, groups="all", 
+complexity.formula <- function(formula, data, groups="all", 
                                summary=c("mean", "sd"), ...) {
 
   if(!inherits(formula, "formula")) {
@@ -133,17 +132,19 @@ complexity.formula <- function(formula, data, type, groups="all",
   attr(modFrame, "terms") <- NULL
 
   complexity.default(modFrame[, -1, drop=FALSE], modFrame[, 1, drop=FALSE],
-    type, groups, summary, ...)
+    groups, summary, ...)
 }
 
 ls.complexity <- function(type) {
 
   switch(type,
     class = {
-      c("overlapping", "neighborhood", "linearity_class", "dimensionality",
+      c("overlapping", "neighborhood", 
+        "linearity_class", "dimensionality",
         "balance", "network")
     }, regr = {
-      c("correlation", "linearity_regr", "smoothness", "dimensionality")
+      c("correlation", "linearity_regr", 
+        "smoothness", "dimensionality")
     }
   )
 }
