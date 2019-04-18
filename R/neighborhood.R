@@ -11,6 +11,9 @@
 #' @param measures A list of measures names or \code{"all"} to include all them.
 #' @param formula A formula to define the class column.
 #' @param data A data.frame dataset contained the input attributes and class.
+#' @param summary A list of summarization functions or empty for all values. See
+#'  \link{post.processing} method to more information. (Default: 
+#'  \code{c("mean", "sd")})
 #' @param ... Not used.
 #' @details
 #'  The following measures are allowed for this method:
@@ -65,7 +68,8 @@ neighborhood <- function(...) {
 
 #' @rdname neighborhood
 #' @export
-neighborhood.default <- function(x, y, measures="all", ...) {
+neighborhood.default <- function(x, y, measures="all", summary=c("mean", "sd"), 
+                                 ...) {
 
   if(!is.data.frame(x)) {
     stop("data argument must be a data.frame")
@@ -90,19 +94,25 @@ neighborhood.default <- function(x, y, measures="all", ...) {
   }
 
   measures <- match.arg(measures, ls.neighborhood(), TRUE)
-  colnames(x) <- make.names(colnames(x))
 
+  if (length(summary) == 0) {
+    summary <- "non.aggregated"
+  }
+
+  colnames(x) <- make.names(colnames(x), unique=TRUE)
   data <- data.frame(x, class=y)
   dst <- dist(x)
 
   sapply(measures, function(f) {
-    eval(call(paste("c", f, sep="."), dst=dst, data=data))
-  })
+    measure = eval(call(paste("c", f, sep="."), dst=dst, data=data))
+    post.processing(measure, summary, f %in% ls.neighborhood.multiples(), ...)
+  }, simplify=FALSE)
 }
 
 #' @rdname neighborhood
 #' @export
-neighborhood.formula <- function(formula, data, measures="all", ...) {
+neighborhood.formula <- function(formula, data, measures="all", 
+                                 summary=c("mean", "sd"), ...) {
 
   if(!inherits(formula, "formula")) {
     stop("method is only for formula datas")
@@ -116,11 +126,15 @@ neighborhood.formula <- function(formula, data, measures="all", ...) {
   attr(modFrame, "terms") <- NULL
 
   neighborhood.default(modFrame[, -1, drop=FALSE], modFrame[, 1, drop=FALSE],
-    measures, ...)
+    measures, summary, ...)
 }
 
 ls.neighborhood <- function() {
   c("N1","N2", "N3", "N4", "T1", "LSC")
+}
+
+ls.neighborhood.multiples <- function() {
+  c("N2", "N3", "N4", "T1")
 }
 
 c.N1 <- function(dst, data) {
@@ -152,8 +166,8 @@ c.N2 <- function(dst, data) {
     c(intra(dst, data, i), inter(dst, data, i))
   })
 
-  aux <- sum(aux[1,])/sum(aux[2,])
-  aux <- 1 - (1/(aux + 1))
+  #aux <- sum(aux[1,])/sum(aux[2,])
+  aux <- 1 - (1/((aux[1,]/aux[2,]) + 1))
   return(aux)
 }
 
@@ -166,7 +180,8 @@ knn <- function(data, dst, k) {
 
 c.N3 <- function(dst, data) {
   aux <- knn(data, dst, 2) != data$class
-  return(mean(aux))
+  #return(mean(aux))
+  return(aux)
 }
 
 c.N4 <- function(dst, data) {
@@ -178,7 +193,8 @@ c.N4 <- function(dst, data) {
   dst <- dst[rownames(test), rownames(data)]
 
   aux <- knn(data, dst, 1) != test$class
-  return(mean(aux))
+  #return(mean(aux))
+  return(aux)
 }
 
 radios <- function(dst, data, i) {
@@ -244,8 +260,8 @@ adherence <- function(adh, data) {
 c.T1 <- function(dst, data) {
   r <- hyperspher(dst, data)
   aux <- adherence(translate(dst, r), data)
-  aux <- length(aux)/nrow(data)
-  return(aux)
+  #aux <- length(aux)/nrow(data)
+  return(aux/nrow(data))
 }
 
 c.LSC <- function(dst, data) {
@@ -254,7 +270,6 @@ c.LSC <- function(dst, data) {
     as.numeric(inter(dst, data, i))
   })
   
-  aux <- sum(translate(dst, r))/(nrow(dst)^2)
-  aux <- 1 - aux
+  aux <- 1 - sum(translate(dst, r))/(nrow(dst)^2)
   return(aux)
 }

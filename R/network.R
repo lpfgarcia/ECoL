@@ -13,6 +13,9 @@
 #' @param formula A formula to define the class column.
 #' @param data A data.frame dataset contained the input attributes and class.
 #' @param eps The percentage of nodes in the graph to be connected.
+#' @param summary A list of summarization functions or empty for all values. See
+#'  \link{post.processing} method to more information. (Default: 
+#'  \code{c("mean", "sd")})
 #' @param ... Not used.
 #' @details
 #'  The following measures are allowed for this method:
@@ -50,7 +53,8 @@ network <- function(...) {
 
 #' @rdname network
 #' @export
-network.default <- function(x, y, measures="all", eps=0.15, ...) {
+network.default <- function(x, y, measures="all", eps=0.15, 
+                            summary=c("mean", "sd"), ...) {
 
   if(!is.data.frame(x)) {
     stop("data argument must be a data.frame")
@@ -75,19 +79,25 @@ network.default <- function(x, y, measures="all", eps=0.15, ...) {
   }
 
   measures <- match.arg(measures, ls.network(), TRUE)
-  colnames(x) <- make.names(colnames(x))
 
+  if (length(summary) == 0) {
+    summary <- "non.aggregated"
+  }
+
+  colnames(x) <- make.names(colnames(x), unique=TRUE)
   dst <- enn(x, y, eps*nrow(x))
   graph <- igraph::graph.adjacency(dst, mode="undirected", weighted=TRUE)
 
   sapply(measures, function(f) {
-    eval(call(paste("c", f, sep="."), graph))
-  })
+    measure = eval(call(paste("c", f, sep="."), graph))
+    post.processing(measure, summary, f %in% ls.network.multiples(), ...)
+  }, simplify=FALSE)
 }
 
 #' @rdname network
 #' @export
-network.formula <- function(formula, data, measures="all", eps=0.15, ...) {
+network.formula <- function(formula, data, measures="all", eps=0.15, 
+                            summary=c("mean", "sd"), ...) {
 
   if(!inherits(formula, "formula")) {
     stop("method is only for formula datas")
@@ -101,11 +111,15 @@ network.formula <- function(formula, data, measures="all", eps=0.15, ...) {
   attr(modFrame, "terms") <- NULL
 
   network.default(modFrame[, -1, drop=FALSE], modFrame[, 1, drop=FALSE],
-    measures, eps, ...)
+    measures, eps, summary, ...)
 }
 
 ls.network <- function() {
   c("Density", "ClsCoef", "Hubs")
+}
+
+ls.network.multiples <- function() {
+  c("Hubs")
 }
 
 enn <- function(x, y, e) {
@@ -130,5 +144,6 @@ c.ClsCoef <- function(graph) {
 }
 
 c.Hubs <- function(graph) {
-  1 - mean(igraph::hub.score(graph)$vector)
+  #1 - mean(igraph::hub.score(graph)$vector)
+  1 - igraph::hub.score(graph)$vector
 }

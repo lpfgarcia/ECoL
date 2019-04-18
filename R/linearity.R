@@ -11,6 +11,9 @@
 #' @param measures A list of measures names or \code{"all"} to include all them.
 #' @param formula A formula to define the class column.
 #' @param data A data.frame dataset contained the input attributes and class.
+#' @param summary A list of summarization functions or empty for all values. See
+#'  \link{post.processing} method to more information. (Default: 
+#'  \code{c("mean", "sd")})
 #' @param ... Not used.
 #' @details
 #'  The following measures are allowed for this method:
@@ -43,7 +46,8 @@ linearity.class <- function(...) {
 
 #' @rdname linearity.class
 #' @export
-linearity.class.default <- function(x, y, measures="all", ...) {
+linearity.class.default <- function(x, y, measures="all", 
+                                    summary=c("mean", "sd"), ...) {
 
   if(!is.data.frame(x)) {
     stop("data argument must be a data.frame")
@@ -68,20 +72,26 @@ linearity.class.default <- function(x, y, measures="all", ...) {
   }
 
   measures <- match.arg(measures, ls.linearity.class(), TRUE)
-  colnames(x) <- make.names(colnames(x))
 
+  if (length(summary) == 0) {
+    summary <- "non.aggregated"
+  }
+
+  colnames(x) <- make.names(colnames(x), unique=TRUE)
   data <- data.frame(x, class=y)
   data <- ovo(data)
 
   model <- lapply(data, smo)
   sapply(measures, function(f) {
-    eval(call(paste("c", f, sep="."), model=model, data=data))
-  })
+    measure = eval(call(paste("c", f, sep="."), model=model, data=data))
+    post.processing(measure, summary, f %in% ls.linearity.class.multiples(), ...)
+  }, simplify=FALSE)
 }
 
 #' @rdname linearity.class
 #' @export
-linearity.class.formula <- function(formula, data, measures="all", ...) {
+linearity.class.formula <- function(formula, data, measures="all", 
+                                    summary=c("mean", "sd"), ...) {
 
   if(!inherits(formula, "formula")) {
     stop("method is only for formula datas")
@@ -95,11 +105,15 @@ linearity.class.formula <- function(formula, data, measures="all", ...) {
   attr(modFrame, "terms") <- NULL
 
   linearity.class.default(modFrame[, -1, drop=FALSE], modFrame[, 1, drop=FALSE],
-    measures, ...)
+    measures, summary, ...)
 }
 
 ls.linearity.class <- function() {
   c("L1", "L2", "L3")
+}
+
+ls.linearity.class.multiples <- function() {
+  ls.linearity.class()
 }
 
 smo <- function(data) {
@@ -115,8 +129,9 @@ c.L1 <- function(model, data) {
     sum(abs(dst))/nrow(d)
   }, m=model, d=data)
 
-  aux <- 1/(mean(aux) + 1)
-  aux <- 1 - aux
+  #aux <- 1/(mean(aux) + 1)
+  #aux <- 1 - aux
+  aux <- 1 - 1/(aux + 1)
   return(aux)
 }
 
@@ -131,7 +146,8 @@ c.L2 <- function(model, data) {
     error(prd, d$class)
   }, m=model, d=data)
 
-  return(mean(aux))
+  #return(mean(aux))
+  return(aux)
 }
 
 c.L3 <- function(model, data) {
@@ -142,7 +158,8 @@ c.L3 <- function(model, data) {
     error(prd, tmp$class)
   }, m=model, d=data)
 
-  return(mean(aux))
+  #return(mean(aux))
+  return(aux)
 }
 
 #' Measures of linearity
@@ -209,7 +226,7 @@ linearity.regr.default <- function(x, y, measures="all", ...) {
   }
 
   measures <- match.arg(measures, ls.linearity.regr(), TRUE)
-  colnames(x) <- make.names(colnames(x))
+  colnames(x) <- make.names(colnames(x), unique=TRUE)
 
   x <- normalize(x)
   y <- normalize(y)[,1]

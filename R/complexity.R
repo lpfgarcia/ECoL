@@ -71,7 +71,8 @@ complexity <- function(...) {
 
 #' @rdname complexity
 #' @export
-complexity.default <- function(x, y, type, groups="all", ...) {
+complexity.default <- function(x, y, type, groups="all", 
+                               summary=c("mean", "sd"), ...) {
 
   if(!is.data.frame(x)) {
     stop("data argument must be a data.frame")
@@ -98,18 +99,24 @@ complexity.default <- function(x, y, type, groups="all", ...) {
   }
 
   groups <- match.arg(groups, ls.complexity(type), TRUE)
-  colnames(x) <- make.names(colnames(x))
+
+  if (length(summary) == 0) {
+    summary <- "non.aggregated"
+  }
+
+  colnames(x) <- make.names(colnames(x), unique=TRUE)
 
   unlist(
     sapply(groups, function(group) {
-      do.call(group, list(x=x, y=y, ...))
+      do.call(group, list(x=x, y=y, summary=summary, ...))
     }, simplify=FALSE)
   )
 }
 
 #' @rdname complexity
 #' @export
-complexity.formula <- function(formula, data, type, groups="all", ...) {
+complexity.formula <- function(formula, data, type, groups="all", 
+                               summary=c("mean", "sd"), ...) {
 
   if(!inherits(formula, "formula")) {
     stop("method is only for formula datas")
@@ -123,7 +130,7 @@ complexity.formula <- function(formula, data, type, groups="all", ...) {
   attr(modFrame, "terms") <- NULL
 
   complexity.default(modFrame[, -1, drop=FALSE], modFrame[, 1, drop=FALSE],
-    type, groups, ...)
+    type, groups, summary, ...)
 }
 
 ls.complexity <- function(type) {
