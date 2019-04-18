@@ -4,23 +4,23 @@
 #' This method is used by the complexity measures to summarize the obtained 
 #' values.
 #'
-#' @param measure A list with the meta-features values.
+#' @param measure A list with the complexity measures values.
 #' @param summary The functions to post processing the data. See the details
 #'   to more information. Default: \code{c("mean", "sd")}
 #' @param multiple A logical value defining if the measure should return
 #'   multiple values. (Default: \code{TRUE})
 #' @param ... Extra values used to the functions of summarization.
 #' @details
-#'  The post processing functions are used to summarize the meta-features.
+#'  The post processing functions are used to summarize the complexity measures.
 #'  They are organized into three groups: non-aggregated, descriptive
 #'  statistic and distribution. Currently, the hypothesis testing post
 #'  processing are not supported.
 #'
 #'  In practice, there are no difference among the types, so that more than one
 #'  type and functions can be combined. Usually, these function are used to
-#'  summarize a set of values for each meta-features. For instance, a measure
-#'  computed for each attribute can be summarized using the \code{"mean"} and/or
-#'  \code{"sd"}. Necessarily, a single value always use the
+#'  summarize a set of values for each complexity measures. For instance, a 
+#'  measure computed for each attribute can be summarized using the 
+#'  \code{"mean"} and/or \code{"sd"}. Necessarily, a single value always use the
 #'  \code{"non.aggregated"} function.
 #'
 #'  In addition to the native functions available in R, the following functions
@@ -46,12 +46,12 @@
 #'  These functions are not restrictive, thus another functions can be applied
 #'  as post-processing summarization function.
 #'
-#' @return A list with the post-processed meta-features
+#' @return A list with the post-processed complexity measures
 #'
 #' @references
-#'  Fabio Pinto, Carlos Soares, and Joao Mendes-Moreira. Towards Automatic
-#'  Generation of Metafeatures. In 20th Pacific-Asia Conference on Knowledge 
-#'  Discovery and Data Mining  (PAKDD), pages 215 - 226, 2016.
+#'  Albert Orriols-Puig, Nuria Macia and Tin K Ho. (2010). Documentation for the
+#'    data complexity library in C++. Technical Report. La Salle - Universitat 
+#'    Ramon Llull.
 #'
 #' @examples
 #' post.processing(runif(15))
