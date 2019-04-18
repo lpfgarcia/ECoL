@@ -60,8 +60,8 @@ Ana C Lorena, Ivan G Costa, Newton Spolaor and Marcilio C P Souto. (2012).
 }
 \seealso{
 Other complexity-measures: \code{\link{balance}},
-  \code{\link{correlation}}, \code{\link{linearity.class}},
-  \code{\link{linearity.regr}}, \code{\link{neighborhood}},
+  \code{\link{correlation}}, \code{\link{linearity_class}},
+  \code{\link{linearity_regr}}, \code{\link{neighborhood}},
   \code{\link{network}}, \code{\link{overlapping}},
   \code{\link{smoothness}}
 }

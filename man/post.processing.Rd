@@ -8,7 +8,7 @@ post.processing(measure, summary = c("mean", "sd"), multiple = TRUE,
   ...)
 }
 \arguments{
-\item{measure}{A list with the meta-features values.}
+\item{measure}{A list with the complexity measures values.}
 
 \item{summary}{The functions to post processing the data. See the details
 to more information. Default: \code{c("mean", "sd")}}
@@ -19,7 +19,7 @@ multiple values. (Default: \code{TRUE})}
 \item{...}{Extra values used to the functions of summarization.}
 }
 \value{
-A list with the post-processed meta-features
+A list with the post-processed complexity measures
 }
 \description{
 Post-processing alternatives to deal with multiples values.
@@ -27,16 +27,16 @@ This method is used by the complexity measures to summarize the obtained
 values.
 }
 \details{
-The post processing functions are used to summarize the meta-features.
+The post processing functions are used to summarize the complexity measures.
  They are organized into three groups: non-aggregated, descriptive
  statistic and distribution. Currently, the hypothesis testing post
  processing are not supported.
 
  In practice, there are no difference among the types, so that more than one
  type and functions can be combined. Usually, these function are used to
- summarize a set of values for each meta-features. For instance, a measure
- computed for each attribute can be summarized using the \code{"mean"} and/or
- \code{"sd"}. Necessarily, a single value always use the
+ summarize a set of values for each complexity measures. For instance, a 
+ measure computed for each attribute can be summarized using the 
+ \code{"mean"} and/or \code{"sd"}. Necessarily, a single value always use the
  \code{"non.aggregated"} function.
 
  In addition to the native functions available in R, the following functions
@@ -69,7 +69,7 @@ post.processing(runif(15), c("quantiles", "skewness"))
 post.processing(runif(15), "histogram", bins=5, min=0, max=1)
 }
 \references{
-Fabio Pinto, Carlos Soares, and Joao Mendes-Moreira. Towards Automatic
- Generation of Metafeatures. In 20th Pacific-Asia Conference on Knowledge 
- Discovery and Data Mining  (PAKDD), pages 215 - 226, 2016.
+Albert Orriols-Puig, Nuria Macia and Tin K Ho. (2010). Documentation for the
+   data complexity library in C++. Technical Report. La Salle - Universitat 
+   Ramon Llull.
 }
