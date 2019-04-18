@@ -7,8 +7,6 @@
 #' @param measure A list with the complexity measures values.
 #' @param summary The functions to post processing the data. See the details
 #'   to more information. Default: \code{c("mean", "sd")}
-#' @param multiple A logical value defining if the measure should return
-#'   multiple values. (Default: \code{TRUE})
 #' @param ... Extra values used to the functions of summarization.
 #' @details
 #'  The post processing functions are used to summarize the complexity measures.
@@ -59,41 +57,21 @@
 #' post.processing(runif(15), c("quantiles", "skewness"))
 #' post.processing(runif(15), "histogram", bins=5, min=0, max=1)
 #' @export
-post.processing <- function(measure, summary=c("mean", "sd"), multiple=TRUE,
-                            ...) {
-  measure[!is.finite(measure) | is.null(measure) | is.nan(measure)] <- NA
+post.processing <- function(measure, summary=c("mean", "sd"), ...) {
+
   if(length(measure) == 0) {
-    measure <- as.numeric(NA)
+    return(NA)
   }
 
-  if(!multiple) {
-    if(length(measure) > 1) {
-      warning("More than one value was obtained for a single measure")
-    }
-    return(measure[1])
+  if(length(measure) == 1) {
+    return(measure)
   }
 
-  skewness <- function(x, na.rm=FALSE, type=3, ...) {
-    e1071::skewness(x, na.rm, type)
+  if(any(!is.finite(measure))) {
+    measure = measure[is.finite(measure)]
   }
 
-  kurtosis <- function(x, na.rm=FALSE, type=3, ...) {
-    e1071::kurtosis(x, na.rm, type)
-  }
-
-  quantiles <- function(x, type=1, ...) {
-    tryCatch(
-      stats::quantile(x, type=type, ...),
-      error=function(e) stats::quantile(NA, na.rm=TRUE, ...)
-    )
-  }
-
-  iqr <- function(x, na.rm=FALSE, ...) {
-     if (!na.rm & any(is.na(x))) NA
-     else stats::IQR(x, na.rm = na.rm)
-  }
-
-  res <- sapply(summary, function(s) {
+  res = sapply(summary, function(s) {
     do.call(s, list(measure, ...))
   }, simplify=FALSE)
 
@@ -102,6 +80,26 @@ post.processing <- function(measure, summary=c("mean", "sd"), multiple=TRUE,
 
 non.aggregated <- function (x, ...) {
   x
+}
+
+skewness <- function(x, na.rm=FALSE, type=3, ...) {
+  e1071::skewness(x, na.rm, type)
+}
+
+kurtosis <- function(x, na.rm=FALSE, type=3, ...) {
+  e1071::kurtosis(x, na.rm, type)
+}
+
+quantiles <- function(x, type=1, ...) {
+  tryCatch(
+    stats::quantile(x, type=type, ...),
+    error=function(e) stats::quantile(NA, na.rm=TRUE, ...)
+  )
+}
+
+iqr <- function(x, na.rm=FALSE, ...) {
+   if (!na.rm & any(is.na(x))) NA
+   else stats::IQR(x, na.rm = na.rm)
 }
 
 histogram <- function(x, bins=10, min=base::min(x, na.rm=TRUE),

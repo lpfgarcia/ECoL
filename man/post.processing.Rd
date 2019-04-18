@@ -4,17 +4,13 @@
 \alias{post.processing}
 \title{Post processing complexity measures}
 \usage{
-post.processing(measure, summary = c("mean", "sd"), multiple = TRUE,
-  ...)
+post.processing(measure, summary = c("mean", "sd"), ...)
 }
 \arguments{
 \item{measure}{A list with the complexity measures values.}
 
 \item{summary}{The functions to post processing the data. See the details
 to more information. Default: \code{c("mean", "sd")}}
-
-\item{multiple}{A logical value defining if the measure should return
-multiple values. (Default: \code{TRUE})}
 
 \item{...}{Extra values used to the functions of summarization.}
 }
