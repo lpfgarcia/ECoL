@@ -49,8 +49,7 @@ The measures can be divided into two groups: classification and regression measu
 
 **Measures of feature correlation**
 
-* C1: Maximum feature correlation to the output
-* C2: Average feature correlation to the output
+* C2: Feature correlation to the output
 * C3: Individual feature efficiency
 * C4: Collective feature efficiency
 
