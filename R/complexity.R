@@ -15,6 +15,9 @@
 #' @param data A data.frame dataset contained the input and output attributes.
 #' @param type The type of supervised problem: The \code{"class"} is used for 
 #'  classification tasks and \code{"regr"} for regression tasks.
+#' @param summary A list of summarization functions or empty for all values. See
+#'  \link{post.processing} method to more information. (Default: 
+#'  \code{c("mean", "sd")})
 #' @param ... Not used.
 #' @details
 #'  The following groups are allowed for this method:
