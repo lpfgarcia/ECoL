@@ -75,8 +75,7 @@ Gleison Morais and Ronaldo C Prati. (2013). Complex Network Measures for
 \seealso{
 Other complexity-measures: \code{\link{balance}},
   \code{\link{correlation}}, \code{\link{dimensionality}},
-  \code{\link{linearity_class}},
-  \code{\link{linearity_regr}}, \code{\link{neighborhood}},
+  \code{\link{linearity}}, \code{\link{neighborhood}},
   \code{\link{overlapping}}, \code{\link{smoothness}}
 }
 \concept{complexity-measures}

@@ -80,8 +80,7 @@ Albert Orriols-Puig, Nuria Macia and Tin K Ho. (2010). Documentation for the
 \seealso{
 Other complexity-measures: \code{\link{balance}},
   \code{\link{correlation}}, \code{\link{dimensionality}},
-  \code{\link{linearity_class}},
-  \code{\link{linearity_regr}}, \code{\link{neighborhood}},
+  \code{\link{linearity}}, \code{\link{neighborhood}},
   \code{\link{network}}, \code{\link{smoothness}}
 }
 \concept{complexity-measures}

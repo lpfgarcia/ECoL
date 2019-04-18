@@ -69,8 +69,7 @@ Ana C Lorena and Aron I Maciel and Pericles B C Miranda and Ivan G Costa and
 \seealso{
 Other complexity-measures: \code{\link{balance}},
   \code{\link{correlation}}, \code{\link{dimensionality}},
-  \code{\link{linearity_class}},
-  \code{\link{linearity_regr}}, \code{\link{neighborhood}},
+  \code{\link{linearity}}, \code{\link{neighborhood}},
   \code{\link{network}}, \code{\link{overlapping}}
 }
 \concept{complexity-measures}
