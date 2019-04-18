@@ -82,7 +82,7 @@ linearity_regr.default <- function(x, y, measures="all",
 
   sapply(measures, function(f) {
     measure = eval(call(paste("r", f, sep="."), m=m, x=x, y=y))
-    post.processing(measure, summary, f %in% ls.linearity_regr.multiples(), ...)
+    post.processing(measure, summary, ...)
   }, simplify=FALSE)
 }
 
@@ -108,10 +108,6 @@ linearity_regr.formula <- function(formula, data, measures="all",
 
 ls.linearity_regr <- function() {
   c("L1", "L2", "L3")
-}
-
-ls.linearity_regr.multiples <- function() {
-  ls.linearity_regr()
 }
 
 r.L1 <- function(m, ...) {

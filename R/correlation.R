@@ -82,7 +82,7 @@ correlation.default <- function(x, y, measures="all", summary=c("mean", "sd"),
 
   sapply(measures, function(f) {
     measure = eval(call(paste("r", f, sep="."), x=x, y=y))
-    post.processing(measure, summary, f %in% ls.correlation.multiples(), ...)
+    post.processing(measure, summary, ...)
   }, simplify=FALSE)
 }
 
@@ -107,16 +107,7 @@ correlation.formula <- function(formula, data, measures="all",
 }
 
 ls.correlation <- function() {
-  c("C1", "C2", "C3", "C4")
-}
-
-ls.correlation.multiples <- function() {
-  c("C1", "C2", "C3")
-}
-
-r.C1 <- function(x, y) {
-  #max(abs(stats::cor(x, y, method="spearman")))
-  abs(stats::cor(x, y, method="spearman"))
+  c("C2", "C3", "C4")
 }
 
 r.C2 <- function(x, y) {

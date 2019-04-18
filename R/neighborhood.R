@@ -105,7 +105,7 @@ neighborhood.default <- function(x, y, measures="all", summary=c("mean", "sd"),
 
   sapply(measures, function(f) {
     measure = eval(call(paste("c", f, sep="."), dst=dst, data=data))
-    post.processing(measure, summary, f %in% ls.neighborhood.multiples(), ...)
+    post.processing(measure, summary, ...)
   }, simplify=FALSE)
 }
 
@@ -131,10 +131,6 @@ neighborhood.formula <- function(formula, data, measures="all",
 
 ls.neighborhood <- function() {
   c("N1","N2", "N3", "N4", "T1", "LSC")
-}
-
-ls.neighborhood.multiples <- function() {
-  c("N2", "N3", "N4", "T1")
 }
 
 c.N1 <- function(dst, data) {

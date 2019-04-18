@@ -84,7 +84,7 @@ linearity_class.default <- function(x, y, measures="all",
   model <- lapply(data, smo)
   sapply(measures, function(f) {
     measure = eval(call(paste("c", f, sep="."), model=model, data=data))
-    post.processing(measure, summary, f %in% ls.linearity_class.multiples(), ...)
+    post.processing(measure, summary, ...)
   }, simplify=FALSE)
 }
 
@@ -110,10 +110,6 @@ linearity_class.formula <- function(formula, data, measures="all",
 
 ls.linearity_class <- function() {
   c("L1", "L2", "L3")
-}
-
-ls.linearity_class.multiples <- function() {
-  ls.linearity_class()
 }
 
 smo <- function(data) {

@@ -90,7 +90,7 @@ network.default <- function(x, y, measures="all", eps=0.15,
 
   sapply(measures, function(f) {
     measure = eval(call(paste("c", f, sep="."), graph))
-    post.processing(measure, summary, f %in% ls.network.multiples(), ...)
+    post.processing(measure, summary, ...)
   }, simplify=FALSE)
 }
 
@@ -116,10 +116,6 @@ network.formula <- function(formula, data, measures="all", eps=0.15,
 
 ls.network <- function() {
   c("Density", "ClsCoef", "Hubs")
-}
-
-ls.network.multiples <- function() {
-  c("Hubs")
 }
 
 enn <- function(x, y, e) {

@@ -87,7 +87,7 @@ smoothness.default <- function(x, y, measures="all", summary=c("mean", "sd"),
 
   sapply(measures, function(f) {
     measure = eval(call(paste("r", f, sep="."), d=d, x=x, y=y))
-    post.processing(measure, summary, f %in% ls.smoothness.multiples(), ...)
+    post.processing(measure, summary, ...)
   }, simplify=FALSE)
 }
 
@@ -113,10 +113,6 @@ smoothness.formula <- function(formula, data, measures="all",
 
 ls.smoothness <- function() {
   c("S1", "S2", "S3", "S4")
-}
-
-ls.smoothness.multiples <- function() {
-  ls.smoothness()
 }
 
 r.S1 <- function(d, x, y) {

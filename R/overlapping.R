@@ -96,7 +96,7 @@ overlapping.default <- function(x, y, measures="all", summary=c("mean", "sd"),
 
   sapply(measures, function(f) {
     measure = eval(call(paste("c", f, sep="."), data=data))
-    post.processing(measure, summary, f %in% ls.overlapping.multiples(), ...)
+    post.processing(measure, summary, ...)
   }, simplify=FALSE)
 }
 
@@ -122,10 +122,6 @@ overlapping.formula <- function(formula, data, measures="all",
 
 ls.overlapping <- function() {
   c("F1", "F1v", "F2", "F3", "F4")
-}
-
-ls.overlapping.multiples <- function() {
-  ls.overlapping()
 }
 
 branch <- function(data, j) {
