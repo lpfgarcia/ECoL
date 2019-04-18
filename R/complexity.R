@@ -29,8 +29,8 @@
 #'      density of same or different classes in local neighborhoods. See 
 #'      \link{neighborhood} for more details.}
 #'    \item{"linearity"}{Linearity measures try to quantify whether the classes 
-#'      can be linearly separated. See \link{linearity.class} or 
-#'      \link{linearity.regr} for more details.}
+#'      can be linearly separated. See \link{linearity_class} or 
+#'      \link{linearity_regr} for more details.}
 #'    \item{"dimensionality"}{The dimensionality measures compute information on
 #'      how smoothly the examples are distributed within the attributes. See 
 #'      \link{dimensionality} for more details.}
@@ -140,10 +140,10 @@ ls.complexity <- function(type) {
 
   switch(type,
     class = {
-      c("overlapping", "neighborhood", "linearity.class", "dimensionality",
+      c("overlapping", "neighborhood", "linearity_class", "dimensionality",
         "balance", "network")
     }, regr = {
-      c("correlation", "linearity.regr", "smoothness", "dimensionality")
+      c("correlation", "linearity_regr", "smoothness", "dimensionality")
     }
   )
 }
