@@ -20,6 +20,8 @@ Imports:
   FNN,
   igraph,
   MASS
+Suggests:
+    testthat
 License: MIT + file LICENSE
 BugReports: https://github.com/lpfgarcia/ECoL/issues
 Encoding: UTF-8
