@@ -12,7 +12,7 @@
 #' @param formula A formula to define the class column.
 #' @param data A data.frame dataset contained the input attributes and class.
 #' @param summary A list of summarization functions or empty for all values. See
-#'  \link{post.processing} method to more information. (Default: 
+#'  \link{summarization} method to more information. (Default: 
 #'  \code{c("mean", "sd")})
 #' @param ... Not used.
 #' @details
@@ -49,7 +49,7 @@
 #'    Ramon Llull.
 #'
 #' @examples
-#' ## Extract all overlapping measures
+#' ## Extract all overlapping measures for classification task
 #' data(iris)
 #' overlapping(Species ~ ., iris)
 #' @export
@@ -87,7 +87,7 @@ overlapping.default <- function(x, y, measures="all", summary=c("mean", "sd"),
   measures <- match.arg(measures, ls.overlapping(), TRUE)
 
   if (length(summary) == 0) {
-    summary <- "non.aggregated"
+    summary <- "return"
   }
 
   colnames(x) <- make.names(colnames(x), unique=TRUE)
@@ -96,7 +96,7 @@ overlapping.default <- function(x, y, measures="all", summary=c("mean", "sd"),
 
   sapply(measures, function(f) {
     measure = eval(call(paste("c", f, sep="."), data=data))
-    post.processing(measure, summary, ...)
+    summarization(measure, summary, f %in% ls.overlapping.multiples(), ...)
   }, simplify=FALSE)
 }
 
@@ -122,6 +122,10 @@ overlapping.formula <- function(formula, data, measures="all",
 
 ls.overlapping <- function() {
   c("F1", "F1v", "F2", "F3", "F4")
+}
+
+ls.overlapping.multiples <- function() {
+  ls.overlapping()
 }
 
 branch <- function(data, j) {

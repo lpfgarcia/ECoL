@@ -12,7 +12,7 @@
 #' @param formula A formula to define the output column.
 #' @param data A data.frame dataset contained the input attributes and class.
 #' @param summary A list of summarization functions or empty for all values. See
-#'  \link{post.processing} method to more information. (Default: 
+#'  \link{summarization} method to more information. (Default: 
 #'  \code{c("mean", "sd")})
 #' @param ... Not used.
 #' @details
@@ -70,13 +70,12 @@ linearity.default <- function(x, y, measures="all",
     y <- y[, 1]
   }
 
+  foo <- "regression"
   if(is.factor(y)) {
-    type <- "classification"
+    foo <- "classification"
     if(min(table(y)) < 2) {
       stop("number of examples in the minority class should be >= 2")
     }
-  } else {
-    type <- "regression"
   }
 
   if(nrow(x) != length(y)) {
@@ -90,11 +89,11 @@ linearity.default <- function(x, y, measures="all",
   measures <- match.arg(measures, ls.linearity(), TRUE)
 
   if (length(summary) == 0) {
-    summary <- "non.aggregated"
+    summary <- "return"
   }
 
   colnames(x) <- make.names(colnames(x), unique=TRUE)
-  eval(call(type, x=x, y=y, measures=measures, summary=summary))
+  eval(call(foo, x=x, y=y, measures=measures, summary=summary))
 }
 
 #' @rdname linearity
@@ -125,7 +124,7 @@ classification <- function(x, y, measures, summary, ...) {
   model <- lapply(data, smo)
   sapply(measures, function(f) {
     measure = eval(call(paste("c", f, sep="."), model=model, data=data))
-    post.processing(measure, summary, ...)
+    summarization(measure, summary, f %in% ls.linearity.multiples(), ...)
   }, simplify=FALSE)
 }
 
@@ -140,12 +139,16 @@ regression <- function(x, y, measures, summary, ...) {
   model <- stats::lm(y ~ ., cbind(y=y, x))
   sapply(measures, function(f) {
     measure = eval(call(paste("r", f, sep="."), m=model, x=x, y=y))
-    post.processing(measure, summary, ...)
+    summarization(measure, summary, f %in% ls.linearity.multiples(), ...)
   }, simplify=FALSE)
 }
 
 ls.linearity <- function() {
   c("L1", "L2", "L3")
+}
+
+ls.linearity.multiples <- function() {
+  ls.linearity()
 }
 
 smo <- function(data) {

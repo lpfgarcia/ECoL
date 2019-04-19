@@ -14,7 +14,7 @@
 #' @param data A data.frame dataset contained the input attributes and class.
 #' @param eps The percentage of nodes in the graph to be connected.
 #' @param summary A list of summarization functions or empty for all values. See
-#'  \link{post.processing} method to more information. (Default: 
+#'  \link{summarization} method to more information. (Default: 
 #'  \code{c("mean", "sd")})
 #' @param ... Not used.
 #' @details
@@ -43,7 +43,7 @@
 #'    Neurocomputing 160, 108--119.
 #'
 #' @examples
-#' ## Extract all network measures
+#' ## Extract all network measures for classification task
 #' data(iris)
 #' network(Species ~ ., iris)
 #' @export
@@ -81,7 +81,7 @@ network.default <- function(x, y, measures="all", eps=0.15,
   measures <- match.arg(measures, ls.network(), TRUE)
 
   if (length(summary) == 0) {
-    summary <- "non.aggregated"
+    summary <- "return"
   }
 
   colnames(x) <- make.names(colnames(x), unique=TRUE)
@@ -90,7 +90,7 @@ network.default <- function(x, y, measures="all", eps=0.15,
 
   sapply(measures, function(f) {
     measure = eval(call(paste("c", f, sep="."), graph))
-    post.processing(measure, summary, ...)
+    summarization(measure, summary, f %in% ls.network.multiples(), ...)
   }, simplify=FALSE)
 }
 
@@ -116,6 +116,10 @@ network.formula <- function(formula, data, measures="all", eps=0.15,
 
 ls.network <- function() {
   c("Density", "ClsCoef", "Hubs")
+}
+
+ls.network.multiples <- function() {
+  c("Hubs")
 }
 
 enn <- function(x, y, e) {

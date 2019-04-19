@@ -12,7 +12,7 @@
 #' @param formula A formula to define the class column.
 #' @param data A data.frame dataset contained the input attributes and class.
 #' @param summary A list of summarization functions or empty for all values. See
-#'  \link{post.processing} method to more information. (Default: 
+#'  \link{summarization} method to more information. (Default: 
 #'  \code{c("mean", "sd")})
 #' @param ... Not used.
 #' @details
@@ -58,7 +58,7 @@
 #'    Transactions on Knowledge and Data Engineering 27, 2, 354--367.
 #'
 #' @examples
-#' ## Extract all neighborhood measures
+#' ## Extract all neighborhood measures for classification task
 #' data(iris)
 #' neighborhood(Species ~ ., iris)
 #' @export
@@ -96,7 +96,7 @@ neighborhood.default <- function(x, y, measures="all", summary=c("mean", "sd"),
   measures <- match.arg(measures, ls.neighborhood(), TRUE)
 
   if (length(summary) == 0) {
-    summary <- "non.aggregated"
+    summary <- "return"
   }
 
   colnames(x) <- make.names(colnames(x), unique=TRUE)
@@ -105,7 +105,7 @@ neighborhood.default <- function(x, y, measures="all", summary=c("mean", "sd"),
 
   sapply(measures, function(f) {
     measure = eval(call(paste("c", f, sep="."), dst=dst, data=data))
-    post.processing(measure, summary, ...)
+    summarization(measure, summary, f %in% ls.neighborhood.multiples(), ...)
   }, simplify=FALSE)
 }
 
@@ -131,6 +131,10 @@ neighborhood.formula <- function(formula, data, measures="all",
 
 ls.neighborhood <- function() {
   c("N1","N2", "N3", "N4", "T1", "LSC")
+}
+
+ls.neighborhood.multiples <- function() {
+  c("N2", "N3", "N4", "T1")
 }
 
 c.N1 <- function(dst, data) {

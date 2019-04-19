@@ -11,7 +11,7 @@
 #' @param formula A formula to define the output column.
 #' @param data A data.frame dataset contained the input and output attributes.
 #' @param summary A list of summarization functions or empty for all values. See
-#'  \link{post.processing} method to more information. (Default: 
+#'  \link{summarization} method to more information. (Default: 
 #'  \code{c("mean", "sd")})
 #' @param ... Not used.
 #' @details
@@ -37,9 +37,9 @@
 #'    regression problems. Machine Learning, 107, 1, 209--246.
 #'
 #' @examples
-#' ## Extract all correlation measures
+#' ## Extract all correlation measures for regression task
 #' data(cars)
-#' correlation(speed~., cars)
+#' correlation(speed ~ ., cars)
 #' @export
 correlation <- function(...) {
   UseMethod("correlation")
@@ -73,7 +73,7 @@ correlation.default <- function(x, y, measures="all", summary=c("mean", "sd"),
   measures <- match.arg(measures, ls.correlation(), TRUE)
 
   if (length(summary) == 0) {
-    summary <- "non.aggregated"
+    summary <- "return"
   }
 
   colnames(x) <- make.names(colnames(x), unique=TRUE)
@@ -82,7 +82,7 @@ correlation.default <- function(x, y, measures="all", summary=c("mean", "sd"),
 
   sapply(measures, function(f) {
     measure = eval(call(paste("r", f, sep="."), x=x, y=y))
-    post.processing(measure, summary, ...)
+    summarization(measure, summary, f %in% ls.correlation.multiples(), ...)
   }, simplify=FALSE)
 }
 
@@ -110,12 +110,16 @@ ls.correlation <- function() {
   c("C2", "C3", "C4")
 }
 
-r.C2 <- function(x, y) {
-  #mean(abs(stats::cor(x, y, method="spearman")))
-  abs(stats::cor(x, y, method="spearman"))
+ls.correlation.multiples <- function() {
+  c("C2", "C3")
 }
 
-remove <- function(y, x, c) {
+r.C2 <- function(x, y) {
+  #mean(abs(stats::cor(x, y, method="spearman")))
+  as.numeric(abs(stats::cor(x, y, method="spearman")))
+}
+
+remove <- function(x, y, c) {
 
   remainingRows <- length(x)
   xorder <- rank(x)
@@ -152,7 +156,7 @@ remove <- function(y, x, c) {
 
 r.C3 <- function(x, y, c=0.9) {
   #min(apply(x, 2, remove, y, c))
-  apply(x, 2, remove, y, c)
+  as.numeric(apply(x, 2, remove, y, c))
 }
 
 r.C4 <- function(x, y, r=0.1) {

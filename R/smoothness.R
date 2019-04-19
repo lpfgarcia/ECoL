@@ -12,7 +12,7 @@
 #' @param formula A formula to define the output column.
 #' @param data A data.frame dataset contained the input and output attributes.
 #' @param summary A list of summarization functions or empty for all values. See
-#'  \link{post.processing} method to more information. (Default: 
+#'  \link{summarization} method to more information. (Default: 
 #'  \code{c("mean", "sd")})
 #' @param ... Not used.
 #' @details
@@ -38,9 +38,9 @@
 #'    regression problems. Machine Learning, 107, 1, 209--246.
 #'
 #' @examples
-#' ## Extract all smoothness measures
+#' ## Extract all smoothness measures for regression task
 #' data(cars)
-#' smoothness(speed~., cars)
+#' smoothness(speed ~ ., cars)
 #' @export
 smoothness <- function(...) {
   UseMethod("smoothness")
@@ -74,7 +74,7 @@ smoothness.default <- function(x, y, measures="all", summary=c("mean", "sd"),
   measures <- match.arg(measures, ls.smoothness(), TRUE)
 
   if (length(summary) == 0) {
-    summary <- "non.aggregated"
+    summary <- "return"
   }
 
   colnames(x) <- make.names(colnames(x), unique=TRUE)
@@ -87,7 +87,7 @@ smoothness.default <- function(x, y, measures="all", summary=c("mean", "sd"),
 
   sapply(measures, function(f) {
     measure = eval(call(paste("r", f, sep="."), d=d, x=x, y=y))
-    post.processing(measure, summary, ...)
+    summarization(measure, summary, f %in% ls.smoothness.multiples(), ...)
   }, simplify=FALSE)
 }
 
@@ -113,6 +113,10 @@ smoothness.formula <- function(formula, data, measures="all",
 
 ls.smoothness <- function() {
   c("S1", "S2", "S3", "S4")
+}
+
+ls.smoothness.multiples <- function() {
+  ls.smoothness()
 }
 
 r.S1 <- function(d, x, y) {
