@@ -45,6 +45,6 @@ test_that("binary.result", {
 
 test_that("validation.error",{
 
-  expect_error(overlapping(Species ~ ., iris, measures="F5"))
-  expect_error(overlapping(Species ~ ., iris, measures="F4", summary="abc"))
+  expect_error(overlapping(Species ~ ., iris, measures="L1"))
+  expect_error(overlapping(Species ~ ., iris, measures="L2", summary="abc"))
 })
