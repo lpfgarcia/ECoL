@@ -33,7 +33,8 @@ test_that("regression.result", {
 test_that("validation.error",{
 
   expect_error(complexity(iris[1:130, 1:4], iris[5]))
+  expect_error(complexity(iris[,1:4], factor(c(rep(1, 149), rep(2, 1)))))
   expect_error(complexity(as.matrix(iris[, c(1,2)]), iris$Species))
   expect_error(complexity(Species ~ ., iris, groups="abc"))
-
+  expect_error(complexity(Species ~ ., runif(100)))
 })
