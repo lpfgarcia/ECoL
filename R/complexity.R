@@ -14,7 +14,7 @@
 #' @param formula A formula to define the output column.
 #' @param data A data.frame dataset contained the input and output attributes.
 #' @param summary A list of summarization functions or empty for all values. See
-#'  \link{post.processing} method to more information. (Default: 
+#'  \link{summarization} method to more information. (Default: 
 #'  \code{c("mean", "sd")})
 #' @param ... Not used.
 #' @details
@@ -82,13 +82,12 @@ complexity.default <- function(x, y, groups="all", summary=c("mean", "sd"),
     y <- y[, 1]
   }
 
+  type <- "regr"
   if(is.factor(y)) {
     type <- "class"
     if(min(table(y)) < 2) {
       stop("number of examples in the minority class should be >= 2")
     }
-  } else {
-    type <- "regr"
   }
 
   if(nrow(x) != length(y)) {
@@ -102,7 +101,7 @@ complexity.default <- function(x, y, groups="all", summary=c("mean", "sd"),
   groups <- match.arg(groups, ls.complexity(type), TRUE)
 
   if (length(summary) == 0) {
-    summary <- "non.aggregated"
+    summary <- "return"
   }
 
   colnames(x) <- make.names(colnames(x), unique=TRUE)
