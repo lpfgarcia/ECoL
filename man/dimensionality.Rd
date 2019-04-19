@@ -46,12 +46,13 @@ The following measures are allowed for this method:
  }
 }
 \examples{
-## Extract all dimensionality measures
+## Extract all dimensionality measures for classification task
 data(iris)
 dimensionality(Species ~ ., iris)
 
+## Extract all dimensionality measures for regression task
 data(cars)
-correlation(speed~., cars)
+dimensionality(speed ~ ., cars)
 }
 \references{
 Ana C Lorena, Ivan G Costa, Newton Spolaor and Marcilio C P Souto. (2012). 

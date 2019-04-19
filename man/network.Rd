@@ -26,7 +26,7 @@ network(...)
 \item{eps}{The percentage of nodes in the graph to be connected.}
 
 \item{summary}{A list of summarization functions or empty for all values. See
-\link{post.processing} method to more information. (Default: 
+\link{summarization} method to more information. (Default: 
 \code{c("mean", "sd")})}
 
 \item{formula}{A formula to define the class column.}
@@ -59,7 +59,7 @@ The following measures are allowed for this method:
  }
 }
 \examples{
-## Extract all network measures
+## Extract all network measures for classification task
 data(iris)
 network(Species ~ ., iris)
 }

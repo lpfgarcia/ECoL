@@ -24,7 +24,7 @@ correlation(...)
 \item{measures}{A list of measures names or \code{"all"} to include all them.}
 
 \item{summary}{A list of summarization functions or empty for all values. See
-\link{post.processing} method to more information. (Default: 
+\link{summarization} method to more information. (Default: 
 \code{c("mean", "sd")})}
 
 \item{formula}{A formula to define the output column.}
@@ -56,9 +56,9 @@ The following measures are allowed for this method:
  }
 }
 \examples{
-## Extract all correlation measures
+## Extract all correlation measures for regression task
 data(cars)
-correlation(speed~., cars)
+correlation(speed ~ ., cars)
 }
 \references{
 Ana C Lorena and Aron I Maciel and Pericles B C Miranda and Ivan G Costa and

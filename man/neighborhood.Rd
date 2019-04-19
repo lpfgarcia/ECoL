@@ -24,7 +24,7 @@ neighborhood(...)
 \item{measures}{A list of measures names or \code{"all"} to include all them.}
 
 \item{summary}{A list of summarization functions or empty for all values. See
-\link{post.processing} method to more information. (Default: 
+\link{summarization} method to more information. (Default: 
 \code{c("mean", "sd")})}
 
 \item{formula}{A formula to define the class column.}
@@ -73,7 +73,7 @@ The following measures are allowed for this method:
  }
 }
 \examples{
-## Extract all neighborhood measures
+## Extract all neighborhood measures for classification task
 data(iris)
 neighborhood(Species ~ ., iris)
 }

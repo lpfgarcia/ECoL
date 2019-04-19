@@ -45,9 +45,13 @@ The following measures are allowed for this method:
  }
 }
 \examples{
-## Extract all balance measures
+## Extract all balance measures for classification task
 data(iris)
 balance(Species ~ ., iris)
+
+## Extract all balance measures for regression task
+data(cars)
+balance(speed ~ ., cars)
 }
 \references{
 Ana C Lorena, Ivan G Costa, Newton Spolaor and Marcilio C P Souto. (2012). 
