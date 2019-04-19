@@ -1,25 +1,25 @@
 #' Post processing complexity measures
 #'
-#' Post-processing alternatives to deal with multiples values.
-#' This method is used by the complexity measures to summarize the obtained 
-#' values.
+#' Post-processing alternatives to deal with multiples values. This method is 
+#' used by the complexity measures to summarize the obtained values.
 #'
 #' @param measure A list with the complexity measures values.
 #' @param summary The functions to post processing the data. See the details
 #'   to more information. Default: \code{c("mean", "sd")}
+#' @param multiple A logical value defining if the measure should return
+#'   multiple values. (Default: \code{TRUE})
 #' @param ... Extra values used to the functions of summarization.
 #' @details
 #'  The post processing functions are used to summarize the complexity measures.
-#'  They are organized into three groups: non-aggregated, descriptive
-#'  statistic and distribution. Currently, the hypothesis testing post
-#'  processing are not supported.
+#'  They are organized into three groups: return, descriptive statistic and 
+#'  distribution. Currently, the hypothesis testing post processing are not 
+#'  supported.
 #'
 #'  In practice, there are no difference among the types, so that more than one
 #'  type and functions can be combined. Usually, these function are used to
 #'  summarize a set of values for each complexity measures. For instance, a 
 #'  measure computed for each attribute can be summarized using the 
-#'  \code{"mean"} and/or \code{"sd"}. Necessarily, a single value always use the
-#'  \code{"non.aggregated"} function.
+#'  \code{"mean"} and/or \code{"sd"}.
 #'
 #'  In addition to the native functions available in R, the following functions
 #'  can be used:
@@ -38,13 +38,12 @@
 #'    \item{"sd"}{See \code{\link{sd}}}
 #'    \item{"skewness"}{See \code{\link[e1071]{skewness}}}
 #'    \item{"var"}{See \code{\link{var}}}
-#'    \item{"non.aggregated"}{Returns the original value(s) of the
-#'       meta-feature.}
+#'    \item{"return"}{Returns the original value(s) of the complexity measure.}
 #'  }
 #'  These functions are not restrictive, thus another functions can be applied
 #'  as post-processing summarization function.
 #'
-#' @return A list with the post-processed complexity measures
+#' @return A list with the post-processed complexity measures.
 #'
 #' @references
 #'  Albert Orriols-Puig, Nuria Macia and Tin K Ho. (2010). Documentation for the
@@ -52,34 +51,32 @@
 #'    Ramon Llull.
 #'
 #' @examples
-#' post.processing(runif(15))
-#' post.processing(runif(15), c("min", "max"))
-#' post.processing(runif(15), c("quantiles", "skewness"))
-#' post.processing(runif(15), "histogram", bins=5, min=0, max=1)
+#' summarization(runif(15))
+#' summarization(runif(15), c("min", "max"))
+#' summarization(runif(15), c("quantiles", "skewness"))
 #' @export
-post.processing <- function(measure, summary=c("mean", "sd"), ...) {
+summarization <- function(measure, summary=c("mean", "sd"), multiple=TRUE, 
+                          ...) {
 
   if(length(measure) == 0) {
     return(NA)
   }
 
-  if(length(measure) == 1) {
+  if(!multiple) {
+    if(length(measure) > 1) {
+      warning("More than one value was obtained for a single measure")
+    }
+    measure = as.numeric(measure[1])
     return(measure)
   }
 
-  if(any(!is.finite(measure))) {
-    measure = measure[is.finite(measure)]
-  }
+  measure = measure[is.finite(measure)]
 
   res = sapply(summary, function(s) {
     do.call(s, list(measure, ...))
   }, simplify=FALSE)
 
   unlist(res)
-}
-
-non.aggregated <- function (x, ...) {
-  x
 }
 
 skewness <- function(x, na.rm=FALSE, type=3, ...) {
