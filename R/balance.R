@@ -33,9 +33,13 @@
 #'    with biomedical datasets. Learning Classifier Systems 6471, 127--144.
 #'
 #' @examples
-#' ## Extract all balance measures
+#' ## Extract all balance measures for classification task
 #' data(iris)
 #' balance(Species ~ ., iris)
+#'
+#' ## Extract all balance measures for regression task
+#' data(cars)
+#' balance(speed ~ ., cars)
 #' @export
 balance <- function(...) {
   UseMethod("balance")
