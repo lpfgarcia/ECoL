@@ -36,10 +36,6 @@
 #' ## Extract all balance measures for classification task
 #' data(iris)
 #' balance(Species ~ ., iris)
-#'
-#' ## Extract all balance measures for regression task
-#' data(cars)
-#' balance(speed ~ ., cars)
 #' @export
 balance <- function(...) {
   UseMethod("balance")
@@ -71,7 +67,7 @@ balance.default <- function(x, y, measures="all", ...) {
 
   sapply(measures, function(f) {
     eval(call(paste("c", f, sep="."), y=y))
-  })
+  },  simplify=FALSE)
 }
 
 #' @rdname balance
