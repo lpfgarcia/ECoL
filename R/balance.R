@@ -33,7 +33,7 @@
 #'    with biomedical datasets. Learning Classifier Systems 6471, 127--144.
 #'
 #' @examples
-#' ## Extract all balance measures
+#' ## Extract all balance measures for classification task
 #' data(iris)
 #' balance(Species ~ ., iris)
 #' @export
@@ -67,7 +67,7 @@ balance.default <- function(x, y, measures="all", ...) {
 
   sapply(measures, function(f) {
     eval(call(paste("c", f, sep="."), y=y))
-  })
+  },  simplify=FALSE)
 }
 
 #' @rdname balance

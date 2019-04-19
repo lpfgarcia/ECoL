@@ -1,5 +1,6 @@
 # ECoL
 [![Travis-CI Build Status](https://travis-ci.org/lpfgarcia/ECoL.svg?branch=master)](https://travis-ci.org/lpfgarcia/ECoL)
+[![codecov](https://codecov.io/gh/lpfgarcia/ECoL/branch/master/graph/badge.svg)](https://codecov.io/gh/lpfgarcia/ECoL)
 
 The Extended Complexity Library (ECoL) is the implementation in R of a set of measures to characterize the complexity of classification and regression problems based on aspects that quantify the linearity of the data, the presence of informative feature, the sparsity and dimensionality of the datasets. The measures were originally proposed by Ho and Basu [1] and extend by many other works including the DCoL library [2]. The main difference between the libraries is that ECoL provides bug fixes, generalizations and implementations of many other state-of-the-art measures.
 
@@ -49,8 +50,7 @@ The measures can be divided into two groups: classification and regression measu
 
 **Measures of feature correlation**
 
-* C1: Maximum feature correlation to the output
-* C2: Average feature correlation to the output
+* C2: Feature correlation to the output
 * C3: Individual feature efficiency
 * C4: Collective feature efficiency
 
@@ -72,8 +72,8 @@ install.packages("ECoL")
 It is possible to install the development version using:
 
 ```r
-if (!require("devtools")) {
-    install.packages("devtools")
+if(!require("devtools")) {
+  install.packages("devtools")
 }
 devtools::install_github("lpfgarcia/ECoL")
 library("ECoL")
@@ -81,23 +81,33 @@ library("ECoL")
 
 ## Example of use
 
-The simplest way to compute the complexity measures are using the `complexity` method. The method can be called by a symbolic description of the model or by a data frame. The parameters are the dataset, the type of task and the group of measures to be extracted. If it is a classification task, `type` needs to be set as `class`, otherwise `regr` for regression task. The default paramenter is extract all the measures. To extract a specific measure, use the function related with the group. A simple example is given next:
+The simplest way to compute the complexity measures are using the `complexity` method. The method can be called by a symbolic description of the model or by a data frame. The parameters are the dataset the group of measures to be extracted and the summarization functions. If it is a classification task, the response needs to be a factor, otherwise the package will assume a regression task. The default paramenter is extract all the measures. To extract a specific measure, use the function related with the group. A simple example is given next:
 
 ```r
 ## Extract all complexity measures for classification task
-complexity(Species ~ ., iris, type="class")
+complexity(Species ~ ., iris)
 
 ## Extract all complexity measures for regression task
-complexity(speed ~., cars, type="regr")
+complexity(speed ~., cars)
 
 ## Extract all complexity measures using data frame for classification task
-complexity(iris[,1:4], iris[,5], type="class")
+complexity(iris[,1:4], iris[,5])
 
 ## Extract the overlapping measures
-complexity(Species ~ ., iris,  type="class", groups="overlapping")
+complexity(Species ~ ., iris, groups="overlapping")
 
 ## Extract the F1 measure using overlapping function
 overlapping(Species ~ ., iris, measures="F1")
+```
+Several measures return more than one value. To aggregate the returned values, post processed methods can be used. This method can compute `min`, `max`, `mean`, `median`, `kurtosis`, `standard deviation`, among others (see the `post.processing` documentation for more details). The default methods are the `mean` and the `sd`. Next, it is possible to see an example of the use of this method:
+
+```r
+## Extract all measures using min, median and max for classification task
+complexity(Species ~ ., iris, summary=c("min", "median", "max"))
+
+## Extract all measures using min, median and max for regression task
+complexity(speed ~., cars, summary=c("min", "median", "max"))
+
 ```
 
 ## Developer notes

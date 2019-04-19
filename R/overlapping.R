@@ -11,6 +11,9 @@
 #' @param measures A list of measures names or \code{"all"} to include all them.
 #' @param formula A formula to define the class column.
 #' @param data A data.frame dataset contained the input attributes and class.
+#' @param summary A list of summarization functions or empty for all values. See
+#'  \link{summarization} method to more information. (Default: 
+#'  \code{c("mean", "sd")})
 #' @param ... Not used.
 #' @details
 #'  The following measures are allowed for this method:
@@ -46,7 +49,7 @@
 #'    Ramon Llull.
 #'
 #' @examples
-#' ## Extract all overlapping measures
+#' ## Extract all overlapping measures for classification task
 #' data(iris)
 #' overlapping(Species ~ ., iris)
 #' @export
@@ -56,7 +59,8 @@ overlapping <- function(...) {
 
 #' @rdname overlapping
 #' @export
-overlapping.default <- function(x, y, measures="all", ...) {
+overlapping.default <- function(x, y, measures="all", summary=c("mean", "sd"), 
+                                ...) {
 
   if(!is.data.frame(x)) {
     stop("data argument must be a data.frame")
@@ -81,19 +85,25 @@ overlapping.default <- function(x, y, measures="all", ...) {
   }
 
   measures <- match.arg(measures, ls.overlapping(), TRUE)
-  colnames(x) <- make.names(colnames(x))
 
+  if (length(summary) == 0) {
+    summary <- "return"
+  }
+
+  colnames(x) <- make.names(colnames(x), unique=TRUE)
   x <- binarize(x)
   data <- data.frame(x, class=y)
 
   sapply(measures, function(f) {
-    eval(call(paste("c", f, sep="."), data=data))
-  })
+    measure = eval(call(paste("c", f, sep="."), data=data))
+    summarization(measure, summary, f %in% ls.overlapping.multiples(), ...)
+  }, simplify=FALSE)
 }
 
 #' @rdname overlapping
 #' @export
-overlapping.formula <- function(formula, data, measures="all", ...) {
+overlapping.formula <- function(formula, data, measures="all", 
+                                summary=c("mean", "sd"), ...) {
 
   if(!inherits(formula, "formula")) {
     stop("method is only for formula datas")
@@ -107,11 +117,15 @@ overlapping.formula <- function(formula, data, measures="all", ...) {
   attr(modFrame, "terms") <- NULL
 
   overlapping.default(modFrame[, -1, drop=FALSE], modFrame[, 1, drop=FALSE],
-    measures, ...)
+    measures, summary, ...)
 }
 
 ls.overlapping <- function() {
   c("F1", "F1v", "F2", "F3", "F4")
+}
+
+ls.overlapping.multiples <- function() {
+  ls.overlapping()
 }
 
 branch <- function(data, j) {
@@ -141,7 +155,7 @@ c.F1 <- function(data) {
   aux <- rowSums(do.call("cbind", num)) / 
     rowSums(do.call("cbind", den))
 
-  aux <- max(aux, na.rm=TRUE)
+  #aux <- max(aux, na.rm=TRUE)
   aux <- 1/(aux + 1)
   return(aux)
 }
@@ -167,7 +181,8 @@ dvector <- function(data) {
 
 c.F1v <- function(data) {
   data <- ovo(data)
-  aux <- mean(sapply(data, dvector))
+  #aux <- mean(sapply(data, dvector))
+  aux <- sapply(data, dvector)
   aux <- 1/(aux + 1)
   return(aux)
 }
@@ -190,7 +205,8 @@ regionOver <- function(data) {
 c.F2 <- function(data) {
 
   data <- ovo(data)
-  aux <- mean(sapply(data, regionOver))
+  #aux <- mean(sapply(data, regionOver))
+  aux <- sapply(data, regionOver)
   return(aux)
 }
 
@@ -221,7 +237,8 @@ c.F3 <- function(data) {
     colSums(nonOverlap(d))/nrow(d)
   }, d=data)
 
-  aux <- 1 - mean(colMax(aux))
+  #aux <- 1 - mean(colMax(aux))
+  aux <- 1 - colMax(aux)
   return(aux)
 }
 
@@ -249,6 +266,6 @@ c.F4 <- function(data) {
     nrow(removing(d))/nrow(d)
   }, d=data)
 
-  aux <- mean(aux)
+  #aux <- mean(aux)
   return(aux)
 }

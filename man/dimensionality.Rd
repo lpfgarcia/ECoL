@@ -46,12 +46,13 @@ The following measures are allowed for this method:
  }
 }
 \examples{
-## Extract all dimensionality measures
+## Extract all dimensionality measures for classification task
 data(iris)
 dimensionality(Species ~ ., iris)
 
+## Extract all dimensionality measures for regression task
 data(cars)
-correlation(speed~., cars)
+dimensionality(speed ~ ., cars)
 }
 \references{
 Ana C Lorena, Ivan G Costa, Newton Spolaor and Marcilio C P Souto. (2012). 
@@ -60,9 +61,8 @@ Ana C Lorena, Ivan G Costa, Newton Spolaor and Marcilio C P Souto. (2012).
 }
 \seealso{
 Other complexity-measures: \code{\link{balance}},
-  \code{\link{correlation}}, \code{\link{linearity.class}},
-  \code{\link{linearity.regr}}, \code{\link{neighborhood}},
-  \code{\link{network}}, \code{\link{overlapping}},
-  \code{\link{smoothness}}
+  \code{\link{correlation}}, \code{\link{linearity}},
+  \code{\link{neighborhood}}, \code{\link{network}},
+  \code{\link{overlapping}}, \code{\link{smoothness}}
 }
 \concept{complexity-measures}

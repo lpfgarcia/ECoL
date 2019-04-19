@@ -30,12 +30,13 @@
 #'    expression data. Neurocomputing 75, 1, 33--42.
 #'
 #' @examples
-#' ## Extract all dimensionality measures
+#' ## Extract all dimensionality measures for classification task
 #' data(iris)
 #' dimensionality(Species ~ ., iris)
 #'
+#' ## Extract all dimensionality measures for regression task
 #' data(cars)
-#' correlation(speed~., cars)
+#' dimensionality(speed ~ ., cars)
 #' @export
 dimensionality <- function(...) {
   UseMethod("dimensionality")
@@ -62,7 +63,7 @@ dimensionality.default <- function(x, y, measures="all", ...) {
   }
 
   measures <- match.arg(measures, ls.dimensionality(), TRUE)
-  colnames(x) <- make.names(colnames(x))
+  colnames(x) <- make.names(colnames(x), unique=TRUE)
 
   x <- binarize(x)
 

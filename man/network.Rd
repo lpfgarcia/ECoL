@@ -8,10 +8,11 @@
 \usage{
 network(...)
 
-\method{network}{default}(x, y, measures = "all", eps = 0.15, ...)
+\method{network}{default}(x, y, measures = "all", eps = 0.15,
+  summary = c("mean", "sd"), ...)
 
 \method{network}{formula}(formula, data, measures = "all", eps = 0.15,
-  ...)
+  summary = c("mean", "sd"), ...)
 }
 \arguments{
 \item{...}{Not used.}
@@ -23,6 +24,10 @@ network(...)
 \item{measures}{A list of measures names or \code{"all"} to include all them.}
 
 \item{eps}{The percentage of nodes in the graph to be connected.}
+
+\item{summary}{A list of summarization functions or empty for all values. See
+\link{summarization} method to more information. (Default: 
+\code{c("mean", "sd")})}
 
 \item{formula}{A formula to define the class column.}
 
@@ -54,7 +59,7 @@ The following measures are allowed for this method:
  }
 }
 \examples{
-## Extract all network measures
+## Extract all network measures for classification task
 data(iris)
 network(Species ~ ., iris)
 }
@@ -70,8 +75,7 @@ Gleison Morais and Ronaldo C Prati. (2013). Complex Network Measures for
 \seealso{
 Other complexity-measures: \code{\link{balance}},
   \code{\link{correlation}}, \code{\link{dimensionality}},
-  \code{\link{linearity.class}},
-  \code{\link{linearity.regr}}, \code{\link{neighborhood}},
+  \code{\link{linearity}}, \code{\link{neighborhood}},
   \code{\link{overlapping}}, \code{\link{smoothness}}
 }
 \concept{complexity-measures}

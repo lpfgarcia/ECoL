@@ -1,6 +1,6 @@
 Package: ECoL
 Type: Package
-Version: 0.2.0
+Version: 0.3.0
 Date: 2018-02-08
 Title: Complexity Measures for Supervised Problems
 Description: Provides measures to characterize the complexity of classification 
@@ -20,6 +20,8 @@ Imports:
   FNN,
   igraph,
   MASS
+Suggests:
+  testthat
 License: MIT + file LICENSE
 BugReports: https://github.com/lpfgarcia/ECoL/issues
 Encoding: UTF-8

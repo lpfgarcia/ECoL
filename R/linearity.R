@@ -1,19 +1,22 @@
 #' Measures of linearity
 #'
-#' Classification task. The linearity measures try to quantify if it is possible
-#' to separate the classes by a hyperplane. The underlying assumption is that a 
-#' linearly separable problem can be considered simpler than a problem requiring
-#' a non-linear decision boundary.
+#' The linearity measures try to quantify if it is possible to separate the 
+#' labels by a hyperplane or linear function. The underlying assumption is that 
+#' a linearly separable problem can be considered simpler than a problem
+#' requiring a non-linear decision boundary.
 #'
 #' @family complexity-measures
 #' @param x A data.frame contained only the input attributes.
-#' @param y A factor response vector with one label for each row/component of x.
+#' @param y A response vector with one value for each row/component of x.
 #' @param measures A list of measures names or \code{"all"} to include all them.
-#' @param formula A formula to define the class column.
+#' @param formula A formula to define the output column.
 #' @param data A data.frame dataset contained the input attributes and class.
+#' @param summary A list of summarization functions or empty for all values. See
+#'  \link{summarization} method to more information. (Default: 
+#'  \code{c("mean", "sd")})
 #' @param ... Not used.
 #' @details
-#'  The following measures are allowed for this method:
+#'  The following classification measures are allowed for this method:
 #'  \describe{
 #'    \item{"L1"}{Sum of the error distance by linear programming (L1) computes 
 #'      the sum of the distances of incorrectly classified examples to a linear 
@@ -25,6 +28,15 @@
 #'      class and then induce a linear SVM on the original data and measure 
 #'      the error rate in the new data points.}
 #'  }
+#'  The following regression measures are allowed for this method:
+#'  \describe{
+#'    \item{"L1"}{Mean absolute error (L1) averages the absolute values of the 
+#'      residues of a multiple linear regressor.}
+#'    \item{"L2"}{Residuals variance (L2) averages the square of the residuals 
+#'      from a multiple linear regression.}
+#'    \item{"L3"}{Non-linearity of a linear regressor (L3) measures how 
+#'      sensitive the regressor is to the new randomly interpolated points.}
+#'  }
 #' @return A list named by the requested linearity measure.
 #'
 #' @references
@@ -33,17 +45,22 @@
 #'    Ramon Llull.
 #'
 #' @examples
-#' ## Extract all linearity measures
+#' ## Extract all linearity measures for classification task
 #' data(iris)
-#' linearity.class(Species ~ ., iris)
+#' linearity(Species ~ ., iris)
+#'
+#' ## Extract all linearity measures for regression task
+#' data(cars)
+#' linearity(speed ~ ., cars)
 #' @export
-linearity.class <- function(...) {
-  UseMethod("linearity.class")
+linearity <- function(...) {
+  UseMethod("linearity")
 }
 
-#' @rdname linearity.class
+#' @rdname linearity
 #' @export
-linearity.class.default <- function(x, y, measures="all", ...) {
+linearity.default <- function(x, y, measures="all", 
+                                    summary=c("mean", "sd"), ...) {
 
   if(!is.data.frame(x)) {
     stop("data argument must be a data.frame")
@@ -53,10 +70,12 @@ linearity.class.default <- function(x, y, measures="all", ...) {
     y <- y[, 1]
   }
 
-  y <- as.factor(y)
-
-  if(min(table(y)) < 2) {
-    stop("number of examples in the minority class should be >= 2")
+  foo <- "regression"
+  if(is.factor(y)) {
+    foo <- "classification"
+    if(min(table(y)) < 2) {
+      stop("number of examples in the minority class should be >= 2")
+    }
   }
 
   if(nrow(x) != length(y)) {
@@ -64,24 +83,23 @@ linearity.class.default <- function(x, y, measures="all", ...) {
   }
 
   if(measures[1] == "all") {
-    measures <- ls.linearity.class()
+    measures <- ls.linearity()
   }
 
-  measures <- match.arg(measures, ls.linearity.class(), TRUE)
-  colnames(x) <- make.names(colnames(x))
+  measures <- match.arg(measures, ls.linearity(), TRUE)
 
-  data <- data.frame(x, class=y)
-  data <- ovo(data)
+  if (length(summary) == 0) {
+    summary <- "return"
+  }
 
-  model <- lapply(data, smo)
-  sapply(measures, function(f) {
-    eval(call(paste("c", f, sep="."), model=model, data=data))
-  })
+  colnames(x) <- make.names(colnames(x), unique=TRUE)
+  eval(call(foo, x=x, y=y, measures=measures, summary=summary))
 }
 
-#' @rdname linearity.class
+#' @rdname linearity
 #' @export
-linearity.class.formula <- function(formula, data, measures="all", ...) {
+linearity.formula <- function(formula, data, measures="all", 
+                                    summary=c("mean", "sd"), ...) {
 
   if(!inherits(formula, "formula")) {
     stop("method is only for formula datas")
@@ -94,12 +112,43 @@ linearity.class.formula <- function(formula, data, measures="all", ...) {
   modFrame <- stats::model.frame(formula, data)
   attr(modFrame, "terms") <- NULL
 
-  linearity.class.default(modFrame[, -1, drop=FALSE], modFrame[, 1, drop=FALSE],
-    measures, ...)
+  linearity.default(modFrame[, -1, drop=FALSE], modFrame[, 1, drop=FALSE],
+    measures, summary, ...)
 }
 
-ls.linearity.class <- function() {
+classification <- function(x, y, measures, summary, ...) {
+
+  data <- data.frame(x, class=y)
+  data <- ovo(data)
+
+  model <- lapply(data, smo)
+  sapply(measures, function(f) {
+    measure = eval(call(paste("c", f, sep="."), model=model, data=data))
+    summarization(measure, summary, f %in% ls.linearity.multiples(), ...)
+  }, simplify=FALSE)
+}
+
+regression <- function(x, y, measures, summary, ...) {
+
+  x <- normalize(x)
+  y <- normalize(y)[,1]
+
+  x <- x[order(y), ,drop=FALSE]
+  y <- y[order(y)]
+
+  model <- stats::lm(y ~ ., cbind(y=y, x))
+  sapply(measures, function(f) {
+    measure = eval(call(paste("r", f, sep="."), m=model, x=x, y=y))
+    summarization(measure, summary, f %in% ls.linearity.multiples(), ...)
+  }, simplify=FALSE)
+}
+
+ls.linearity <- function() {
   c("L1", "L2", "L3")
+}
+
+ls.linearity.multiples <- function() {
+  ls.linearity()
 }
 
 smo <- function(data) {
@@ -115,8 +164,9 @@ c.L1 <- function(model, data) {
     sum(abs(dst))/nrow(d)
   }, m=model, d=data)
 
-  aux <- 1/(mean(aux) + 1)
-  aux <- 1 - aux
+  #aux <- 1/(mean(aux) + 1)
+  #aux <- 1 - aux
+  aux <- 1 - 1/(aux + 1)
   return(aux)
 }
 
@@ -131,7 +181,8 @@ c.L2 <- function(model, data) {
     error(prd, d$class)
   }, m=model, d=data)
 
-  return(mean(aux))
+  #return(mean(aux))
+  return(aux)
 }
 
 c.L3 <- function(model, data) {
@@ -142,121 +193,23 @@ c.L3 <- function(model, data) {
     error(prd, tmp$class)
   }, m=model, d=data)
 
-  return(mean(aux))
-}
-
-#' Measures of linearity
-#'
-#' Regression task. These measures capture whether a linear function provides a 
-#' good fit to the problem. If this is the case, the problem can be considered 
-#' simpler than one in which a non-linear function is required.
-#'
-#' @family complexity-measures
-#' @param x A data.frame contained only the input attributes.
-#' @param y A response vector with one value for each row/component of x.
-#' @param measures A list of measures names or \code{"all"} to include all them.
-#' @param formula A formula to define the output column.
-#' @param data A data.frame dataset contained the input and output attributes.
-#' @param ... Not used.
-#' @details
-#'  The following measures are allowed for this method:
-#'  \describe{
-#'    \item{"L1"}{Mean absolute error (L1) averages the absolute values of the 
-#'      residues of a multiple linear regressor.}
-#'    \item{"L2"}{Residuals variance (L2) averages the square of the residuals 
-#'      from a multiple linear regression.}
-#'    \item{"L3"}{Non-linearity of a linear regressor (L3) measures how 
-#'      sensitive the regressor is to the new randomly interpolated points.}
-#'  }
-#' @return A list named by the requested linearity measure.
-#'
-#' @references
-#'  Ana C Lorena and Aron I Maciel and Pericles B C Miranda and Ivan G Costa and
-#'    Ricardo B C Prudencio. (2018). Data complexity meta-features for 
-#'    regression problems. Machine Learning, 107, 1, 209--246.
-#'
-#' @examples
-#' ## Extract all regression linearity measures
-#' data(cars)
-#' linearity.regr(speed~., cars)
-#' @export
-linearity.regr <- function(...) {
-  UseMethod("linearity.regr")
-}
-
-#' @rdname linearity.regr
-#' @export
-linearity.regr.default <- function(x, y, measures="all", ...) {
-
-  if(!is.data.frame(x)) {
-    stop("data argument must be a data.frame")
-  }
-
-  if(is.data.frame(y)) {
-    y <- y[, 1]
-  }
-
-  if(is.factor(y)) {
-    stop("label attribute needs to be numeric")
-  }
-
-  if(nrow(x) != length(y)) {
-    stop("x and y must have same number of rows")
-  }
-
-  if(measures[1] == "all") {
-    measures <- ls.linearity.regr()
-  }
-
-  measures <- match.arg(measures, ls.linearity.regr(), TRUE)
-  colnames(x) <- make.names(colnames(x))
-
-  x <- normalize(x)
-  y <- normalize(y)[,1]
-
-  x <- x[order(y), ,drop=FALSE]
-  y <- y[order(y)]
-
-  m <- stats::lm(y ~ ., cbind(y=y, x))
-
-  sapply(measures, function(f) {
-    eval(call(paste("r", f, sep="."), m=m, x=x, y=y))
-  })
-}
-
-#' @rdname linearity.regr
-#' @export
-linearity.regr.formula <- function(formula, data, measures="all", ...) {
-
-  if(!inherits(formula, "formula")) {
-    stop("method is only for formula datas")
-  }
-
-  if(!is.data.frame(data)) {
-    stop("data argument must be a data.frame")
-  }
-
-  modFrame <- stats::model.frame(formula, data)
-  attr(modFrame, "terms") <- NULL
-
-  linearity.regr.default(modFrame[, -1, drop=FALSE], modFrame[, 1, drop=FALSE],
-    measures, ...)
-}
-
-ls.linearity.regr <- function() {
-  c("L1", "L2", "L3")
+  #return(mean(aux))
+  return(aux)
 }
 
 r.L1 <- function(m, ...) {
-  mean(abs(m$residuals))
+  #mean(abs(m$residuals))
+  abs(m$residuals)
 }
 
 r.L2 <- function(m, ...) {
+  #mean(m$residuals^2)
   mean(m$residuals^2)
 }
 
 r.L3 <- function(m, x, y) {
   test <- r.generate(x, y, nrow(x))
   pred <- stats::predict.lm(m, test[, -ncol(test), drop=FALSE])
-  mean((pred - test[, ncol(test)])^2)
+  #mean((pred - test[, ncol(test)])^2)
+  (pred - test[, ncol(test)])^2
 }

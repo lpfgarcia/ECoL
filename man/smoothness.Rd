@@ -8,9 +8,11 @@
 \usage{
 smoothness(...)
 
-\method{smoothness}{default}(x, y, measures = "all", ...)
+\method{smoothness}{default}(x, y, measures = "all",
+  summary = c("mean", "sd"), ...)
 
-\method{smoothness}{formula}(formula, data, measures = "all", ...)
+\method{smoothness}{formula}(formula, data, measures = "all",
+  summary = c("mean", "sd"), ...)
 }
 \arguments{
 \item{...}{Not used.}
@@ -20,6 +22,10 @@ smoothness(...)
 \item{y}{A response vector with one value for each row/component of x.}
 
 \item{measures}{A list of measures names or \code{"all"} to include all them.}
+
+\item{summary}{A list of summarization functions or empty for all values. See
+\link{summarization} method to more information. (Default: 
+\code{c("mean", "sd")})}
 
 \item{formula}{A formula to define the output column.}
 
@@ -51,9 +57,9 @@ The following measures are allowed for this method:
  }
 }
 \examples{
-## Extract all smoothness measures
+## Extract all smoothness measures for regression task
 data(cars)
-smoothness(speed~., cars)
+smoothness(speed ~ ., cars)
 }
 \references{
 Ana C Lorena and Aron I Maciel and Pericles B C Miranda and Ivan G Costa and
@@ -63,8 +69,7 @@ Ana C Lorena and Aron I Maciel and Pericles B C Miranda and Ivan G Costa and
 \seealso{
 Other complexity-measures: \code{\link{balance}},
   \code{\link{correlation}}, \code{\link{dimensionality}},
-  \code{\link{linearity.class}},
-  \code{\link{linearity.regr}}, \code{\link{neighborhood}},
+  \code{\link{linearity}}, \code{\link{neighborhood}},
   \code{\link{network}}, \code{\link{overlapping}}
 }
 \concept{complexity-measures}

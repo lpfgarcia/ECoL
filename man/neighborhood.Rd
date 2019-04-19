@@ -8,9 +8,11 @@
 \usage{
 neighborhood(...)
 
-\method{neighborhood}{default}(x, y, measures = "all", ...)
+\method{neighborhood}{default}(x, y, measures = "all",
+  summary = c("mean", "sd"), ...)
 
-\method{neighborhood}{formula}(formula, data, measures = "all", ...)
+\method{neighborhood}{formula}(formula, data, measures = "all",
+  summary = c("mean", "sd"), ...)
 }
 \arguments{
 \item{...}{Not used.}
@@ -20,6 +22,10 @@ neighborhood(...)
 \item{y}{A factor response vector with one label for each row/component of x.}
 
 \item{measures}{A list of measures names or \code{"all"} to include all them.}
+
+\item{summary}{A list of summarization functions or empty for all values. See
+\link{summarization} method to more information. (Default: 
+\code{c("mean", "sd")})}
 
 \item{formula}{A formula to define the class column.}
 
@@ -67,7 +73,7 @@ The following measures are allowed for this method:
  }
 }
 \examples{
-## Extract all neighborhood measures
+## Extract all neighborhood measures for classification task
 data(iris)
 neighborhood(Species ~ ., iris)
 }
@@ -83,8 +89,7 @@ Albert Orriols-Puig, Nuria Macia and Tin K Ho. (2010). Documentation for the
 \seealso{
 Other complexity-measures: \code{\link{balance}},
   \code{\link{correlation}}, \code{\link{dimensionality}},
-  \code{\link{linearity.class}},
-  \code{\link{linearity.regr}}, \code{\link{network}},
+  \code{\link{linearity}}, \code{\link{network}},
   \code{\link{overlapping}}, \code{\link{smoothness}}
 }
 \concept{complexity-measures}

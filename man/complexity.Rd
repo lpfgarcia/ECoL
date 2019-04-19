@@ -8,9 +8,11 @@
 \usage{
 complexity(...)
 
-\method{complexity}{default}(x, y, type, groups = "all", ...)
+\method{complexity}{default}(x, y, groups = "all", summary = c("mean",
+  "sd"), ...)
 
-\method{complexity}{formula}(formula, data, type, groups = "all", ...)
+\method{complexity}{formula}(formula, data, groups = "all",
+  summary = c("mean", "sd"), ...)
 }
 \arguments{
 \item{...}{Not used.}
@@ -19,11 +21,12 @@ complexity(...)
 
 \item{y}{A response vector with one value for each row/component of x.}
 
-\item{type}{The type of supervised problem: The \code{"class"} is used for 
-classification tasks and \code{"regr"} for regression tasks.}
-
 \item{groups}{A list of complexity measures groups or \code{"all"} to include
 all of them.}
+
+\item{summary}{A list of summarization functions or empty for all values. See
+\link{summarization} method to more information. (Default: 
+\code{c("mean", "sd")})}
 
 \item{formula}{A formula to define the output column.}
 
@@ -49,9 +52,8 @@ The following groups are allowed for this method:
    \item{"neighborhood"}{Neighborhood measures characterize the presence and 
      density of same or different classes in local neighborhoods. See 
      \link{neighborhood} for more details.}
-   \item{"linearity"}{Linearity measures try to quantify whether the classes 
-     can be linearly separated. See \link{linearity.class} or 
-     \link{linearity.regr} for more details.}
+   \item{"linearity"}{Linearity measures try to quantify whether the labels 
+     can be linearly separated. See \link{linearity} for more details.}
    \item{"dimensionality"}{The dimensionality measures compute information on
      how smoothly the examples are distributed within the attributes. See 
      \link{dimensionality} for more details.}
@@ -69,11 +71,11 @@ The following groups are allowed for this method:
 \examples{
 ## Extract all complexity measures for classification task
 data(iris)
-complexity(Species ~ ., iris, type="class")
+complexity(Species ~ ., iris)
 
 ## Extract all complexity measures for regression task
 data(cars)
-complexity(speed~., cars, type="regr")
+complexity(speed ~ ., cars)
 }
 \references{
 Tin K Ho and Mitra Basu. (2002). Complexity measures of supervised 

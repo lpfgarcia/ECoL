@@ -10,6 +10,9 @@
 #' @param measures A list of measures names or \code{"all"} to include all them.
 #' @param formula A formula to define the output column.
 #' @param data A data.frame dataset contained the input and output attributes.
+#' @param summary A list of summarization functions or empty for all values. See
+#'  \link{summarization} method to more information. (Default: 
+#'  \code{c("mean", "sd")})
 #' @param ... Not used.
 #' @details
 #'  The following measures are allowed for this method:
@@ -34,9 +37,9 @@
 #'    regression problems. Machine Learning, 107, 1, 209--246.
 #'
 #' @examples
-#' ## Extract all correlation measures
+#' ## Extract all correlation measures for regression task
 #' data(cars)
-#' correlation(speed~., cars)
+#' correlation(speed ~ ., cars)
 #' @export
 correlation <- function(...) {
   UseMethod("correlation")
@@ -44,7 +47,8 @@ correlation <- function(...) {
 
 #' @rdname correlation
 #' @export
-correlation.default <- function(x, y, measures="all", ...) {
+correlation.default <- function(x, y, measures="all", summary=c("mean", "sd"), 
+                                ...) {
 
   if(!is.data.frame(x)) {
     stop("data argument must be a data.frame")
@@ -67,19 +71,25 @@ correlation.default <- function(x, y, measures="all", ...) {
   }
 
   measures <- match.arg(measures, ls.correlation(), TRUE)
-  colnames(x) <- make.names(colnames(x))
 
+  if (length(summary) == 0) {
+    summary <- "return"
+  }
+
+  colnames(x) <- make.names(colnames(x), unique=TRUE)
   x <- normalize(binarize(x))
   y <- normalize(y)[,1]
 
   sapply(measures, function(f) {
-    eval(call(paste("r", f, sep="."), x=x, y=y))
-  })
+    measure = eval(call(paste("r", f, sep="."), x=x, y=y))
+    summarization(measure, summary, f %in% ls.correlation.multiples(), ...)
+  }, simplify=FALSE)
 }
 
 #' @rdname correlation
 #' @export
-correlation.formula <- function(formula, data, measures="all", ...) {
+correlation.formula <- function(formula, data, measures="all", 
+                                summary=c("mean", "sd"), ...) {
 
   if(!inherits(formula, "formula")) {
     stop("method is only for formula datas")
@@ -93,22 +103,23 @@ correlation.formula <- function(formula, data, measures="all", ...) {
   attr(modFrame, "terms") <- NULL
 
   correlation.default(modFrame[, -1,drop=FALSE], modFrame[, 1,drop=FALSE],
-    measures, ...)
+    measures, summary, ...)
 }
 
 ls.correlation <- function() {
-  c("C1", "C2", "C3", "C4")
+  c("C2", "C3", "C4")
 }
 
-r.C1 <- function(x, y) {
-  max(abs(stats::cor(x, y, method="spearman")))
+ls.correlation.multiples <- function() {
+  c("C2", "C3")
 }
 
 r.C2 <- function(x, y) {
-  mean(abs(stats::cor(x, y, method="spearman")))
+  #mean(abs(stats::cor(x, y, method="spearman")))
+  as.numeric(abs(stats::cor(x, y, method="spearman")))
 }
 
-remove <- function(y, x, c) {
+remove <- function(x, y, c) {
 
   remainingRows <- length(x)
   xorder <- rank(x)
@@ -144,7 +155,8 @@ remove <- function(y, x, c) {
 }
 
 r.C3 <- function(x, y, c=0.9) {
-  min(apply(x, 2, remove, y, c))
+  #min(apply(x, 2, remove, y, c))
+  as.numeric(apply(x, 2, remove, y, c))
 }
 
 r.C4 <- function(x, y, r=0.1) {

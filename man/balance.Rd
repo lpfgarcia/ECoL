@@ -45,7 +45,7 @@ The following measures are allowed for this method:
  }
 }
 \examples{
-## Extract all balance measures
+## Extract all balance measures for classification task
 data(iris)
 balance(Species ~ ., iris)
 }
@@ -60,10 +60,8 @@ Ana C Lorena, Ivan G Costa, Newton Spolaor and Marcilio C P Souto. (2012).
 }
 \seealso{
 Other complexity-measures: \code{\link{correlation}},
-  \code{\link{dimensionality}},
-  \code{\link{linearity.class}},
-  \code{\link{linearity.regr}}, \code{\link{neighborhood}},
-  \code{\link{network}}, \code{\link{overlapping}},
-  \code{\link{smoothness}}
+  \code{\link{dimensionality}}, \code{\link{linearity}},
+  \code{\link{neighborhood}}, \code{\link{network}},
+  \code{\link{overlapping}}, \code{\link{smoothness}}
 }
 \concept{complexity-measures}

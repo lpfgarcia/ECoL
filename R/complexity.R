@@ -13,8 +13,9 @@
 #'  all of them.
 #' @param formula A formula to define the output column.
 #' @param data A data.frame dataset contained the input and output attributes.
-#' @param type The type of supervised problem: The \code{"class"} is used for 
-#'  classification tasks and \code{"regr"} for regression tasks.
+#' @param summary A list of summarization functions or empty for all values. See
+#'  \link{summarization} method to more information. (Default: 
+#'  \code{c("mean", "sd")})
 #' @param ... Not used.
 #' @details
 #'  The following groups are allowed for this method:
@@ -25,9 +26,8 @@
 #'    \item{"neighborhood"}{Neighborhood measures characterize the presence and 
 #'      density of same or different classes in local neighborhoods. See 
 #'      \link{neighborhood} for more details.}
-#'    \item{"linearity"}{Linearity measures try to quantify whether the classes 
-#'      can be linearly separated. See \link{linearity.class} or 
-#'      \link{linearity.regr} for more details.}
+#'    \item{"linearity"}{Linearity measures try to quantify whether the labels 
+#'      can be linearly separated. See \link{linearity} for more details.}
 #'    \item{"dimensionality"}{The dimensionality measures compute information on
 #'      how smoothly the examples are distributed within the attributes. See 
 #'      \link{dimensionality} for more details.}
@@ -59,11 +59,11 @@
 #' @examples
 #' ## Extract all complexity measures for classification task
 #' data(iris)
-#' complexity(Species ~ ., iris, type="class")
+#' complexity(Species ~ ., iris)
 #'
 #' ## Extract all complexity measures for regression task
 #' data(cars)
-#' complexity(speed~., cars, type="regr")
+#' complexity(speed ~ ., cars)
 #' @export
 complexity <- function(...) {
   UseMethod("complexity")
@@ -71,7 +71,8 @@ complexity <- function(...) {
 
 #' @rdname complexity
 #' @export
-complexity.default <- function(x, y, type, groups="all", ...) {
+complexity.default <- function(x, y, groups="all", summary=c("mean", "sd"), 
+                               ...) {
 
   if(!is.data.frame(x)) {
     stop("data argument must be a data.frame")
@@ -81,13 +82,13 @@ complexity.default <- function(x, y, type, groups="all", ...) {
     y <- y[, 1]
   }
 
-  type <- match.arg(type, c("class", "regr"), TRUE)
-
-  if(type == "class") {
+  type <- "regr"
+  if(is.factor(y)) {
+    type <- "class"
     if(min(table(y)) < 2) {
       stop("number of examples in the minority class should be >= 2")
     }
-  } 
+  }
 
   if(nrow(x) != length(y)) {
     stop("x and y must have same number of rows")
@@ -98,18 +99,24 @@ complexity.default <- function(x, y, type, groups="all", ...) {
   }
 
   groups <- match.arg(groups, ls.complexity(type), TRUE)
-  colnames(x) <- make.names(colnames(x))
+
+  if (length(summary) == 0) {
+    summary <- "return"
+  }
+
+  colnames(x) <- make.names(colnames(x), unique=TRUE)
 
   unlist(
     sapply(groups, function(group) {
-      do.call(group, list(x=x, y=y, ...))
+      do.call(group, list(x=x, y=y, summary=summary, ...))
     }, simplify=FALSE)
   )
 }
 
 #' @rdname complexity
 #' @export
-complexity.formula <- function(formula, data, type, groups="all", ...) {
+complexity.formula <- function(formula, data, groups="all", 
+                               summary=c("mean", "sd"), ...) {
 
   if(!inherits(formula, "formula")) {
     stop("method is only for formula datas")
@@ -123,17 +130,19 @@ complexity.formula <- function(formula, data, type, groups="all", ...) {
   attr(modFrame, "terms") <- NULL
 
   complexity.default(modFrame[, -1, drop=FALSE], modFrame[, 1, drop=FALSE],
-    type, groups, ...)
+    groups, summary, ...)
 }
 
 ls.complexity <- function(type) {
 
   switch(type,
     class = {
-      c("overlapping", "neighborhood", "linearity.class", "dimensionality",
+      c("overlapping", "neighborhood", 
+        "linearity", "dimensionality",
         "balance", "network")
     }, regr = {
-      c("correlation", "linearity.regr", "smoothness", "dimensionality")
+      c("correlation", "linearity", 
+        "smoothness", "dimensionality")
     }
   )
 }
