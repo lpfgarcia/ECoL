@@ -48,6 +48,16 @@ test_that("iqr.result", {
   expect_equal(as.numeric(aux), 4.5)
 })
 
+test_that("histogran.result", {
+
+  aux = summarization(1:10, summary="histogram")
+  expect_equal(as.numeric(aux), rep(0.1, 10))
+})
+
+test_that("na.result", {
+  expect_equal(summarization(NULL), NA)
+})
+
 test_that("validation.error",{
   expect_error(summarization(c(1,2), multiple=FALSE))
 })
