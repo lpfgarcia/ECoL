@@ -64,7 +64,7 @@ summarization <- function(measure, summary=c("mean", "sd"), multiple=TRUE,
 
   if(!multiple) {
     if(length(measure) > 1) {
-      warning("More than one value was obtained for a single measure")
+      stop("More than one value was obtained for a single measure")
     }
     measure = as.numeric(measure[1])
     return(measure)
