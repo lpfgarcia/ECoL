@@ -47,4 +47,8 @@ test_that("validation.error",{
 
   expect_error(overlapping(Species ~ ., iris, measures="L1"))
   expect_error(overlapping(Species ~ ., iris, measures="L2", summary="abc"))
+
+  expect_error(overlapping(speed ~ ., cars))
+  expect_error(overlapping(speed ~ ., cars, measures="L1"))
+  expect_error(overlapping(speed ~ ., cars, measures="L2", summary="abc"))
 })
