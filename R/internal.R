@@ -8,7 +8,7 @@ colMax <- function(x) {
 }
 
 dist <- function(x) {
-  as.matrix(cluster::daisy(x, metric="gower", stand=TRUE))
+  as.matrix(cluster::daisy(x, metric="gower", stand=TRUE, warnBin=FALSE))
 }
 
 form <- function(x) {
