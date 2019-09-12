@@ -69,9 +69,11 @@ maxmin <- function(x) {
 normalize <- function(x) {
 
   x <- as.data.frame(x)
-  for(i in 1:ncol(x))
+  for(i in 1:ncol(x)) {
     if(is.numeric(x[,i]))
-      x[,i] <- maxmin(x[,i])
+      if(length(unique(x[,i])) != 1)
+        x[,i] <- maxmin(x[,i])
+  }
   return(x)
 }
 

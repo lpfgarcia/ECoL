@@ -10,7 +10,7 @@ test_that("multiclass.result", {
 
   set.seed(123)
   aux = linearity(Species ~ ., iris, measures="L3", summary="mean")
-  expect_equal(as.numeric(aux$L3), 0.006666667)
+  expect_equal(as.numeric(aux$L3), 0.01)
 })
 
 test_that("binary1.result", {

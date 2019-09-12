@@ -13,7 +13,7 @@ test_that("multiclass.result", {
 
   set.seed(123)
   aux = neighborhood(Species ~ ., iris, measures="N4", summary="mean")
-  expect_equal(as.numeric(aux$N4), 0.01333333)
+  expect_equal(as.numeric(aux$N4), 0.00666667)
 
   aux = neighborhood(Species ~ ., iris, measures="T1", summary="return")
   aux = length(aux$T1)/nrow(iris)
