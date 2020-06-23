@@ -17,7 +17,7 @@ The measures can be divided into two groups: classification and regression measu
 * F3: Maximum individual feature efficiency
 * F4: Cllective feature efficiency
 
-**Measures of neighborhood information** 
+**Neighborhood information** 
 
 * N1: Fraction of points lying on the class boundary
 * N2: Average intra/inter class nearest neighbor distances
@@ -26,36 +26,36 @@ The measures can be divided into two groups: classification and regression measu
 * N5: Fraction of maximum covering spheres on data
 * N6: Local-Set cardinality average
 
-**Measures of linearity** 
+**Linearity** 
 
 * L1: Distance of erroneous instances to a linear classifier
 * L2: Training error of a linear classifier
 * L3: Nonlinearity of a linear classifier
 
-**Measures of dimensionality**
+**Dimensionality**
 
 * D1: Average number of samples per dimension
 * D2: Average intrinsic dimensionality  per number of examples
 * D3: Intrinsic dimensionality proportion
 
-**Measures of class balance**
+**Class balance**
 
 * B1: Entropy of class proportions
 * B2: Multi-class imbalance ratio
 
-**Measures of structural representation**
+**Structural representation**
 
 * G1: Average density of network
 * G2: Clustering Coefficient
 * G3: Average hub score
 
-**Measures of feature correlation**
+**Feature correlation**
 
 * C2: Feature correlation to the output
 * C3: Individual feature efficiency
 * C4: Collective feature efficiency
 
-**Measures of smoothness**
+**Smoothness**
 
 * S1: Output distribution
 * S2: Input distribution
