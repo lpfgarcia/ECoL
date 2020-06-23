@@ -36,12 +36,12 @@ more difficult to extract good classification and regression models.
 \details{
 The following measures are allowed for this method:
  \describe{
-   \item{"T2"}{Average number of points per dimension (T2) is given by the 
+   \item{"D1"}{Average number of points per dimension (D1) is given by the 
      ratio between the number of examples and dimensionality of the dataset.}
-   \item{"T3"}{Average number of points per PCA (T3) is similar to T2, but 
+   \item{"D2"}{Average number of points per PCA (D2) is similar to T2, but 
      uses the number of PCA components needed to represent 95% of data 
      variability as the base of data sparsity assessment.}
-   \item{"T4"}{Ratio of the PCA Dimension to the Original (T4) estimates the
+   \item{"D3"}{Ratio of the PCA Dimension to the Original (D3) estimates the
      proportion of relevant and the original dimensions for a dataset.}
  }
 }
@@ -60,9 +60,13 @@ Ana C Lorena, Ivan G Costa, Newton Spolaor and Marcilio C P Souto. (2012).
    expression data. Neurocomputing 75, 1, 33--42.
 }
 \seealso{
-Other complexity-measures: \code{\link{balance}},
-  \code{\link{correlation}}, \code{\link{linearity}},
-  \code{\link{neighborhood}}, \code{\link{network}},
-  \code{\link{overlapping}}, \code{\link{smoothness}}
+Other complexity-measures: 
+\code{\link{balance}()},
+\code{\link{correlation}()},
+\code{\link{featurebased}()},
+\code{\link{linearity}()},
+\code{\link{neighborhood}()},
+\code{\link{network}()},
+\code{\link{smoothness}()}
 }
 \concept{complexity-measures}

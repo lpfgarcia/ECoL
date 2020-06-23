@@ -8,11 +8,9 @@
 \usage{
 correlation(...)
 
-\method{correlation}{default}(x, y, measures = "all",
-  summary = c("mean", "sd"), ...)
+\method{correlation}{default}(x, y, measures = "all", summary = c("mean", "sd"), ...)
 
-\method{correlation}{formula}(formula, data, measures = "all",
-  summary = c("mean", "sd"), ...)
+\method{correlation}{formula}(formula, data, measures = "all", summary = c("mean", "sd"), ...)
 }
 \arguments{
 \item{...}{Not used.}
@@ -66,9 +64,13 @@ Ana C Lorena and Aron I Maciel and Pericles B C Miranda and Ivan G Costa and
    regression problems. Machine Learning, 107, 1, 209--246.
 }
 \seealso{
-Other complexity-measures: \code{\link{balance}},
-  \code{\link{dimensionality}}, \code{\link{linearity}},
-  \code{\link{neighborhood}}, \code{\link{network}},
-  \code{\link{overlapping}}, \code{\link{smoothness}}
+Other complexity-measures: 
+\code{\link{balance}()},
+\code{\link{dimensionality}()},
+\code{\link{featurebased}()},
+\code{\link{linearity}()},
+\code{\link{neighborhood}()},
+\code{\link{network}()},
+\code{\link{smoothness}()}
 }
 \concept{complexity-measures}

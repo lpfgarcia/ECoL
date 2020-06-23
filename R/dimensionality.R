@@ -14,12 +14,12 @@
 #' @details
 #'  The following measures are allowed for this method:
 #'  \describe{
-#'    \item{"T2"}{Average number of points per dimension (T2) is given by the 
+#'    \item{"D1"}{Average number of points per dimension (D1) is given by the 
 #'      ratio between the number of examples and dimensionality of the dataset.}
-#'    \item{"T3"}{Average number of points per PCA (T3) is similar to T2, but 
+#'    \item{"D2"}{Average number of points per PCA (D2) is similar to T2, but 
 #'      uses the number of PCA components needed to represent 95% of data 
 #'      variability as the base of data sparsity assessment.}
-#'    \item{"T4"}{Ratio of the PCA Dimension to the Original (T4) estimates the
+#'    \item{"D3"}{Ratio of the PCA Dimension to the Original (D3) estimates the
 #'      proportion of relevant and the original dimensions for a dataset.}
 #'  }
 #' @return A list named by the requested dimensionality measure.
@@ -92,7 +92,7 @@ dimensionality.formula <- function(formula, data, measures="all", ...) {
 }
 
 ls.dimensionality <- function() {
-  c("T2", "T3", "T4")
+  c("D1", "D2", "D3")
 }
 
 pca <- function(x) {
@@ -101,14 +101,14 @@ pca <- function(x) {
   return(tmp)
 }
 
-c.T2 <- function(x) {
+c.D1 <- function(x) {
   ncol(x)/nrow(x)
 }
 
-c.T3 <- function(x) {
+c.D2 <- function(x) {
   pca(x)/nrow(x)
 }
 
-c.T4 <- function(x) {
+c.D3 <- function(x) {
   pca(x)/ncol(x)
 }

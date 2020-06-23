@@ -8,11 +8,9 @@
 \usage{
 smoothness(...)
 
-\method{smoothness}{default}(x, y, measures = "all",
-  summary = c("mean", "sd"), ...)
+\method{smoothness}{default}(x, y, measures = "all", summary = c("mean", "sd"), ...)
 
-\method{smoothness}{formula}(formula, data, measures = "all",
-  summary = c("mean", "sd"), ...)
+\method{smoothness}{formula}(formula, data, measures = "all", summary = c("mean", "sd"), ...)
 }
 \arguments{
 \item{...}{Not used.}
@@ -67,9 +65,13 @@ Ana C Lorena and Aron I Maciel and Pericles B C Miranda and Ivan G Costa and
    regression problems. Machine Learning, 107, 1, 209--246.
 }
 \seealso{
-Other complexity-measures: \code{\link{balance}},
-  \code{\link{correlation}}, \code{\link{dimensionality}},
-  \code{\link{linearity}}, \code{\link{neighborhood}},
-  \code{\link{network}}, \code{\link{overlapping}}
+Other complexity-measures: 
+\code{\link{balance}()},
+\code{\link{correlation}()},
+\code{\link{dimensionality}()},
+\code{\link{featurebased}()},
+\code{\link{linearity}()},
+\code{\link{neighborhood}()},
+\code{\link{network}()}
 }
 \concept{complexity-measures}

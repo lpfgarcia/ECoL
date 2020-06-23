@@ -15,12 +15,11 @@ test_that("multiclass.result", {
   aux = neighborhood(Species ~ ., iris, measures="N4", summary="mean")
   expect_equal(as.numeric(aux$N4), 0.00666667)
 
-  aux = neighborhood(Species ~ ., iris, measures="T1", summary="return")
-  aux = length(aux$T1)/nrow(iris)
-  expect_equal(aux, 0.12000000)
+  aux = neighborhood(Species ~ ., iris, measures="N5", summary="return")
+  expect_equal(aux$N5, 0.12)
 
-  aux = neighborhood(Species ~ ., iris, measures="LSC", summary="mean")
-  expect_equal(as.numeric(aux$LSC), 0.816400000)
+  aux = neighborhood(Species ~ ., iris, measures="N6", summary="mean")
+  expect_equal(as.numeric(aux$N6), 0.816400000)
 })
 
 test_that("validation.error",{

@@ -15,9 +15,9 @@
 #' @details
 #'  The following measures are allowed for this method:
 #'  \describe{
-#'    \item{"C1"}{The entropy of class proportions (C1) capture the imbalance in
+#'    \item{"B1"}{The entropy of class proportions (B1) capture the imbalance in
 #'      a dataset based on the proportions of examples per class.}
-#'    \item{"C2"}{The imbalance ratio (C2) is an index computed for measuring
+#'    \item{"B2"}{The imbalance ratio (B2) is an index computed for measuring
 #'      class balance. This is a version of the measure that is also suited for 
 #'      multiclass classification problems.}
 #'  }
@@ -90,17 +90,17 @@ balance.formula <- function(formula, data, measures="all", ...) {
 }
 
 ls.balance <- function() {
-  c("C1", "C2")
+  c("B1", "B2")
 }
 
-c.C1 <- function(y) {
+c.B1 <- function(y) {
   c <- -1/log(nlevels(y))
   i <- table(y)/length(y)
-  aux <- c*sum(i*log(i))
+  aux <- 1 - c*sum(i*log(i))
   return(aux)
 }
 
-c.C2 <- function(y) {
+c.B2 <- function(y) {
   ii <- summary(y)
   nc <- length(ii)
   aux <- ((nc - 1)/nc) * sum(ii/(length(y) - ii))

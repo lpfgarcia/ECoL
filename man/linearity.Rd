@@ -8,11 +8,9 @@
 \usage{
 linearity(...)
 
-\method{linearity}{default}(x, y, measures = "all", summary = c("mean",
-  "sd"), ...)
+\method{linearity}{default}(x, y, measures = "all", summary = c("mean", "sd"), ...)
 
-\method{linearity}{formula}(formula, data, measures = "all",
-  summary = c("mean", "sd"), ...)
+\method{linearity}{formula}(formula, data, measures = "all", summary = c("mean", "sd"), ...)
 }
 \arguments{
 \item{...}{Not used.}
@@ -78,9 +76,13 @@ Albert Orriols-Puig, Nuria Macia and Tin K Ho. (2010). Documentation for the
    Ramon Llull.
 }
 \seealso{
-Other complexity-measures: \code{\link{balance}},
-  \code{\link{correlation}}, \code{\link{dimensionality}},
-  \code{\link{neighborhood}}, \code{\link{network}},
-  \code{\link{overlapping}}, \code{\link{smoothness}}
+Other complexity-measures: 
+\code{\link{balance}()},
+\code{\link{correlation}()},
+\code{\link{dimensionality}()},
+\code{\link{featurebased}()},
+\code{\link{neighborhood}()},
+\code{\link{network}()},
+\code{\link{smoothness}()}
 }
 \concept{complexity-measures}

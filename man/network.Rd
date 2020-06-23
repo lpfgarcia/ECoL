@@ -8,11 +8,16 @@
 \usage{
 network(...)
 
-\method{network}{default}(x, y, measures = "all", eps = 0.15,
-  summary = c("mean", "sd"), ...)
+\method{network}{default}(x, y, measures = "all", eps = 0.15, summary = c("mean", "sd"), ...)
 
-\method{network}{formula}(formula, data, measures = "all", eps = 0.15,
-  summary = c("mean", "sd"), ...)
+\method{network}{formula}(
+  formula,
+  data,
+  measures = "all",
+  eps = 0.15,
+  summary = c("mean", "sd"),
+  ...
+)
 }
 \arguments{
 \item{...}{Not used.}
@@ -46,14 +51,14 @@ examples of opposite classes.
 \details{
 The following measures are allowed for this method:
  \describe{
-   \item{"Density"}{Average Density of the network (Density) represents the 
+   \item{"G1"}{Average Density of the network (G1) represents the 
      number of edges in the graph, divided by the maximum number of edges 
      between pairs of data points.}
-   \item{"ClsCoef"}{Clustering coefficient (ClsCoef) averages the clustering 
+   \item{"G2"}{Clustering coefficient (G2) averages the clustering 
      tendency of the vertexes by the ratio of existent edges between its 
      neighbors and the total number of edges that could possibly exist 
      between them.}
-   \item{"Hubs"}{Hubs score (Hubs) is given by the number of connections it  
+   \item{"G3"}{Hubs score (G3) is given by the number of connections it  
      has to other nodes, weighted by the number of connections these 
      neighbors have.}
  }
@@ -73,9 +78,13 @@ Gleison Morais and Ronaldo C Prati. (2013). Complex Network Measures for
    Neurocomputing 160, 108--119.
 }
 \seealso{
-Other complexity-measures: \code{\link{balance}},
-  \code{\link{correlation}}, \code{\link{dimensionality}},
-  \code{\link{linearity}}, \code{\link{neighborhood}},
-  \code{\link{overlapping}}, \code{\link{smoothness}}
+Other complexity-measures: 
+\code{\link{balance}()},
+\code{\link{correlation}()},
+\code{\link{dimensionality}()},
+\code{\link{featurebased}()},
+\code{\link{linearity}()},
+\code{\link{neighborhood}()},
+\code{\link{smoothness}()}
 }
 \concept{complexity-measures}

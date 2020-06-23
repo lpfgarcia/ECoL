@@ -8,11 +8,9 @@
 \usage{
 complexity(...)
 
-\method{complexity}{default}(x, y, groups = "all", summary = c("mean",
-  "sd"), ...)
+\method{complexity}{default}(x, y, groups = "all", summary = c("mean", "sd"), ...)
 
-\method{complexity}{formula}(formula, data, groups = "all",
-  summary = c("mean", "sd"), ...)
+\method{complexity}{formula}(formula, data, groups = "all", summary = c("mean", "sd"), ...)
 }
 \arguments{
 \item{...}{Not used.}
@@ -46,9 +44,9 @@ parameters for each group, use the characterization function.
 \details{
 The following groups are allowed for this method:
  \describe{
-   \item{"overlapping"}{The feature overlapping measures characterize how 
+   \item{"featurebased"}{The feature feature-based measures characterize how 
      informative the available features are to separate the classes See 
-     \link{overlapping} for more details.}
+     \link{featurebased} for more details.}
    \item{"neighborhood"}{Neighborhood measures characterize the presence and 
      density of same or different classes in local neighborhoods. See 
      \link{neighborhood} for more details.}

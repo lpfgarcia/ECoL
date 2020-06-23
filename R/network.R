@@ -20,14 +20,14 @@
 #' @details
 #'  The following measures are allowed for this method:
 #'  \describe{
-#'    \item{"Density"}{Average Density of the network (Density) represents the 
+#'    \item{"G1"}{Average Density of the network (G1) represents the 
 #'      number of edges in the graph, divided by the maximum number of edges 
 #'      between pairs of data points.}
-#'    \item{"ClsCoef"}{Clustering coefficient (ClsCoef) averages the clustering 
+#'    \item{"G2"}{Clustering coefficient (G2) averages the clustering 
 #'      tendency of the vertexes by the ratio of existent edges between its 
 #'      neighbors and the total number of edges that could possibly exist 
 #'      between them.}
-#'    \item{"Hubs"}{Hubs score (Hubs) is given by the number of connections it  
+#'    \item{"G3"}{Hubs score (G3) is given by the number of connections it  
 #'      has to other nodes, weighted by the number of connections these 
 #'      neighbors have.}
 #'  }
@@ -115,11 +115,11 @@ network.formula <- function(formula, data, measures="all", eps=0.15,
 }
 
 ls.network <- function() {
-  c("Density", "ClsCoef", "Hubs")
+  c("G1", "G2", "G3")
 }
 
 ls.network.multiples <- function() {
-  c("Hubs")
+  c("G3")
 }
 
 enn <- function(x, y, e) {
@@ -135,15 +135,15 @@ enn <- function(x, y, e) {
   return(dst)
 }
 
-c.Density <- function(graph) {
+c.G1 <- function(graph) {
   1 - igraph::graph.density(graph)
 }
 
-c.ClsCoef <- function(graph) {
+c.G2 <- function(graph) {
   1 - igraph::transitivity(graph, type="global", isolates="zero")
 }
 
-c.Hubs <- function(graph) {
+c.G3 <- function(graph) {
   #1 - mean(igraph::hub.score(graph)$vector)
   1 - igraph::hub.score(graph)$vector
 }

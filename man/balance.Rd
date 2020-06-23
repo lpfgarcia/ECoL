@@ -37,9 +37,9 @@ happen because of the imbalance ratio.
 \details{
 The following measures are allowed for this method:
  \describe{
-   \item{"C1"}{The entropy of class proportions (C1) capture the imbalance in
+   \item{"B1"}{The entropy of class proportions (B1) capture the imbalance in
      a dataset based on the proportions of examples per class.}
-   \item{"C2"}{The imbalance ratio (C2) is an index computed for measuring
+   \item{"B2"}{The imbalance ratio (B2) is an index computed for measuring
      class balance. This is a version of the measure that is also suited for 
      multiclass classification problems.}
  }
@@ -59,9 +59,13 @@ Ana C Lorena, Ivan G Costa, Newton Spolaor and Marcilio C P Souto. (2012).
    with biomedical datasets. Learning Classifier Systems 6471, 127--144.
 }
 \seealso{
-Other complexity-measures: \code{\link{correlation}},
-  \code{\link{dimensionality}}, \code{\link{linearity}},
-  \code{\link{neighborhood}}, \code{\link{network}},
-  \code{\link{overlapping}}, \code{\link{smoothness}}
+Other complexity-measures: 
+\code{\link{correlation}()},
+\code{\link{dimensionality}()},
+\code{\link{featurebased}()},
+\code{\link{linearity}()},
+\code{\link{neighborhood}()},
+\code{\link{network}()},
+\code{\link{smoothness}()}
 }
 \concept{complexity-measures}

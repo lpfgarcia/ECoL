@@ -20,9 +20,9 @@
 #' @details
 #'  The following groups are allowed for this method:
 #'  \describe{
-#'    \item{"overlapping"}{The feature overlapping measures characterize how 
+#'    \item{"featurebased"}{The feature feature-based measures characterize how 
 #'      informative the available features are to separate the classes See 
-#'      \link{overlapping} for more details.}
+#'      \link{featurebased} for more details.}
 #'    \item{"neighborhood"}{Neighborhood measures characterize the presence and 
 #'      density of same or different classes in local neighborhoods. See 
 #'      \link{neighborhood} for more details.}
@@ -137,7 +137,7 @@ ls.complexity <- function(type) {
 
   switch(type,
     class = {
-      c("overlapping", "neighborhood", 
+      c("featurebased", "neighborhood", 
         "linearity", "dimensionality",
         "balance", "network")
     }, regr = {

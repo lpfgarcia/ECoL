@@ -34,14 +34,14 @@
 #'      a new dataset randomly interpolating pairs of training examples of the 
 #'      same class and then induce a the 1NN classifier on the original data and
 #'      measure the error rate in the new data points.}
-#'    \item{"T1"}{Fraction of hyperspheres covering data (T1) builds 
+#'    \item{"N5"}{Fraction of hyperspheres covering data (N5) builds 
 #'      hyperspheres centered at each one of the training examples, which have 
 #'      their radios growth until the hypersphere reaches an example of another 
 #'      class. Afterwards, smaller hyperspheres contained in larger hyperspheres 
-#'      are eliminated. T1 is finally defined as the ratio between the number of 
+#'      are eliminated. N5 is finally defined as the ratio between the number of 
 #'      the remaining hyperspheres and the total number of examples in the 
 #'      dataset.}
-#'    \item{"LSC"}{Local Set Average Cardinality (LSC) is based on Local Set 
+#'    \item{"N6"}{Local Set Average Cardinality (N6) is based on Local Set 
 #'      (LS) and defined as the set of points from the dataset whose distance of
 #'      each example is smaller than the distance from the exemples of the 
 #'      different class. LSC is the average of the LS.}
@@ -130,11 +130,11 @@ neighborhood.formula <- function(formula, data, measures="all",
 }
 
 ls.neighborhood <- function() {
-  c("N1","N2", "N3", "N4", "T1", "LSC")
+  c("N1","N2", "N3", "N4", "N5", "N6")
 }
 
 ls.neighborhood.multiples <- function() {
-  c("N2", "N3", "N4", "T1")
+  c("N2", "N3", "N4")
 }
 
 c.N1 <- function(dst, data) {
@@ -180,8 +180,7 @@ knn <- function(data, dst, k) {
 
 c.N3 <- function(dst, data) {
   aux <- knn(data, dst, 2) != data$class
-  #return(mean(aux))
-  return(aux)
+  return(mean(aux))
 }
 
 c.N4 <- function(dst, data) {
@@ -193,8 +192,7 @@ c.N4 <- function(dst, data) {
   dst <- dst[rownames(test), rownames(data)]
 
   aux <- knn(data, dst, 1) != test$class
-  #return(mean(aux))
-  return(aux)
+  return(mean(aux))
 }
 
 radios <- function(dst, data, i) {
@@ -257,19 +255,18 @@ adherence <- function(adh, data) {
   return(h)
 }
 
-c.T1 <- function(dst, data) {
+c.N5 <- function(dst, data) {
   r <- hyperspher(dst, data)
   aux <- adherence(translate(dst, r), data)
-  #aux <- length(aux)/nrow(data)
-  return(aux/nrow(data))
+  return(length(aux)/nrow(data))
 }
 
-c.LSC <- function(dst, data) {
-  
+c.N6 <- function(dst, data) {
+
   r <- sapply(rownames(data), function(i) {
     as.numeric(inter(dst, data, i))
   })
-  
+
   aux <- 1 - sum(translate(dst, r))/(nrow(dst)^2)
   return(aux)
 }

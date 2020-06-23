@@ -8,11 +8,9 @@
 \usage{
 neighborhood(...)
 
-\method{neighborhood}{default}(x, y, measures = "all",
-  summary = c("mean", "sd"), ...)
+\method{neighborhood}{default}(x, y, measures = "all", summary = c("mean", "sd"), ...)
 
-\method{neighborhood}{formula}(formula, data, measures = "all",
-  summary = c("mean", "sd"), ...)
+\method{neighborhood}{formula}(formula, data, measures = "all", summary = c("mean", "sd"), ...)
 }
 \arguments{
 \item{...}{Not used.}
@@ -59,14 +57,14 @@ The following measures are allowed for this method:
      a new dataset randomly interpolating pairs of training examples of the 
      same class and then induce a the 1NN classifier on the original data and
      measure the error rate in the new data points.}
-   \item{"T1"}{Fraction of hyperspheres covering data (T1) builds 
+   \item{"N5"}{Fraction of hyperspheres covering data (N5) builds 
      hyperspheres centered at each one of the training examples, which have 
      their radios growth until the hypersphere reaches an example of another 
      class. Afterwards, smaller hyperspheres contained in larger hyperspheres 
-     are eliminated. T1 is finally defined as the ratio between the number of 
+     are eliminated. N5 is finally defined as the ratio between the number of 
      the remaining hyperspheres and the total number of examples in the 
      dataset.}
-   \item{"LSC"}{Local Set Average Cardinality (LSC) is based on Local Set 
+   \item{"N6"}{Local Set Average Cardinality (N6) is based on Local Set 
      (LS) and defined as the set of points from the dataset whose distance of
      each example is smaller than the distance from the exemples of the 
      different class. LSC is the average of the LS.}
@@ -87,9 +85,13 @@ Albert Orriols-Puig, Nuria Macia and Tin K Ho. (2010). Documentation for the
    Transactions on Knowledge and Data Engineering 27, 2, 354--367.
 }
 \seealso{
-Other complexity-measures: \code{\link{balance}},
-  \code{\link{correlation}}, \code{\link{dimensionality}},
-  \code{\link{linearity}}, \code{\link{network}},
-  \code{\link{overlapping}}, \code{\link{smoothness}}
+Other complexity-measures: 
+\code{\link{balance}()},
+\code{\link{correlation}()},
+\code{\link{dimensionality}()},
+\code{\link{featurebased}()},
+\code{\link{linearity}()},
+\code{\link{network}()},
+\code{\link{smoothness}()}
 }
 \concept{complexity-measures}
