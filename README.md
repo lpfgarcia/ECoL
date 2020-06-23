@@ -7,9 +7,9 @@ The Extended Complexity Library (ECoL) is the implementation in R of a set of me
 
 ## Measures
 
-The measures can be divided into two groups: classification and regression measures. The classification measures are based on:  (1) feature overlapping measures, (2) neighborhood measures, (3) linearity measures, (4) dimensionality measures, (5) class balance measures and (6) network measures. The regression measures are based on: (3) linearity measures, (4) dimensionality measures, (7) correlation measures and (8) smoothness measures.
+The measures can be divided into two groups: classification and regression measures. The classification measures are based on:  (1) feature-based measures, (2) neighborhood measures, (3) linearity measures, (4) dimensionality measures, (5) class balance measures and (6) network measures. The regression measures are based on: (3) linearity measures, (4) dimensionality measures, (7) correlation measures and (8) smoothness measures.
 
-**Measures of overlapping** 
+**Feature-based measures** 
 
 * F1: Fisher's discriminant ratio
 * F1v: The directional-vector Fisher's discriminant ratio
@@ -23,8 +23,8 @@ The measures can be divided into two groups: classification and regression measu
 * N2: Average intra/inter class nearest neighbor distances
 * N3: Leave-one-out error rate of the 1-nearest neighbor algorithm
 * N4: Nonlinearity of the one-nearest neighbor classifier
-* T1: Fraction of maximum covering spheres on data
-* LSC: Local-Set cardinality average
+* N5: Fraction of maximum covering spheres on data
+* N6: Local-Set cardinality average
 
 **Measures of linearity** 
 
@@ -34,20 +34,20 @@ The measures can be divided into two groups: classification and regression measu
 
 **Measures of dimensionality**
 
-* T2: Average number of samples per dimension
-* T3: Average intrinsic dimensionality  per number of examples
-* T4: Intrinsic dimensionality proportion
+* D1: Average number of samples per dimension
+* D2: Average intrinsic dimensionality  per number of examples
+* D3: Intrinsic dimensionality proportion
 
 **Measures of class balance**
 
-* C1: Entropy of class proportions
-* C2: Multi-class imbalance ratio
+* B1: Entropy of class proportions
+* B2: Multi-class imbalance ratio
 
 **Measures of structural representation**
 
-* Density: Average density of network
-* ClsCoef: Clustering Coefficient
-* Hubs: Average hub score
+* G1: Average density of network
+* G2: Clustering Coefficient
+* G3: Average hub score
 
 **Measures of feature correlation**
 
@@ -94,11 +94,11 @@ complexity(speed ~., cars)
 ## Extract all complexity measures using data frame for classification task
 complexity(iris[,1:4], iris[,5])
 
-## Extract the overlapping measures
-complexity(Species ~ ., iris, groups="overlapping")
+## Extract the feature-bases measures
+complexity(Species ~ ., iris, groups="featurebased")
 
-## Extract the F1 measure using overlapping function
-overlapping(Species ~ ., iris, measures="F1")
+## Extract the F1 measure using feature-bases function
+featurebased(Species ~ ., iris, measures="F1")
 ```
 Several measures return more than one value. To aggregate the returned values, post processed methods can be used. This method can compute `min`, `max`, `mean`, `median`, `kurtosis`, `standard deviation`, among others (see the `post.processing` documentation for more details). The default methods are the `mean` and the `sd`. Next, it is possible to see an example of the use of this method:
 
