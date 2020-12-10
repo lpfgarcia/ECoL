@@ -48,14 +48,14 @@ test_that("binary2.result", {
 test_that("regression.result", {
 
   aux = linearity(speed ~ ., cars, measures="L1", summary="mean")
-  expect_equal(as.numeric(aux$L1), 0.11991838)
+  expect_equal(as.numeric(aux$L1), 0.1020661)
 
   aux = linearity(speed ~ ., cars, measures="L2", summary="mean")
-  expect_equal(as.numeric(aux$L2), 0.02167897)
+  expect_equal(as.numeric(aux$L2), 0.02057815)
 
   set.seed(123)
   aux = linearity(speed ~ ., cars, measures="L3", summary="mean")
-  expect_equal(as.numeric(aux$L3), 0.01797071)
+  expect_equal(as.numeric(aux$L3), 0.01726667)
 })
 
 test_that("validation.error",{

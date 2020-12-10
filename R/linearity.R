@@ -164,8 +164,6 @@ c.L1 <- function(model, data) {
     sum(abs(dst))/nrow(d)
   }, m=model, d=data)
 
-  #aux <- 1/(mean(aux) + 1)
-  #aux <- 1 - aux
   aux <- 1 - 1/(aux + 1)
   return(aux)
 }
@@ -181,7 +179,6 @@ c.L2 <- function(model, data) {
     error(prd, d$class)
   }, m=model, d=data)
 
-  #return(mean(aux))
   return(aux)
 }
 
@@ -193,23 +190,23 @@ c.L3 <- function(model, data) {
     error(prd, tmp$class)
   }, m=model, d=data)
 
-  #return(mean(aux))
   return(aux)
 }
 
 r.L1 <- function(m, ...) {
-  #mean(abs(m$residuals))
-  abs(m$residuals)
+  aux <- abs(m$residuals)
+  aux <- 1 - 1/(aux + 1)
+  return(aux)
 }
 
 r.L2 <- function(m, ...) {
-  #mean(m$residuals^2)
-  mean(m$residuals^2)
+  m$residuals^2/(m$residuals^2 + 1)
 }
 
 r.L3 <- function(m, x, y) {
   test <- r.generate(x, y, nrow(x))
   pred <- stats::predict.lm(m, test[, -ncol(test), drop=FALSE])
-  #mean((pred - test[, ncol(test)])^2)
-  (pred - test[, ncol(test)])^2
+  aux <- (pred - test[, ncol(test)])^2
+  aux <- aux/(aux + 1)
+  return(aux)
 }
