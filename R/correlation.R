@@ -17,8 +17,8 @@
 #' @details
 #'  The following measures are allowed for this method:
 #'  \describe{
-#'    \item{"C1"}{Maximum feature correlation to the output (C1) calculate the 
-#'      maximum absolute value of the Spearman correlation between each feature 
+#'    \item{"C1"}{Feature correlation to the output (C1) calculate the 
+#'      absolute value of the Spearman correlation between each feature 
 #'      and the outputs.}
 #'    \item{"C2"}{Average feature correlation to the output (C2) computes the 
 #'      average of the Spearman correlations of all features to the output.}
@@ -107,15 +107,18 @@ correlation.formula <- function(formula, data, measures="all",
 }
 
 ls.correlation <- function() {
-  c("C2", "C3", "C4")
+  c("C1", "C2", "C3", "C4")
 }
 
 ls.correlation.multiples <- function() {
-  c("C2", "C3")
+  c("C1", "C2", "C3")
+}
+
+r.C1 <- function(x, y) {
+  as.numeric(abs(stats::cor(x, method="spearman")))
 }
 
 r.C2 <- function(x, y) {
-  #mean(abs(stats::cor(x, y, method="spearman")))
   as.numeric(abs(stats::cor(x, y, method="spearman")))
 }
 
@@ -155,7 +158,6 @@ remove <- function(x, y, c) {
 }
 
 r.C3 <- function(x, y, c=0.9) {
-  #min(apply(x, 2, remove, y, c))
   as.numeric(apply(x, 2, remove, y, c))
 }
 

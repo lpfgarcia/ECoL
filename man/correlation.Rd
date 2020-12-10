@@ -40,8 +40,8 @@ the output, this indicates that simpler functions can be fitted to the data.
 \details{
 The following measures are allowed for this method:
  \describe{
-   \item{"C1"}{Maximum feature correlation to the output (C1) calculate the 
-     maximum absolute value of the Spearman correlation between each feature 
+   \item{"C1"}{Feature correlation to the output (C1) calculate the 
+     absolute value of the Spearman correlation between each feature 
      and the outputs.}
    \item{"C2"}{Average feature correlation to the output (C2) computes the 
      average of the Spearman correlations of all features to the output.}
