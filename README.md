@@ -1,5 +1,5 @@
 # ECoL
-[![Travis-CI Build Status](https://travis-ci.com/lpfgarcia/ECoL.svg?branch=master)](https://travis-ci.com/lpfgarcia/ECoL)
+[![Travis-CI Build Status](https://travis-ci.org/lpfgarcia/ECoL.svg?branch=master)](https://travis-ci.org/lpfgarcia/ECoL)
 [![codecov](https://codecov.io/gh/lpfgarcia/ECoL/branch/master/graph/badge.svg)](https://codecov.io/gh/lpfgarcia/ECoL)
 [![CRAN](https://www.r-pkg.org/badges/version/ECoL)](https://CRAN.R-project.org/package=ECoL)
 
