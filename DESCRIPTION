@@ -1,7 +1,7 @@
 Package: ECoL
 Type: Package
-Version: 0.4.1
-Date: 2020-12-10
+Version: 0.4.2
+Date: 2020-12-18
 Title: Complexity Measures for Supervised Problems
 Description: Provides measures to characterize the complexity of classification 
     and regression problems based on aspects that quantify the linearity of the 
