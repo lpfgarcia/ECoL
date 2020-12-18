@@ -124,8 +124,8 @@ r.S1 <- function(d, x, y) {
   g <- igraph::graph.adjacency(d, mode="undirected", weighted=TRUE)
   tree <- as.matrix(igraph::as_adj(igraph::mst(g)))
   tmp <- which(tree != 0, arr.ind=TRUE)
-  #mean(abs(y[tmp[,1]] - y[tmp[,2]]))
-  abs(y[tmp[,1]] - y[tmp[,2]])
+  aux <- abs(y[tmp[,1]] - y[tmp[,2]])
+  aux/(aux + 1)
 }
 
 r.S2 <- function(d, x, y) {
@@ -134,8 +134,7 @@ r.S2 <- function(d, x, y) {
     d[i-1, i]
   })
 
-  #mean(pred)
-  pred
+  pred/(pred + 1)
 }
 
 r.S3 <- function(d, x, y) {
@@ -145,13 +144,13 @@ r.S3 <- function(d, x, y) {
     y[which.min(i)]
   })
 
-  #mean((pred - y)^2)
-  (pred - y)^2
+  aux <- (pred - y)^2
+  aux/(aux + 1)
 }
 
 r.S4 <- function(d, x, y) {
   test <- r.generate(x, y, nrow(x))
   pred <- FNN::knn.reg(x, test[, -ncol(test), drop=FALSE], y, k=1)$pred
-  #mean((pred - test[, ncol(test)])^2)
-  (pred - test[, ncol(test)])^2
+  aux <- (pred - test[, ncol(test)])^2
+  aux/(aux + 1)
 }

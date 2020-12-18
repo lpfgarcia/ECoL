@@ -3,17 +3,17 @@ context("Test Smoothness")
 test_that("regression.result", {
 
   aux = smoothness(speed ~ ., cars, measures="S1", summary="mean")
-  expect_equal(as.numeric(aux$S1), 0.18172983, tolerance=0.01)
+  expect_equal(as.numeric(aux$S1), 0.14745010, tolerance=0.1)
 
   aux = smoothness(speed ~ ., cars, measures="S2", summary="mean")
-  expect_equal(as.numeric(aux$S2), 0.11812522)
+  expect_equal(as.numeric(aux$S2), 0.09936067)
 
   aux = smoothness(speed ~ ., cars, measures="S3", summary="mean")
-  expect_equal(as.numeric(aux$S3), 0.03632653)
+  expect_equal(as.numeric(aux$S3), 0.03390902)
 
   set.seed(123)
   aux = smoothness(speed ~ ., cars, measures="S4", summary="mean")
-  expect_equal(as.numeric(aux$S4), 0.03444403, tolerance=0.1)
+  expect_equal(as.numeric(aux$S4), 0.03171115)
 })
 
 test_that("validation.error",{
