@@ -185,5 +185,5 @@ r.C4 <- function(x, y, r=0.1) {
       break
   }
 
-  return(length(y)/rows)
+  length(y)/rows
 }
