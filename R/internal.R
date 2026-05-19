@@ -33,7 +33,7 @@ ovo <- function(data) {
   return(tmp)
 }
 
-c.interpolation <- function(data) {
+class.interpolation <- function(data) {
 
   aux <- data[data$class == sample(data$class, 1),]
   tmp <- aux[sample(nrow(aux), 2),]
@@ -51,11 +51,11 @@ c.interpolation <- function(data) {
   return(tmp[1,])
 }
 
-c.generate <- function(data, n) {
+class.generate <- function(data, n) {
 
   tmp <- do.call("rbind",
     lapply(1:n, function(i) {
-      c.interpolation(data)
+      class.interpolation(data)
     })
   )
 
@@ -81,7 +81,7 @@ spearman <- function(x) {
   1-6*sum(x^2)/(length(x)^3 - length(x))
 }
 
-r.interpolation <- function(x, y, i) {
+regr.interpolation <- function(x, y, i) {
 
   aux <- x[(i-1):i,,drop=FALSE]
 
@@ -101,11 +101,11 @@ r.interpolation <- function(x, y, i) {
   return(cbind(aux[1,], tmp[1]))
 }
 
-r.generate <- function(x, y, n) {
+regr.generate <- function(x, y, n) {
 
   tmp <- do.call("rbind",
     lapply(2:n, function(i) {
-      r.interpolation(x, y, i)
+      regr.interpolation(x, y, i)
     })
   )
 

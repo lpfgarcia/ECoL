@@ -64,13 +64,13 @@ Ana C Lorena and Aron I Maciel and Pericles B C Miranda and Ivan G Costa and
    regression problems. Machine Learning, 107, 1, 209--246.
 }
 \seealso{
-Other complexity-measures: 
-\code{\link{balance}()},
-\code{\link{dimensionality}()},
-\code{\link{featurebased}()},
-\code{\link{linearity}()},
-\code{\link{neighborhood}()},
-\code{\link{network}()},
-\code{\link{smoothness}()}
+Other complexity-measures:
+\code{\link[=balance]{balance()}},
+\code{\link[=dimensionality]{dimensionality()}},
+\code{\link[=featurebased]{featurebased()}},
+\code{\link[=linearity]{linearity()}},
+\code{\link[=neighborhood]{neighborhood()}},
+\code{\link[=network]{network()}},
+\code{\link[=smoothness]{smoothness()}}
 }
 \concept{complexity-measures}

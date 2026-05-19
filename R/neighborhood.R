@@ -104,7 +104,7 @@ neighborhood.default <- function(x, y, measures="all", summary=c("mean", "sd"),
   dst <- dist(x)
 
   sapply(measures, function(f) {
-    measure = eval(call(paste("c", f, sep="."), dst=dst, data=data))
+    measure = eval(call(paste("class", f, sep="."), dst=dst, data=data))
     summarization(measure, summary, f %in% ls.neighborhood.multiples(), ...)
   }, simplify=FALSE)
 }
@@ -137,7 +137,7 @@ ls.neighborhood.multiples <- function() {
   c("N2", "N3", "N4")
 }
 
-c.N1 <- function(dst, data) {
+class.N1 <- function(dst, data) {
 
   g <- igraph::graph.adjacency(dst, mode="undirected", weighted=TRUE)
   tree <- as.matrix(igraph::as_adj(igraph::mst(g)))
@@ -160,7 +160,7 @@ inter <- function(dst, data, i) {
   return(aux)
 }
 
-c.N2 <- function(dst, data) {
+class.N2 <- function(dst, data) {
 
   aux <- sapply(rownames(data), function(i) {
     c(intra(dst, data, i), inter(dst, data, i))
@@ -178,14 +178,14 @@ knn <- function(data, dst, k) {
   })
 }
 
-c.N3 <- function(dst, data) {
+class.N3 <- function(dst, data) {
   aux <- knn(data, dst, 2) != data$class
   return(mean(aux))
 }
 
-c.N4 <- function(dst, data) {
+class.N4 <- function(dst, data) {
 
-  tran <- rbind(data, c.generate(data, nrow(data)))
+  tran <- rbind(data, class.generate(data, nrow(data)))
   test <- utils::tail(tran, nrow(data))
 
   dst <- dist(tran[,-ncol(tran), drop=FALSE])
@@ -255,13 +255,13 @@ adherence <- function(adh, data) {
   return(h)
 }
 
-c.N5 <- function(dst, data) {
+class.N5 <- function(dst, data) {
   r <- hyperspher(dst, data)
   aux <- adherence(translate(dst, r), data)
   return(length(aux)/nrow(data))
 }
 
-c.N6 <- function(dst, data) {
+class.N6 <- function(dst, data) {
 
   r <- sapply(rownames(data), function(i) {
     as.numeric(inter(dst, data, i))

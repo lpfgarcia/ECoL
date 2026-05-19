@@ -68,7 +68,7 @@ dimensionality.default <- function(x, y, measures="all", ...) {
   x <- binarize(x)
 
   sapply(measures, function(f) {
-    eval(call(paste("c", f, sep="."), x=x))
+    eval(call(paste("class", f, sep="."), x=x))
   })
 }
 
@@ -101,14 +101,14 @@ pca <- function(x) {
   return(tmp)
 }
 
-c.D1 <- function(x) {
+class.D1 <- function(x) {
   ncol(x)/nrow(x)
 }
 
-c.D2 <- function(x) {
+class.D2 <- function(x) {
   pca(x)/nrow(x)
 }
 
-c.D3 <- function(x) {
+class.D3 <- function(x) {
   pca(x)/ncol(x)
 }

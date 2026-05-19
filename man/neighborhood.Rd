@@ -85,13 +85,13 @@ Albert Orriols-Puig, Nuria Macia and Tin K Ho. (2010). Documentation for the
    Transactions on Knowledge and Data Engineering 27, 2, 354--367.
 }
 \seealso{
-Other complexity-measures: 
-\code{\link{balance}()},
-\code{\link{correlation}()},
-\code{\link{dimensionality}()},
-\code{\link{featurebased}()},
-\code{\link{linearity}()},
-\code{\link{network}()},
-\code{\link{smoothness}()}
+Other complexity-measures:
+\code{\link[=balance]{balance()}},
+\code{\link[=correlation]{correlation()}},
+\code{\link[=dimensionality]{dimensionality()}},
+\code{\link[=featurebased]{featurebased()}},
+\code{\link[=linearity]{linearity()}},
+\code{\link[=network]{network()}},
+\code{\link[=smoothness]{smoothness()}}
 }
 \concept{complexity-measures}

@@ -66,7 +66,7 @@ balance.default <- function(x, y, measures="all", ...) {
   measures <- match.arg(measures, ls.balance(), TRUE)
 
   sapply(measures, function(f) {
-    eval(call(paste("c", f, sep="."), y=y))
+    eval(call(paste("class", f, sep="."), y=y))
   },  simplify=FALSE)
 }
 
@@ -93,14 +93,14 @@ ls.balance <- function() {
   c("B1", "B2")
 }
 
-c.B1 <- function(y) {
+class.B1 <- function(y) {
   c <- -1/log(nlevels(y))
   i <- table(y)/length(y)
   aux <- 1 - c*sum(i*log(i))
   return(aux)
 }
 
-c.B2 <- function(y) {
+class.B2 <- function(y) {
   ii <- summary(y)
   nc <- length(ii)
   aux <- ((nc - 1)/nc) * sum(ii/(length(y) - ii))

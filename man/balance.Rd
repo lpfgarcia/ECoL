@@ -59,13 +59,13 @@ Ana C Lorena, Ivan G Costa, Newton Spolaor and Marcilio C P Souto. (2012).
    with biomedical datasets. Learning Classifier Systems 6471, 127--144.
 }
 \seealso{
-Other complexity-measures: 
-\code{\link{correlation}()},
-\code{\link{dimensionality}()},
-\code{\link{featurebased}()},
-\code{\link{linearity}()},
-\code{\link{neighborhood}()},
-\code{\link{network}()},
-\code{\link{smoothness}()}
+Other complexity-measures:
+\code{\link[=correlation]{correlation()}},
+\code{\link[=dimensionality]{dimensionality()}},
+\code{\link[=featurebased]{featurebased()}},
+\code{\link[=linearity]{linearity()}},
+\code{\link[=neighborhood]{neighborhood()}},
+\code{\link[=network]{network()}},
+\code{\link[=smoothness]{smoothness()}}
 }
 \concept{complexity-measures}

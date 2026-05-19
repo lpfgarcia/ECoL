@@ -78,13 +78,13 @@ Gleison Morais and Ronaldo C Prati. (2013). Complex Network Measures for
    Neurocomputing 160, 108--119.
 }
 \seealso{
-Other complexity-measures: 
-\code{\link{balance}()},
-\code{\link{correlation}()},
-\code{\link{dimensionality}()},
-\code{\link{featurebased}()},
-\code{\link{linearity}()},
-\code{\link{neighborhood}()},
-\code{\link{smoothness}()}
+Other complexity-measures:
+\code{\link[=balance]{balance()}},
+\code{\link[=correlation]{correlation()}},
+\code{\link[=dimensionality]{dimensionality()}},
+\code{\link[=featurebased]{featurebased()}},
+\code{\link[=linearity]{linearity()}},
+\code{\link[=neighborhood]{neighborhood()}},
+\code{\link[=smoothness]{smoothness()}}
 }
 \concept{complexity-measures}

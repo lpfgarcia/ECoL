@@ -89,7 +89,7 @@ network.default <- function(x, y, measures="all", eps=0.15,
   graph <- igraph::graph.adjacency(dst, mode="undirected", weighted=TRUE)
 
   sapply(measures, function(f) {
-    measure = eval(call(paste("c", f, sep="."), graph))
+    measure = eval(call(paste("class", f, sep="."), graph))
     summarization(measure, summary, f %in% ls.network.multiples(), ...)
   }, simplify=FALSE)
 }
@@ -135,15 +135,15 @@ enn <- function(x, y, e) {
   return(dst)
 }
 
-c.G1 <- function(graph) {
+class.G1 <- function(graph) {
   1 - igraph::graph.density(graph)
 }
 
-c.G2 <- function(graph) {
+class.G2 <- function(graph) {
   1 - igraph::transitivity(graph, type="global", isolates="zero")
 }
 
-c.G3 <- function(graph) {
+class.G3 <- function(graph) {
   #1 - mean(igraph::hub.score(graph)$vector)
   1 - igraph::hub.score(graph)$vector
 }

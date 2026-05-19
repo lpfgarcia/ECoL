@@ -60,13 +60,13 @@ Ana C Lorena, Ivan G Costa, Newton Spolaor and Marcilio C P Souto. (2012).
    expression data. Neurocomputing 75, 1, 33--42.
 }
 \seealso{
-Other complexity-measures: 
-\code{\link{balance}()},
-\code{\link{correlation}()},
-\code{\link{featurebased}()},
-\code{\link{linearity}()},
-\code{\link{neighborhood}()},
-\code{\link{network}()},
-\code{\link{smoothness}()}
+Other complexity-measures:
+\code{\link[=balance]{balance()}},
+\code{\link[=correlation]{correlation()}},
+\code{\link[=featurebased]{featurebased()}},
+\code{\link[=linearity]{linearity()}},
+\code{\link[=neighborhood]{neighborhood()}},
+\code{\link[=network]{network()}},
+\code{\link[=smoothness]{smoothness()}}
 }
 \concept{complexity-measures}

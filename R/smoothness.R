@@ -149,7 +149,7 @@ r.S3 <- function(d, x, y) {
 }
 
 r.S4 <- function(d, x, y) {
-  test <- r.generate(x, y, nrow(x))
+  test <- regr.generate(x, y, nrow(x))
   pred <- FNN::knn.reg(x, test[, -ncol(test), drop=FALSE], y, k=1)$pred
   aux <- (pred - test[, ncol(test)])^2
   aux/(aux + 1)

@@ -95,7 +95,7 @@ featurebased.default <- function(x, y, measures="all", summary=c("mean", "sd"),
   data <- data.frame(x, class=y)
 
   sapply(measures, function(f) {
-    measure = eval(call(paste("c", f, sep="."), data=data))
+    measure = eval(call(paste("class", f, sep="."), data=data))
     summarization(measure, summary, f %in% ls.featurebased.multiples(), ...)
   }, simplify=FALSE)
 }
@@ -147,7 +147,7 @@ denominator <- function(j, data) {
   return(aux)
 }
 
-c.F1 <- function(data) {
+class.F1 <- function(data) {
 
   num <- lapply(levels(data$class), numerator, data)
   den <- lapply(levels(data$class), denominator, data)
@@ -179,7 +179,7 @@ dvector <- function(data) {
   return(aux)
 }
 
-c.F1v <- function(data) {
+class.F1v <- function(data) {
   data <- ovo(data)
   #aux <- mean(sapply(data, dvector))
   aux <- sapply(data, dvector)
@@ -202,7 +202,7 @@ regionOver <- function(data) {
   return(aux)
 }
 
-c.F2 <- function(data) {
+class.F2 <- function(data) {
 
   data <- ovo(data)
   #aux <- mean(sapply(data, regionOver))
@@ -230,7 +230,7 @@ nonOverlap <- function(data) {
   return(aux)
 }
 
-c.F3 <- function(data) {
+class.F3 <- function(data) {
 
   data <- ovo(data)
   aux <- mapply(function(d) {
@@ -259,7 +259,7 @@ removing <- function(data) {
   return(data)
 }
 
-c.F4 <- function(data) {
+class.F4 <- function(data) {
 
   data <- ovo(data)
   aux <- mapply(function(d) {
