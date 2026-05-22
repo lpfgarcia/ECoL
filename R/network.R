@@ -145,5 +145,5 @@ class.G2 <- function(graph) {
 
 class.G3 <- function(graph) {
   #1 - mean(igraph::hub.score(graph)$vector)
-  1 - igraph::hub.score(graph)$vector
+  1 - igraph::hits_scores(graph)$vector
 }
